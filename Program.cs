@@ -3,6 +3,12 @@ using VitaClinic.WebAPI.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Configure Kestrel to listen on 0.0.0.0:5000 for Replit
+builder.WebHost.ConfigureKestrel(serverOptions =>
+{
+    serverOptions.ListenAnyIP(5000);
+});
+
 // Ensure database is created and tables exist
 builder.Services.AddDbContext<VitaClinicDbContext>(options =>
 {
@@ -16,20 +22,16 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Configure CORS for React frontend
+// Configure CORS to allow all origins (Replit proxy environment)
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowReactApp", policy =>
+    options.AddPolicy("AllowAll", policy =>
     {
-        policy.WithOrigins("http://localhost:3000", "http://localhost:5173") // Vite dev server
+        policy.AllowAnyOrigin()
               .AllowAnyMethod()
               .AllowAnyHeader();
     });
 });
-
-// Ensure database is created and tables exist
-// Ensure database is created and tables exist
-builder.Services.AddDbContext<VitaClinicDbContext>();
 
 var app = builder.Build();
 
@@ -55,13 +57,16 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    app.UseCors("AllowReactApp");
 }
+
+// Use CORS for all environments in Replit
+app.UseCors("AllowAll");
 
 // Serve static files from wwwroot
 app.UseStaticFiles();
 
-app.UseHttpsRedirection();
+// Disable HTTPS redirection for Replit
+// app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
