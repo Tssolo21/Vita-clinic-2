@@ -36,3 +36,8 @@ externalPort = 80
 [[ports]]
 localPort = 35037
 externalPort = 3000
+
+[deployment]
+deploymentTarget = "autoscale"
+run = ["dotnet", "run", "--project", "VitaClinic.WebAPI.csproj", "--no-build"]
+build = ["dotnet", "build", "VitaClinic.WebAPI.csproj", "-c", "Release"]
