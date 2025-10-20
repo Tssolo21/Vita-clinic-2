@@ -17,6 +17,7 @@ namespace VitaClinic.WebAPI.Data
         public DbSet<Invoice> Invoices { get; set; } = null!;
         public DbSet<InvoiceItem> InvoiceItems { get; set; } = null!;
         public DbSet<Veterinarian> Veterinarians { get; set; } = null!;
+        public DbSet<ClinicSettings> ClinicSettings { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

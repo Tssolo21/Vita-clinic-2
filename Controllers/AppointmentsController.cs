@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using VitaClinic.WebAPI.Data;
 using VitaClinic.WebAPI.Models;
+using VitaClinic.WebAPI.Services;
 
 namespace VitaClinic.WebAPI.Controllers
 {
@@ -10,10 +11,14 @@ namespace VitaClinic.WebAPI.Controllers
     public class AppointmentsController : ControllerBase
     {
         private readonly VitaClinicDbContext _context;
+        private readonly IEmailService _emailService;
+        private readonly ISmsService _smsService;
 
-        public AppointmentsController(VitaClinicDbContext context)
+        public AppointmentsController(VitaClinicDbContext context, IEmailService emailService, ISmsService smsService)
         {
             _context = context;
+            _emailService = emailService;
+            _smsService = smsService;
         }
 
         // GET: api/Appointments
@@ -99,6 +104,44 @@ namespace VitaClinic.WebAPI.Controllers
 
             _context.Appointments.Add(appointment);
             await _context.SaveChangesAsync();
+
+            // Load the animal and client details for notifications
+            var appointmentWithDetails = await _context.Appointments
+                .Include(a => a.Animal)
+                    .ThenInclude(a => a!.Client)
+                .FirstOrDefaultAsync(a => a.Id == appointment.Id);
+
+            if (appointmentWithDetails?.Animal?.Client != null)
+            {
+                var client = appointmentWithDetails.Animal.Client;
+                var animal = appointmentWithDetails.Animal;
+
+                // Check clinic settings for notification preferences
+                var settings = await _context.ClinicSettings.FirstOrDefaultAsync();
+                
+                // Send email notification if enabled
+                if (settings?.EmailNotificationsEnabled == true && !string.IsNullOrEmpty(client.Email))
+                {
+                    _ = _emailService.SendAppointmentConfirmationAsync(
+                        client.Email,
+                        $"{client.FirstName} {client.LastName}",
+                        animal.Name ?? "your pet",
+                        appointmentWithDetails.AppointmentDateTime,
+                        appointmentWithDetails.AppointmentType ?? "checkup"
+                    );
+                }
+
+                // Send SMS notification if enabled
+                if (settings?.SmsNotificationsEnabled == true && !string.IsNullOrEmpty(client.Phone))
+                {
+                    _ = _smsService.SendAppointmentReminderSmsAsync(
+                        client.Phone,
+                        client.FirstName ?? "Client",
+                        animal.Name ?? "your pet",
+                        appointmentWithDetails.AppointmentDateTime
+                    );
+                }
+            }
 
             return CreatedAtAction("GetAppointment", new { id = appointment.Id }, appointment);
         }

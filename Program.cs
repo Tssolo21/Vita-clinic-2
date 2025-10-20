@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using VitaClinic.WebAPI.Data;
+using VitaClinic.WebAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,10 @@ builder.Services.AddDbContext<VitaClinicDbContext>(options =>
 {
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+// Register Email and SMS services
+builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<ISmsService, SmsService>();
 
 // Add services to the container.
 

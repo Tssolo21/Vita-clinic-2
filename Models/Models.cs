@@ -155,6 +155,24 @@ namespace VitaClinic.WebAPI.Models
         public DateTime CreatedAt { get; set; }
     }
 
+    // ===== CLINIC SETTINGS =====
+    public class ClinicSettings
+    {
+        [Key]
+        public int Id { get; set; }
+        public string? ClinicName { get; set; }
+        public string? Address { get; set; }
+        public string? Phone { get; set; }
+        public string? Email { get; set; }
+        public string? Website { get; set; }
+        public string? Logo { get; set; }
+        public bool EmailNotificationsEnabled { get; set; }
+        public bool SmsNotificationsEnabled { get; set; }
+        public int AppointmentReminderHours { get; set; } = 24;
+        public string? BusinessHours { get; set; }
+        public DateTime UpdatedAt { get; set; }
+    }
+
     // ===== ENUMS =====
     public enum ClientStatus
     {
