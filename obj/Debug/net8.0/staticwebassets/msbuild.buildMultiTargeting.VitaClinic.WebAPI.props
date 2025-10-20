@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../build/VitaClinic.WebAPI.props" />
+</Project>
