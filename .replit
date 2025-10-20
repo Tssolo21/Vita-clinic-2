@@ -33,6 +33,10 @@ outputType = "webview"
 localPort = 5000
 externalPort = 80
 
+[[ports]]
+localPort = 46477
+externalPort = 3000
+
 [deployment]
 deploymentTarget = "autoscale"
 run = ["dotnet", "run", "--project", "VitaClinic.WebAPI.csproj", "--no-build"]

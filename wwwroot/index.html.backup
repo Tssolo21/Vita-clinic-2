@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitaClinic - Veterinary Management System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            padding: 40px 0;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .card-header h2 {
+            margin: 0;
+            font-size: 1.5em;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .data-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .data-item {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .data-item:last-child {
+            border-bottom: none;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary {
+            background-color: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #5a67d8;
+        }
+
+        .btn-success {
+            background-color: #48bb78;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #38a169;
+        }
+
+        .btn-danger {
+            background-color: #f56565;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #e53e3e;
+        }
+
+        .btn-small {
+            padding: 4px 8px;
+            font-size: 12px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #000;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+
+        .error {
+            background-color: #fed7d7;
+            color: #c53030;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏥 VitaClinic</h1>
+            <p>Veterinary Management System</p>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number" id="clientCount">-</div>
+                <div class="stat-label">Total Clients</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="animalCount">-</div>
+                <div class="stat-label">Total Animals</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="appointmentCount">-</div>
+                <div class="stat-label">Today's Appointments</div>
+            </div>
+        </div>
+
+        <div class="dashboard">
+            <!-- Clients Section -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>👥 Clients</h2>
+                </div>
+                <div class="card-body">
+                    <button class="btn btn-primary" onclick="showAddClientModal()">Add New Client</button>
+                    <div id="clientsList" class="data-list">
+                        <div class="loading">Loading clients...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Animals Section -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>🐾 Animals</h2>
+                </div>
+                <div class="card-body">
+                    <button class="btn btn-success" onclick="showAddAnimalModal()">Add New Animal</button>
+                    <div id="animalsList" class="data-list">
+                        <div class="loading">Loading animals...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Appointments Section -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>📅 Appointments</h2>
+                </div>
+                <div class="card-body">
+                    <button class="btn btn-primary" onclick="showAddAppointmentModal()">Schedule Appointment</button>
+                    <div id="appointmentsList" class="data-list">
+                        <div class="loading">Loading appointments...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals for adding/editing data -->
+    <div id="clientModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('clientModal')">&times;</span>
+            <h2 id="clientModalTitle">Add New Client</h2>
+            <form id="clientForm">
+                <input type="hidden" id="clientId">
+                <div class="form-group">
+                    <label for="clientFirstName">First Name:</label>
+                    <input type="text" id="clientFirstName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="clientLastName">Last Name:</label>
+                    <input type="text" id="clientLastName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="clientEmail">Email:</label>
+                    <input type="email" id="clientEmail" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="clientPhone">Phone:</label>
+                    <input type="tel" id="clientPhone" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="clientAddress">Address:</label>
+                    <input type="text" id="clientAddress" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-primary">Save Client</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="animalModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('animalModal')">&times;</span>
+            <h2 id="animalModalTitle">Add New Animal</h2>
+            <form id="animalForm">
+                <input type="hidden" id="animalId">
+                <div class="form-group">
+                    <label for="animalClient">Owner:</label>
+                    <select id="animalClient" class="form-control" required>
+                        <option value="">Select Client</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="animalName">Name:</label>
+                    <input type="text" id="animalName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="animalSpecies">Species:</label>
+                    <input type="text" id="animalSpecies" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="animalBreed">Breed:</label>
+                    <input type="text" id="animalBreed" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="animalGender">Gender:</label>
+                    <select id="animalGender" class="form-control" required>
+                        <option value="">Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="animalWeight">Weight (kg):</label>
+                    <input type="number" step="0.1" id="animalWeight" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-success">Save Animal</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="appointmentModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('appointmentModal')">&times;</span>
+            <h2 id="appointmentModalTitle">Schedule Appointment</h2>
+            <form id="appointmentForm">
+                <input type="hidden" id="appointmentId">
+                <div class="form-group">
+                    <label for="appointmentAnimal">Animal:</label>
+                    <select id="appointmentAnimal" class="form-control" required>
+                        <option value="">Select Animal</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="appointmentType">Appointment Type:</label>
+                    <select id="appointmentType" class="form-control" required>
+                        <option value="">Select Type</option>
+                        <option value="Checkup">Checkup</option>
+                        <option value="Vaccination">Vaccination</option>
+                        <option value="Surgery">Surgery</option>
+                        <option value="Emergency">Emergency</option>
+                        <option value="Consultation">Consultation</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="appointmentDateTime">Date & Time:</label>
+                    <input type="datetime-local" id="appointmentDateTime" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="appointmentDescription">Description:</label>
+                    <textarea id="appointmentDescription" class="form-control" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Schedule Appointment</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = window.location.origin;
+
+        // Load data when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            loadClients();
+            loadAnimals();
+            loadAppointments();
+            loadStats();
+
+            // Setup form handlers
+            document.getElementById('clientForm').addEventListener('submit', saveClient);
+            document.getElementById('animalForm').addEventListener('submit', saveAnimal);
+            document.getElementById('appointmentForm').addEventListener('submit', saveAppointment);
+        });
+
+        // API Helper functions
+        async function apiCall(endpoint, options = {}) {
+            try {
+                const response = await fetch(`${API_BASE}${endpoint}`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...options.headers
+                    },
+                    ...options
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                return await response.json();
+            } catch (error) {
+                console.error('API call failed:', error);
+                throw error;
+            }
+        }
+
+        // Statistics
+        async function loadStats() {
+            try {
+                const [clients, animals, appointments] = await Promise.all([
+                    apiCall('/api/clients'),
+                    apiCall('/api/animals'),
+                    apiCall('/api/appointments')
+                ]);
+
+                document.getElementById('clientCount').textContent = clients.length;
+                document.getElementById('animalCount').textContent = animals.length;
+
+                const today = new Date().toDateString();
+                const todayAppointments = appointments.filter(apt =>
+                    new Date(apt.appointmentDateTime).toDateString() === today
+                ).length;
+                document.getElementById('appointmentCount').textContent = todayAppointments;
+
+            } catch (error) {
+                console.error('Failed to load stats:', error);
+            }
+        }
+
+        // Clients management
+        async function loadClients() {
+            try {
+                const clients = await apiCall('/api/clients');
+                const clientsList = document.getElementById('clientsList');
+
+                if (clients.length === 0) {
+                    clientsList.innerHTML = '<p>No clients found.</p>';
+                    return;
+                }
+
+                clientsList.innerHTML = clients.map(client => `
+                    <div class="data-item">
+                        <div>
+                            <strong>${client.firstName} ${client.lastName}</strong><br>
+                            <small>${client.email} | ${client.phone}</small>
+                        </div>
+                        <div>
+                            <button class="btn btn-small btn-primary" onclick="editClient(${client.id})">Edit</button>
+                            <button class="btn btn-small btn-danger" onclick="deleteClient(${client.id})">Delete</button>
+                        </div>
+                    </div>
+                `).join('');
+
+                // Update animal form client dropdown
+                updateClientDropdown(clients);
+
+            } catch (error) {
+                document.getElementById('clientsList').innerHTML = '<div class="error">Failed to load clients.</div>';
+            }
+        }
+
+        function showAddClientModal() {
+            document.getElementById('clientModalTitle').textContent = 'Add New Client';
+            document.getElementById('clientForm').reset();
+            document.getElementById('clientId').value = '';
+            document.getElementById('clientModal').style.display = 'block';
+        }
+
+        function editClient(id) {
+            // In a real app, you'd fetch the client data and populate the form
+            document.getElementById('clientModalTitle').textContent = 'Edit Client';
+            document.getElementById('clientId').value = id;
+            document.getElementById('clientModal').style.display = 'block';
+            // You'd populate form fields here with actual client data
+        }
+
+        async function saveClient(event) {
+            event.preventDefault();
+
+            const clientData = {
+                firstName: document.getElementById('clientFirstName').value,
+                lastName: document.getElementById('clientLastName').value,
+                email: document.getElementById('clientEmail').value,
+                phone: document.getElementById('clientPhone').value,
+                address: document.getElementById('clientAddress').value,
+                status: 0, // Active
+                joinDate: new Date().toISOString(),
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString()
+            };
+
+            try {
+                await apiCall('/api/clients', {
+                    method: 'POST',
+                    body: JSON.stringify(clientData)
+                });
+
+                closeModal('clientModal');
+                loadClients();
+                loadStats();
+
+            } catch (error) {
+                alert('Failed to save client: ' + error.message);
+            }
+        }
+
+        async function deleteClient(id) {
+            if (!confirm('Are you sure you want to delete this client?')) return;
+
+            try {
+                await apiCall(`/api/clients/${id}`, {
+                    method: 'DELETE'
+                });
+
+                loadClients();
+                loadStats();
+
+            } catch (error) {
+                alert('Failed to delete client: ' + error.message);
+            }
+        }
+
+        // Animals management
+        async function loadAnimals() {
+            try {
+                const animals = await apiCall('/api/animals');
+                const animalsList = document.getElementById('animalsList');
+
+                if (animals.length === 0) {
+                    animalsList.innerHTML = '<p>No animals found.</p>';
+                    return;
+                }
+
+                animalsList.innerHTML = animals.map(animal => `
+                    <div class="data-item">
+                        <div>
+                            <strong>${animal.name}</strong><br>
+                            <small>${animal.species} - ${animal.breed || 'Mixed'}</small>
+                        </div>
+                        <div>
+                            <button class="btn btn-small btn-primary" onclick="editAnimal(${animal.id})">Edit</button>
+                            <button class="btn btn-small btn-danger" onclick="deleteAnimal(${animal.id})">Delete</button>
+                        </div>
+                    </div>
+                `).join('');
+
+                // Update appointment form animal dropdown
+                updateAnimalDropdown(animals);
+
+            } catch (error) {
+                document.getElementById('animalsList').innerHTML = '<div class="error">Failed to load animals.</div>';
+            }
+        }
+
+        function showAddAnimalModal() {
+            document.getElementById('animalModalTitle').textContent = 'Add New Animal';
+            document.getElementById('animalForm').reset();
+            document.getElementById('animalId').value = '';
+            document.getElementById('animalModal').style.display = 'block';
+        }
+
+        function editAnimal(id) {
+            document.getElementById('animalModalTitle').textContent = 'Edit Animal';
+            document.getElementById('animalId').value = id;
+            document.getElementById('animalModal').style.display = 'block';
+        }
+
+        async function saveAnimal(event) {
+            event.preventDefault();
+
+            const animalData = {
+                clientId: parseInt(document.getElementById('animalClient').value),
+                name: document.getElementById('animalName').value,
+                species: document.getElementById('animalSpecies').value,
+                breed: document.getElementById('animalBreed').value,
+                gender: document.getElementById('animalGender').value,
+                weight: parseFloat(document.getElementById('animalWeight').value) || 0,
+                dateOfBirth: new Date().toISOString(),
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString()
+            };
+
+            try {
+                await apiCall('/api/animals', {
+                    method: 'POST',
+                    body: JSON.stringify(animalData)
+                });
+
+                closeModal('animalModal');
+                loadAnimals();
+                loadStats();
+
+            } catch (error) {
+                alert('Failed to save animal: ' + error.message);
+            }
+        }
+
+        async function deleteAnimal(id) {
+            if (!confirm('Are you sure you want to delete this animal?')) return;
+
+            try {
+                await apiCall(`/api/animals/${id}`, {
+                    method: 'DELETE'
+                });
+
+                loadAnimals();
+                loadStats();
+
+            } catch (error) {
+                alert('Failed to delete animal: ' + error.message);
+            }
+        }
+
+        // Appointments management
+        async function loadAppointments() {
+            try {
+                const appointments = await apiCall('/api/appointments');
+                const appointmentsList = document.getElementById('appointmentsList');
+
+                if (appointments.length === 0) {
+                    appointmentsList.innerHTML = '<p>No appointments found.</p>';
+                    return;
+                }
+
+                appointmentsList.innerHTML = appointments.map(appointment => `
+                    <div class="data-item">
+                        <div>
+                            <strong>${appointment.appointmentType}</strong><br>
+                            <small>${new Date(appointment.appointmentDateTime).toLocaleString()}</small><br>
+                            <small>Animal: ${appointment.petName || 'Unknown'}</small>
+                        </div>
+                        <div>
+                            <button class="btn btn-small btn-primary" onclick="editAppointment(${appointment.id})">Edit</button>
+                            <button class="btn btn-small btn-danger" onclick="deleteAppointment(${appointment.id})">Cancel</button>
+                        </div>
+                    </div>
+                `).join('');
+
+            } catch (error) {
+                document.getElementById('appointmentsList').innerHTML = '<div class="error">Failed to load appointments.</div>';
+            }
+        }
+
+        function showAddAppointmentModal() {
+            document.getElementById('appointmentModalTitle').textContent = 'Schedule Appointment';
+            document.getElementById('appointmentForm').reset();
+            document.getElementById('appointmentId').value = '';
+            document.getElementById('appointmentModal').style.display = 'block';
+        }
+
+        function editAppointment(id) {
+            document.getElementById('appointmentModalTitle').textContent = 'Edit Appointment';
+            document.getElementById('appointmentId').value = id;
+            document.getElementById('appointmentModal').style.display = 'block';
+        }
+
+        async function saveAppointment(event) {
+            event.preventDefault();
+
+            const appointmentData = {
+                animalId: parseInt(document.getElementById('appointmentAnimal').value),
+                appointmentType: document.getElementById('appointmentType').value,
+                appointmentDateTime: document.getElementById('appointmentDateTime').value,
+                description: document.getElementById('appointmentDescription').value,
+                status: 0, // Confirmed
+                veterinarianName: "Dr. Smith", // Default veterinarian
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString()
+            };
+
+            try {
+                await apiCall('/api/appointments', {
+                    method: 'POST',
+                    body: JSON.stringify(appointmentData)
+                });
+
+                closeModal('appointmentModal');
+                loadAppointments();
+                loadStats();
+
+            } catch (error) {
+                alert('Failed to save appointment: ' + error.message);
+            }
+        }
+
+        async function deleteAppointment(id) {
+            if (!confirm('Are you sure you want to cancel this appointment?')) return;
+
+            try {
+                await apiCall(`/api/appointments/${id}`, {
+                    method: 'DELETE'
+                });
+
+                loadAppointments();
+                loadStats();
+
+            } catch (error) {
+                alert('Failed to cancel appointment: ' + error.message);
+            }
+        }
+
+        // Helper functions
+        function updateClientDropdown(clients) {
+            const dropdown = document.getElementById('animalClient');
+            dropdown.innerHTML = '<option value="">Select Client</option>' +
+                clients.map(client => `<option value="${client.id}">${client.firstName} ${client.lastName}</option>`).join('');
+        }
+
+        function updateAnimalDropdown(animals) {
+            const dropdown = document.getElementById('appointmentAnimal');
+            dropdown.innerHTML = '<option value="">Select Animal</option>' +
+                animals.map(animal => `<option value="${animal.id}">${animal.name} (${animal.species})</option>`).join('');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

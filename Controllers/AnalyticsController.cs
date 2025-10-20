@@ -35,10 +35,11 @@ namespace VitaClinic.WebAPI.Controllers
             var monthAppointments = await _context.Appointments
                 .CountAsync(a => a.AppointmentDateTime >= thisMonthStart && a.AppointmentDateTime < thisMonthStart.AddMonths(1));
 
-            var totalRevenue = await _context.Invoices.SumAsync(i => i.PaidAmount);
-            var pendingRevenue = await _context.Invoices
+            var invoices = await _context.Invoices.ToListAsync();
+            var totalRevenue = invoices.Sum(i => i.PaidAmount);
+            var pendingRevenue = invoices
                 .Where(i => i.Status == Models.InvoiceStatus.Pending)
-                .SumAsync(i => i.TotalAmount - i.PaidAmount);
+                .Sum(i => i.TotalAmount - i.PaidAmount);
 
             return new
             {
@@ -126,8 +127,11 @@ namespace VitaClinic.WebAPI.Controllers
         {
             var sixMonthsAgo = DateTime.Today.AddMonths(-6);
             
-            var monthlyRevenue = await _context.Invoices
+            var invoices = await _context.Invoices
                 .Where(i => i.InvoiceDate >= sixMonthsAgo)
+                .ToListAsync();
+                
+            var monthlyRevenue = invoices
                 .GroupBy(i => new { i.InvoiceDate.Year, i.InvoiceDate.Month })
                 .Select(g => new
                 {
@@ -137,7 +141,7 @@ namespace VitaClinic.WebAPI.Controllers
                 })
                 .OrderBy(x => x.year)
                 .ThenBy(x => x.month)
-                .ToListAsync();
+                .ToList();
 
             return monthlyRevenue;
         }
