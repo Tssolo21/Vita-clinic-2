@@ -173,7 +173,29 @@ namespace VitaClinic.WebAPI.Models
         public DateTime UpdatedAt { get; set; }
     }
 
+    // ===== USER =====
+    public class User
+    {
+        [Key]
+        public int Id { get; set; }
+        public string? Username { get; set; }
+        public string? PasswordHash { get; set; }
+        public string? FullName { get; set; }
+        public string? Email { get; set; }
+        public UserRole Role { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime? LastLogin { get; set; }
+        public bool IsActive { get; set; } = true;
+    }
+
     // ===== ENUMS =====
+    public enum UserRole
+    {
+        Admin,
+        Veterinarian,
+        Receptionist
+    }
+
     public enum ClientStatus
     {
         Active,

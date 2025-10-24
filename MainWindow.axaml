@@ -1,0 +1,81 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="VitaClinic.WebAPI.MainWindow"
+        Title="VitaClinic - Desktop App" Height="700" Width="1200"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <Border Grid.Column="0" Background="#6366F1" Padding="20">
+            <StackPanel>
+                <TextBlock Text="🏥 VitaClinic" FontSize="24" FontWeight="Bold" Foreground="White" Margin="0,0,0,10"/>
+                <TextBlock Name="WelcomeText" FontSize="14" Foreground="#E0E7FF" Margin="0,0,0,30"/>
+                
+                <Button Name="DashboardButton" Content="📊 Dashboard" Click="ShowDashboard" 
+                        Background="#5558E3" Foreground="White" Padding="15,10" Margin="0,5" HorizontalAlignment="Stretch"/>
+                <Button Name="ClientsButton" Content="👥 Clients" Click="ShowClients" 
+                        Background="#5558E3" Foreground="White" Padding="15,10" Margin="0,5" HorizontalAlignment="Stretch"/>
+                <Button Name="AnimalsButton" Content="🐾 Animals" Click="ShowAnimals" 
+                        Background="#5558E3" Foreground="White" Padding="15,10" Margin="0,5" HorizontalAlignment="Stretch"/>
+                <Button Name="AppointmentsButton" Content="📅 Appointments" Click="ShowAppointments" 
+                        Background="#5558E3" Foreground="White" Padding="15,10" Margin="0,5" HorizontalAlignment="Stretch"/>
+                <Button Name="RecordsButton" Content="📋 Medical Records" Click="ShowRecords" 
+                        Background="#5558E3" Foreground="White" Padding="15,10" Margin="0,5" HorizontalAlignment="Stretch"/>
+                <Button Name="SettingsButton" Content="⚙️ Settings" Click="ShowSettings" 
+                        Background="#5558E3" Foreground="White" Padding="15,10" Margin="0,5" HorizontalAlignment="Stretch"/>
+                
+                <Button Name="LogoutButton" Content="🚪 Logout" Click="Logout" 
+                        Background="#DC2626" Foreground="White" Padding="15,10" Margin="0,40,0,0" HorizontalAlignment="Stretch"/>
+            </StackPanel>
+        </Border>
+        
+        <ScrollViewer Grid.Column="1">
+            <StackPanel Name="ContentPanel" Margin="30">
+                <TextBlock Text="Dashboard" FontSize="28" FontWeight="Bold" Margin="0,0,0,20"/>
+                
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Border Grid.Column="0" Background="#F8FAFC" Padding="20" Margin="5" CornerRadius="8">
+                        <StackPanel>
+                            <TextBlock Name="TotalClients" Text="0" FontSize="32" FontWeight="Bold" Foreground="#6366F1"/>
+                            <TextBlock Text="Total Clients" FontSize="14" Foreground="#64748B"/>
+                        </StackPanel>
+                    </Border>
+                    
+                    <Border Grid.Column="1" Background="#F8FAFC" Padding="20" Margin="5" CornerRadius="8">
+                        <StackPanel>
+                            <TextBlock Name="TotalAnimals" Text="0" FontSize="32" FontWeight="Bold" Foreground="#10B981"/>
+                            <TextBlock Text="Total Animals" FontSize="14" Foreground="#64748B"/>
+                        </StackPanel>
+                    </Border>
+                    
+                    <Border Grid.Column="2" Background="#F8FAFC" Padding="20" Margin="5" CornerRadius="8">
+                        <StackPanel>
+                            <TextBlock Name="TodayAppointments" Text="0" FontSize="32" FontWeight="Bold" Foreground="#F59E0B"/>
+                            <TextBlock Text="Today's Appointments" FontSize="14" Foreground="#64748B"/>
+                        </StackPanel>
+                    </Border>
+                    
+                    <Border Grid.Column="3" Background="#F8FAFC" Padding="20" Margin="5" CornerRadius="8">
+                        <StackPanel>
+                            <TextBlock Name="ThisWeek" Text="0" FontSize="32" FontWeight="Bold" Foreground="#8B5CF6"/>
+                            <TextBlock Text="This Week" FontSize="14" Foreground="#64748B"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+                
+                <TextBlock Text="Welcome to VitaClinic Desktop Application!" FontSize="18" Margin="0,30,0,10"/>
+                <TextBlock Text="Use the sidebar to navigate through different sections." FontSize="14" Foreground="#64748B"/>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>

@@ -1,0 +1,29 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="VitaClinic.WebAPI.LoginWindow"
+        Title="VitaClinic Login" Height="400" Width="500"
+        WindowStartupLocation="CenterScreen"
+        CanResize="False">
+    <Grid>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="350">
+            <TextBlock Text="🏥 VitaClinic" FontSize="32" FontWeight="Bold" 
+                       HorizontalAlignment="Center" Margin="0,0,0,10" Foreground="#6366F1"/>
+            <TextBlock Text="Veterinary Management System" FontSize="14" 
+                       HorizontalAlignment="Center" Margin="0,0,0,30" Foreground="#94A3B8"/>
+            
+            <TextBlock Text="Username" Margin="0,0,0,5"/>
+            <TextBox Name="UsernameTextBox" Watermark="Enter username" Padding="10" Margin="0,0,0,15"/>
+            
+            <TextBlock Text="Password" Margin="0,0,0,5"/>
+            <TextBox Name="PasswordTextBox" Watermark="Enter password" PasswordChar="●" Padding="10" Margin="0,0,0,20"/>
+            
+            <TextBlock Name="ErrorMessage" Foreground="Red" HorizontalAlignment="Center" Margin="0,0,0,10" IsVisible="False"/>
+            
+            <Button Name="LoginButton" Content="Login" Click="LoginButton_Click" 
+                    Background="#6366F1" Foreground="White" Padding="15,10" FontSize="16" FontWeight="Bold"/>
+            
+            <TextBlock Text="⚠️ Change default password after first login" FontSize="12" 
+                       HorizontalAlignment="Center" Margin="0,20,0,0" Foreground="#94A3B8"/>
+        </StackPanel>
+    </Grid>
+</Window>

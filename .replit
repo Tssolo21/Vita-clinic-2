@@ -15,27 +15,22 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "workflow.run"
-args = "VitaClinic Web App"
+args = "VitaClinic Desktop App"
 
 [[workflows.workflow]]
-name = "VitaClinic Web App"
+name = "VitaClinic Desktop App"
 author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "dotnet run --project VitaClinic.WebAPI.csproj"
-waitForPort = 5000
 
 [workflows.workflow.metadata]
-outputType = "webview"
+outputType = "vnc"
 
 [[ports]]
 localPort = 5000
 externalPort = 80
-
-[[ports]]
-localPort = 42507
-externalPort = 3001
 
 [[ports]]
 localPort = 46477

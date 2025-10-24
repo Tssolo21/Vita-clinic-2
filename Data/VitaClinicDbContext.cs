@@ -10,6 +10,7 @@ namespace VitaClinic.WebAPI.Data
         {
         }
 
+        public DbSet<User> Users { get; set; } = null!;
         public DbSet<Client> Clients { get; set; } = null!;
         public DbSet<Animal> Animals { get; set; } = null!;
         public DbSet<Appointment> Appointments { get; set; } = null!;
