@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "43+dUI33kKg+L4ONU+VYKX0Xf4k9e4eExESWArpBtvg=",
+  "Hash": "lNBzdpEpai9PHfgWFqX5o/jR2U+qswV8Pq9ZDXUMt4o=",
   "Source": "VitaClinic.WebAPI",
   "BasePath": "_content/VitaClinic.WebAPI",
   "Mode": "Default",
@@ -34,25 +34,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/index.html"
-    },
-    {
-      "Identity": "/home/runner/workspace/wwwroot/index.html.backup",
-      "SourceId": "VitaClinic.WebAPI",
-      "SourceType": "Discovered",
-      "ContentRoot": "/home/runner/workspace/wwwroot/",
-      "BasePath": "_content/VitaClinic.WebAPI",
-      "RelativePath": "index.html.backup",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/index.html.backup"
     },
     {
       "Identity": "/home/runner/workspace/wwwroot/js/app.js",
