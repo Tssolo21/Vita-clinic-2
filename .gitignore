@@ -287,3 +287,6 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder
 .mfractor/
+vitaclinic_desktop.db*
+bin/
+obj/
