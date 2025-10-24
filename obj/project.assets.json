@@ -4139,19 +4139,19 @@
     ]
   },
   "packageFolders": {
-    "/home/runner/.nuget/packages/": {}
+    "C:\\Users\\lenovo\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/runner/workspace/VitaClinic.WebAPI.csproj",
+      "projectUniqueName": "C:\\Users\\lenovo\\Desktop\\VitaClinic 2\\VitaClinic.WebAPI.csproj",
       "projectName": "VitaClinic.WebAPI",
-      "projectPath": "/home/runner/workspace/VitaClinic.WebAPI.csproj",
-      "packagesPath": "/home/runner/.nuget/packages/",
-      "outputPath": "/home/runner/workspace/obj/",
+      "projectPath": "C:\\Users\\lenovo\\Desktop\\VitaClinic 2\\VitaClinic.WebAPI.csproj",
+      "packagesPath": "C:\\Users\\lenovo\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\lenovo\\Desktop\\VitaClinic 2\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/runner/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -4169,11 +4169,6 @@
         "warnAsError": [
           "NU1605"
         ]
-      },
-      "restoreAuditProperties": {
-        "enableAudit": "true",
-        "auditLevel": "low",
-        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -4233,7 +4228,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/nix/store/xd9xy9mf4wmmlcdk51kzvsrnazqsajfz-dotnet-sdk-8.0.412/share/dotnet/sdk/8.0.412/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.121/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
