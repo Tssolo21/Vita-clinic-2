@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\lenovo\\Desktop\\VitaClinic 2\\VitaClinic.WebAPI.csproj": {}
+    "C:\\Users\\lenovo\\Desktop\\Desktop\\VitaClinic 2\\VitaClinic.WebAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\lenovo\\Desktop\\VitaClinic 2\\VitaClinic.WebAPI.csproj": {
+    "C:\\Users\\lenovo\\Desktop\\Desktop\\VitaClinic 2\\VitaClinic.WebAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lenovo\\Desktop\\VitaClinic 2\\VitaClinic.WebAPI.csproj",
+        "projectUniqueName": "C:\\Users\\lenovo\\Desktop\\Desktop\\VitaClinic 2\\VitaClinic.WebAPI.csproj",
         "projectName": "VitaClinic.WebAPI",
-        "projectPath": "C:\\Users\\lenovo\\Desktop\\VitaClinic 2\\VitaClinic.WebAPI.csproj",
+        "projectPath": "C:\\Users\\lenovo\\Desktop\\Desktop\\VitaClinic 2\\VitaClinic.WebAPI.csproj",
         "packagesPath": "C:\\Users\\lenovo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lenovo\\Desktop\\VitaClinic 2\\obj\\",
+        "outputPath": "C:\\Users\\lenovo\\Desktop\\Desktop\\VitaClinic 2\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config"

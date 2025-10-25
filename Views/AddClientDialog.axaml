@@ -1,0 +1,30 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="VitaClinic.WebAPI.Views.AddClientDialog"
+        Title="Add New Client" Height="450" Width="500"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False">
+    <StackPanel Margin="30">
+        <TextBlock Text="Add New Client" FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
+        
+        <TextBlock Text="First Name" Margin="0,0,0,5"/>
+        <TextBox Name="FirstNameBox" Watermark="Enter first name" Padding="10" Margin="0,0,0,15"/>
+        
+        <TextBlock Text="Last Name" Margin="0,0,0,5"/>
+        <TextBox Name="LastNameBox" Watermark="Enter last name" Padding="10" Margin="0,0,0,15"/>
+        
+        <TextBlock Text="Email" Margin="0,0,0,5"/>
+        <TextBox Name="EmailBox" Watermark="Enter email" Padding="10" Margin="0,0,0,15"/>
+        
+        <TextBlock Text="Phone" Margin="0,0,0,5"/>
+        <TextBox Name="PhoneBox" Watermark="Enter phone number" Padding="10" Margin="0,0,0,15"/>
+        
+        <TextBlock Text="Address" Margin="0,0,0,5"/>
+        <TextBox Name="AddressBox" Watermark="Enter address" Padding="10" Margin="0,0,0,20"/>
+        
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Cancel" Click="Cancel" Padding="20,10" Margin="0,0,10,0" Background="#94A3B8" Foreground="White"/>
+            <Button Content="Save" Click="Save" Padding="20,10" Background="#6366F1" Foreground="White"/>
+        </StackPanel>
+    </StackPanel>
+</Window>

@@ -1,0 +1,26 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="VitaClinic.WebAPI.Views.ClientsView">
+    <StackPanel Margin="20">
+        <TextBlock Text="Clients Management" FontSize="28" FontWeight="Bold" Margin="0,0,0,20"/>
+        
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+            <Button Name="AddClientButton" Content="➕ Add New Client" Click="AddClient" 
+                    Background="#6366F1" Foreground="White" Padding="12,8" Margin="0,0,10,0"/>
+            <Button Name="RefreshButton" Content="🔄 Refresh" Click="LoadClients" 
+                    Background="#10B981" Foreground="White" Padding="12,8"/>
+        </StackPanel>
+        
+        <DataGrid Name="ClientsGrid" AutoGenerateColumns="False" IsReadOnly="True" 
+                  GridLinesVisibility="All" BorderThickness="1" BorderBrush="#E2E8F0" Height="500">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
+                <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}" Width="150"/>
+                <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}" Width="150"/>
+                <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="200"/>
+                <DataGridTextColumn Header="Phone" Binding="{Binding Phone}" Width="120"/>
+                <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="100"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </StackPanel>
+</UserControl>

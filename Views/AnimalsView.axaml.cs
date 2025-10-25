@@ -1,0 +1,53 @@
+using Avalonia.Controls;
+using Avalonia.Interactivity;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
+using VitaClinic.WebAPI.Data;
+using VitaClinic.WebAPI.Models;
+
+namespace VitaClinic.WebAPI.Views
+{
+    public partial class AnimalsView : UserControl
+    {
+        public AnimalsView()
+        {
+            InitializeComponent();
+            LoadAnimals(null, null);
+        }
+
+        private async void LoadAnimals(object? sender, RoutedEventArgs? e)
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<VitaClinicDbContext>();
+            optionsBuilder.UseSqlite("Data Source=vitaclinic_desktop.db");
+            
+            using var context = new VitaClinicDbContext(optionsBuilder.Options);
+            var animals = await context.Animals.Include(a => a.Client).ToListAsync();
+            
+            var grid = this.FindControl<DataGrid>("AnimalsGrid");
+            if (grid != null)
+            {
+                grid.ItemsSource = animals;
+            }
+        }
+
+        private async void AddAnimal(object sender, RoutedEventArgs e)
+        {
+            var dialog = new AddAnimalDialog();
+            var result = await dialog.ShowDialog<Animal?>(Window.GetTopLevel(this) as Window);
+            
+            if (result != null)
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<VitaClinicDbContext>();
+                optionsBuilder.UseSqlite("Data Source=vitaclinic_desktop.db");
+                
+                using var context = new VitaClinicDbContext(optionsBuilder.Options);
+                result.CreatedAt = DateTime.UtcNow;
+                result.UpdatedAt = DateTime.UtcNow;
+                context.Animals.Add(result);
+                await context.SaveChangesAsync();
+                
+                LoadAnimals(null, null);
+            }
+        }
+    }
+}

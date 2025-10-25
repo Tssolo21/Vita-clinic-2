@@ -1,0 +1,27 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="VitaClinic.WebAPI.Views.AnimalsView">
+    <StackPanel Margin="20">
+        <TextBlock Text="Animals Management" FontSize="28" FontWeight="Bold" Margin="0,0,0,20"/>
+        
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+            <Button Name="AddAnimalButton" Content="➕ Add New Animal" Click="AddAnimal" 
+                    Background="#6366F1" Foreground="White" Padding="12,8" Margin="0,0,10,0"/>
+            <Button Name="RefreshButton" Content="🔄 Refresh" Click="LoadAnimals" 
+                    Background="#10B981" Foreground="White" Padding="12,8"/>
+        </StackPanel>
+        
+        <DataGrid Name="AnimalsGrid" AutoGenerateColumns="False" IsReadOnly="True" 
+                  GridLinesVisibility="All" BorderThickness="1" BorderBrush="#E2E8F0" Height="500">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="150"/>
+                <DataGridTextColumn Header="Species" Binding="{Binding Species}" Width="100"/>
+                <DataGridTextColumn Header="Breed" Binding="{Binding Breed}" Width="150"/>
+                <DataGridTextColumn Header="Age" Binding="{Binding DateOfBirth}" Width="100"/>
+                <DataGridTextColumn Header="Weight" Binding="{Binding Weight}" Width="80"/>
+                <DataGridTextColumn Header="Owner" Binding="{Binding Client.FirstName}" Width="150"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </StackPanel>
+</UserControl>
