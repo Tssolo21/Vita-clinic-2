@@ -1,0 +1,27 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="VitaClinic.WebAPI.Views.AppointmentsView">
+    <StackPanel Margin="20">
+        <TextBlock Text="Appointments Management" FontSize="28" FontWeight="Bold" Margin="0,0,0,20"/>
+        
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+            <Button Name="AddAppointmentButton" Content="➕ Add Appointment" Click="AddAppointment" 
+                    Background="#6366F1" Foreground="White" Padding="12,8" Margin="0,0,10,0"/>
+            <Button Name="RefreshButton" Content="🔄 Refresh" Click="LoadAppointments" 
+                    Background="#10B981" Foreground="White" Padding="12,8"/>
+        </StackPanel>
+        
+        <DataGrid Name="AppointmentsGrid" AutoGenerateColumns="False" IsReadOnly="True" 
+                  GridLinesVisibility="All" BorderThickness="1" BorderBrush="#E2E8F0" Height="500">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
+                <DataGridTextColumn Header="Pet" Binding="{Binding PetName}" Width="120"/>
+                <DataGridTextColumn Header="Owner" Binding="{Binding OwnerName}" Width="150"/>
+                <DataGridTextColumn Header="Type" Binding="{Binding AppointmentType}" Width="120"/>
+                <DataGridTextColumn Header="Date/Time" Binding="{Binding AppointmentDateTime}" Width="150"/>
+                <DataGridTextColumn Header="Vet" Binding="{Binding VeterinarianName}" Width="150"/>
+                <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="100"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </StackPanel>
+</UserControl>

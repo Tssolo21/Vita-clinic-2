@@ -1,0 +1,39 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="VitaClinic.WebAPI.Views.AddAppointmentDialog"
+        Title="Add Appointment" Height="550" Width="500"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False">
+    <StackPanel Margin="30">
+        <TextBlock Text="Schedule Appointment" FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
+        
+        <TextBlock Text="Animal ID" Margin="0,0,0,5"/>
+        <TextBox Name="AnimalIdBox" Watermark="Enter animal ID" Padding="10" Margin="0,0,0,15"/>
+        
+        <TextBlock Text="Veterinarian ID" Margin="0,0,0,5"/>
+        <TextBox Name="VetIdBox" Watermark="Enter veterinarian ID (default: 1)" Padding="10" Margin="0,0,0,15"/>
+        
+        <TextBlock Text="Pet Name" Margin="0,0,0,5"/>
+        <TextBox Name="PetNameBox" Watermark="Enter pet name" Padding="10" Margin="0,0,0,15"/>
+        
+        <TextBlock Text="Owner Name" Margin="0,0,0,5"/>
+        <TextBox Name="OwnerNameBox" Watermark="Enter owner name" Padding="10" Margin="0,0,0,15"/>
+        
+        <TextBlock Text="Veterinarian Name" Margin="0,0,0,5"/>
+        <TextBox Name="VetNameBox" Watermark="Enter vet name" Padding="10" Margin="0,0,0,15"/>
+        
+        <TextBlock Text="Appointment Type" Margin="0,0,0,5"/>
+        <ComboBox Name="TypeBox" SelectedIndex="0" Padding="10" Margin="0,0,0,15">
+            <ComboBoxItem Content="Checkup"/>
+            <ComboBoxItem Content="Vaccination"/>
+            <ComboBoxItem Content="Surgery"/>
+            <ComboBoxItem Content="Emergency"/>
+            <ComboBoxItem Content="Follow-up"/>
+        </ComboBox>
+        
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Cancel" Click="Cancel" Padding="20,10" Margin="0,0,10,0" Background="#94A3B8" Foreground="White"/>
+            <Button Content="Save" Click="Save" Padding="20,10" Background="#6366F1" Foreground="White"/>
+        </StackPanel>
+    </StackPanel>
+</Window>

@@ -65,8 +65,7 @@ namespace VitaClinic.WebAPI
             if (contentPanel != null)
             {
                 contentPanel.Children.Clear();
-                contentPanel.Children.Add(new TextBlock { Text = "Clients Management", FontSize = 28, FontWeight = Avalonia.Media.FontWeight.Bold });
-                contentPanel.Children.Add(new TextBlock { Text = "Client management features coming soon...", FontSize = 16, Margin = new Avalonia.Thickness(0, 20, 0, 0) });
+                contentPanel.Children.Add(new Views.ClientsView());
             }
         }
 
@@ -76,8 +75,7 @@ namespace VitaClinic.WebAPI
             if (contentPanel != null)
             {
                 contentPanel.Children.Clear();
-                contentPanel.Children.Add(new TextBlock { Text = "Animals Management", FontSize = 28, FontWeight = Avalonia.Media.FontWeight.Bold });
-                contentPanel.Children.Add(new TextBlock { Text = "Animal management features coming soon...", FontSize = 16, Margin = new Avalonia.Thickness(0, 20, 0, 0) });
+                contentPanel.Children.Add(new Views.AnimalsView());
             }
         }
 
@@ -87,8 +85,7 @@ namespace VitaClinic.WebAPI
             if (contentPanel != null)
             {
                 contentPanel.Children.Clear();
-                contentPanel.Children.Add(new TextBlock { Text = "Appointments", FontSize = 28, FontWeight = Avalonia.Media.FontWeight.Bold });
-                contentPanel.Children.Add(new TextBlock { Text = "Appointment management features coming soon...", FontSize = 16, Margin = new Avalonia.Thickness(0, 20, 0, 0) });
+                contentPanel.Children.Add(new Views.AppointmentsView());
             }
         }
 
@@ -98,8 +95,10 @@ namespace VitaClinic.WebAPI
             if (contentPanel != null)
             {
                 contentPanel.Children.Clear();
-                contentPanel.Children.Add(new TextBlock { Text = "Medical Records", FontSize = 28, FontWeight = Avalonia.Media.FontWeight.Bold });
-                contentPanel.Children.Add(new TextBlock { Text = "Medical records features coming soon...", FontSize = 16, Margin = new Avalonia.Thickness(0, 20, 0, 0) });
+                var recordsView = new StackPanel { Margin = new Avalonia.Thickness(20) };
+                recordsView.Children.Add(new TextBlock { Text = "Medical Records", FontSize = 28, FontWeight = Avalonia.Media.FontWeight.Bold, Margin = new Avalonia.Thickness(0, 0, 0, 20) });
+                recordsView.Children.Add(new TextBlock { Text = "View medical records for each animal from the Animals section.", FontSize = 16, Foreground = Avalonia.Media.Brushes.Gray });
+                contentPanel.Children.Add(recordsView);
             }
         }
 
@@ -109,8 +108,12 @@ namespace VitaClinic.WebAPI
             if (contentPanel != null)
             {
                 contentPanel.Children.Clear();
-                contentPanel.Children.Add(new TextBlock { Text = "Settings", FontSize = 28, FontWeight = Avalonia.Media.FontWeight.Bold });
-                contentPanel.Children.Add(new TextBlock { Text = "Settings features coming soon...", FontSize = 16, Margin = new Avalonia.Thickness(0, 20, 0, 0) });
+                var settingsView = new StackPanel { Margin = new Avalonia.Thickness(20) };
+                settingsView.Children.Add(new TextBlock { Text = "Settings", FontSize = 28, FontWeight = Avalonia.Media.FontWeight.Bold, Margin = new Avalonia.Thickness(0, 0, 0, 20) });
+                settingsView.Children.Add(new TextBlock { Text = $"Logged in as: {_currentUser.FullName}", FontSize = 16, Margin = new Avalonia.Thickness(0, 0, 0, 10) });
+                settingsView.Children.Add(new TextBlock { Text = $"Role: {_currentUser.Role}", FontSize = 16, Margin = new Avalonia.Thickness(0, 0, 0, 10) });
+                settingsView.Children.Add(new TextBlock { Text = $"Email: {_currentUser.Email}", FontSize = 16 });
+                contentPanel.Children.Add(settingsView);
             }
         }
 
