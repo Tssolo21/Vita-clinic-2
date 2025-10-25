@@ -21,10 +21,11 @@ namespace VitaClinic.WebAPI.Views
         {
             var optionsBuilder = new DbContextOptionsBuilder<VitaClinicDbContext>();
             optionsBuilder.UseSqlite("Data Source=vitaclinic_desktop.db");
-            
+
             using var context = new VitaClinicDbContext(optionsBuilder.Options);
+            context.Database.EnsureCreated();
             var appointments = await context.Appointments.Include(a => a.Animal).ToListAsync();
-            
+
             var grid = this.FindControl<DataGrid>("AppointmentsGrid");
             if (grid != null)
             {
@@ -42,13 +43,14 @@ namespace VitaClinic.WebAPI.Views
             {
                 var optionsBuilder = new DbContextOptionsBuilder<VitaClinicDbContext>();
                 optionsBuilder.UseSqlite("Data Source=vitaclinic_desktop.db");
-                
+
                 using var context = new VitaClinicDbContext(optionsBuilder.Options);
+                context.Database.EnsureCreated();
                 result.CreatedAt = DateTime.UtcNow;
                 result.UpdatedAt = DateTime.UtcNow;
                 context.Appointments.Add(result);
                 await context.SaveChangesAsync();
-                
+
                 LoadAppointments(null, null);
             }
         }

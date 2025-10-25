@@ -24,10 +24,11 @@ namespace VitaClinic.WebAPI.Views
         {
             var optionsBuilder = new DbContextOptionsBuilder<VitaClinicDbContext>();
             optionsBuilder.UseSqlite("Data Source=vitaclinic_desktop.db");
-            
+
             using var context = new VitaClinicDbContext(optionsBuilder.Options);
+            context.Database.EnsureCreated();
             var clients = await context.Clients.ToListAsync();
-            
+
             var grid = this.FindControl<DataGrid>("ClientsGrid");
             if (grid != null)
             {
@@ -45,14 +46,15 @@ namespace VitaClinic.WebAPI.Views
             {
                 var optionsBuilder = new DbContextOptionsBuilder<VitaClinicDbContext>();
                 optionsBuilder.UseSqlite("Data Source=vitaclinic_desktop.db");
-                
+
                 using var context = new VitaClinicDbContext(optionsBuilder.Options);
+                context.Database.EnsureCreated();
                 result.CreatedAt = DateTime.UtcNow;
                 result.UpdatedAt = DateTime.UtcNow;
                 result.JoinDate = DateTime.UtcNow;
                 context.Clients.Add(result);
                 await context.SaveChangesAsync();
-                
+
                 LoadClients(null, null);
             }
         }
