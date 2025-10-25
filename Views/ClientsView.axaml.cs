@@ -12,12 +12,16 @@ namespace VitaClinic.WebAPI.Views
 {
     public partial class ClientsView : UserControl
     {
-        private readonly MainWindow _mainWindow;
+        private MainWindow? _mainWindow;
 
-        public ClientsView(MainWindow mainWindow)
+        public ClientsView()
+        {
+            InitializeComponent();
+        }
+
+        public ClientsView(MainWindow mainWindow) : this()
         {
             _mainWindow = mainWindow;
-            InitializeComponent();
             LoadClients(null, null);
         }
 
@@ -76,7 +80,7 @@ namespace VitaClinic.WebAPI.Views
 
         private void GoBack(object sender, RoutedEventArgs e)
         {
-            _mainWindow.ShowDashboard(sender, e);
+            _mainWindow?.ShowDashboard(sender, e);
         }
     }
 }

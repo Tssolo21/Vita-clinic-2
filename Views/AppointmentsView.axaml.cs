@@ -9,12 +9,16 @@ namespace VitaClinic.WebAPI.Views
 {
     public partial class AppointmentsView : UserControl
     {
-        private readonly MainWindow _mainWindow;
+        private MainWindow? _mainWindow;
 
-        public AppointmentsView(MainWindow mainWindow)
+        public AppointmentsView()
+        {
+            InitializeComponent();
+        }
+
+        public AppointmentsView(MainWindow mainWindow) : this()
         {
             _mainWindow = mainWindow;
-            InitializeComponent();
             LoadAppointments(null, null);
         }
 
@@ -71,7 +75,7 @@ namespace VitaClinic.WebAPI.Views
 
         private void GoBack(object sender, RoutedEventArgs e)
         {
-            _mainWindow.ShowDashboard(sender, e);
+            _mainWindow?.ShowDashboard(sender, e);
         }
     }
 }

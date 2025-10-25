@@ -43,5 +43,11 @@ build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 [/home/runner/workspace/Views/AppointmentsView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
+[/home/runner/workspace/Views/ChangePasswordDialog.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
 [/home/runner/workspace/Views/ClientsView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/home/runner/workspace/Views/SettingsView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml

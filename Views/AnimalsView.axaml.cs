@@ -10,12 +10,16 @@ namespace VitaClinic.WebAPI.Views
 {
     public partial class AnimalsView : UserControl
     {
-        private readonly MainWindow _mainWindow;
+        private MainWindow? _mainWindow;
 
-        public AnimalsView(MainWindow mainWindow)
+        public AnimalsView()
+        {
+            InitializeComponent();
+        }
+
+        public AnimalsView(MainWindow mainWindow) : this()
         {
             _mainWindow = mainWindow;
-            InitializeComponent();
             LoadAnimals(null, null);
         }
 
@@ -72,7 +76,7 @@ namespace VitaClinic.WebAPI.Views
 
         private void GoBack(object sender, RoutedEventArgs e)
         {
-            _mainWindow.ShowDashboard(sender, e);
+            _mainWindow?.ShowDashboard(sender, e);
         }
     }
 }

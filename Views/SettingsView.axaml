@@ -1,0 +1,99 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="VitaClinic.WebAPI.Views.SettingsView">
+    <ScrollViewer>
+        <StackPanel Margin="20" MaxWidth="800">
+            <TextBlock Text="Settings" FontSize="28" FontWeight="Bold" Margin="0,0,0,10"/>
+            <TextBlock Text="Manage your account settings and preferences" 
+                      FontSize="14" Foreground="#64748B" Margin="0,0,0,30"/>
+            
+            <Button Name="BackButton" Content="⬅️ Back to Dashboard" Click="GoBack"
+                    Background="#6B7280" Foreground="White" Padding="12,8" Margin="0,0,0,20"
+                    HorizontalAlignment="Left"/>
+            
+            <!-- User Profile Section -->
+            <Border Background="#F8FAFC" Padding="20" Margin="0,0,0,20" CornerRadius="8" BorderThickness="1" BorderBrush="#E2E8F0">
+                <StackPanel>
+                    <TextBlock Text="👤 User Profile" FontSize="20" FontWeight="Bold" Margin="0,0,0,15"/>
+                    
+                    <Grid ColumnDefinitions="150,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto" Margin="0,0,0,15">
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Full Name:" FontWeight="SemiBold" Margin="0,0,0,10"/>
+                        <TextBlock Grid.Row="0" Grid.Column="1" Name="FullNameText" Text="" Margin="0,0,0,10"/>
+                        
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Username:" FontWeight="SemiBold" Margin="0,0,0,10"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" Name="UsernameText" Text="" Margin="0,0,0,10"/>
+                        
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Email:" FontWeight="SemiBold" Margin="0,0,0,10"/>
+                        <TextBlock Grid.Row="2" Grid.Column="1" Name="EmailText" Text="" Margin="0,0,0,10"/>
+                        
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text="Role:" FontWeight="SemiBold" Margin="0,0,0,10"/>
+                        <TextBlock Grid.Row="3" Grid.Column="1" Name="RoleText" Text="" Margin="0,0,0,10"/>
+                        
+                        <TextBlock Grid.Row="4" Grid.Column="0" Text="Last Login:" FontWeight="SemiBold"/>
+                        <TextBlock Grid.Row="4" Grid.Column="1" Name="LastLoginText" Text=""/>
+                    </Grid>
+                    
+                    <Button Name="UpdateProfileButton" Content="✏️ Update Profile" Click="UpdateProfile"
+                            Background="#6366F1" Foreground="White" Padding="15,10" HorizontalAlignment="Left"/>
+                </StackPanel>
+            </Border>
+            
+            <!-- Update Full Name Section -->
+            <Border Background="#F8FAFC" Padding="20" Margin="0,0,0,20" CornerRadius="8" BorderThickness="1" BorderBrush="#E2E8F0">
+                <StackPanel>
+                    <TextBlock Text="✏️ Update Full Name" FontSize="18" FontWeight="Bold" Margin="0,0,0,15"/>
+                    
+                    <TextBlock Text="New Full Name" Margin="0,0,0,5"/>
+                    <TextBox Name="NewFullNameBox" Watermark="Enter new full name" Padding="10" Margin="0,0,0,15"/>
+                    
+                    <Button Name="SaveFullNameButton" Content="💾 Save Full Name" Click="SaveFullName"
+                            Background="#10B981" Foreground="White" Padding="15,10" HorizontalAlignment="Left"/>
+                </StackPanel>
+            </Border>
+            
+            <!-- Update Username Section -->
+            <Border Background="#F8FAFC" Padding="20" Margin="0,0,0,20" CornerRadius="8" BorderThickness="1" BorderBrush="#E2E8F0">
+                <StackPanel>
+                    <TextBlock Text="👤 Update Username" FontSize="18" FontWeight="Bold" Margin="0,0,0,15"/>
+                    
+                    <TextBlock Text="New Username" Margin="0,0,0,5"/>
+                    <TextBox Name="NewUsernameBox" Watermark="Enter new username" Padding="10" Margin="0,0,0,15"/>
+                    
+                    <Button Name="SaveUsernameButton" Content="💾 Save Username" Click="SaveUsername"
+                            Background="#10B981" Foreground="White" Padding="15,10" HorizontalAlignment="Left"/>
+                </StackPanel>
+            </Border>
+            
+            <!-- Update Email Section -->
+            <Border Background="#F8FAFC" Padding="20" Margin="0,0,0,20" CornerRadius="8" BorderThickness="1" BorderBrush="#E2E8F0">
+                <StackPanel>
+                    <TextBlock Text="✉️ Update Email" FontSize="18" FontWeight="Bold" Margin="0,0,0,15"/>
+                    
+                    <TextBlock Text="New Email Address" Margin="0,0,0,5"/>
+                    <TextBox Name="NewEmailBox" Watermark="Enter new email" Padding="10" Margin="0,0,0,15"/>
+                    
+                    <Button Name="SaveEmailButton" Content="💾 Save Email" Click="SaveEmail"
+                            Background="#10B981" Foreground="White" Padding="15,10" HorizontalAlignment="Left"/>
+                </StackPanel>
+            </Border>
+            
+            <!-- Change Password Section -->
+            <Border Background="#FEF3C7" Padding="20" Margin="0,0,0,20" CornerRadius="8" BorderThickness="1" BorderBrush="#FCD34D">
+                <StackPanel>
+                    <TextBlock Text="🔒 Security" FontSize="18" FontWeight="Bold" Margin="0,0,0,15"/>
+                    <TextBlock Text="Keep your account secure by regularly updating your password." 
+                              FontSize="14" Foreground="#78716C" Margin="0,0,0,15" TextWrapping="Wrap"/>
+                    
+                    <Button Name="ChangePasswordButton" Content="🔑 Change Password" Click="ChangePassword"
+                            Background="#F59E0B" Foreground="White" Padding="15,10" HorizontalAlignment="Left"/>
+                </StackPanel>
+            </Border>
+            
+            <!-- Status Message -->
+            <Border Name="StatusBorder" Background="#DBEAFE" Padding="15" CornerRadius="6" 
+                    BorderThickness="1" BorderBrush="#3B82F6" IsVisible="False">
+                <TextBlock Name="StatusText" Text="" FontSize="14" Foreground="#1E40AF" TextWrapping="Wrap"/>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

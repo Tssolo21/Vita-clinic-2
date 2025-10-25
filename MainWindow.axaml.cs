@@ -175,12 +175,7 @@ namespace VitaClinic.WebAPI
             if (contentPanel != null)
             {
                 contentPanel.Children.Clear();
-                var settingsView = new StackPanel { Margin = new Avalonia.Thickness(20) };
-                settingsView.Children.Add(new TextBlock { Text = "Settings", FontSize = 28, FontWeight = Avalonia.Media.FontWeight.Bold, Margin = new Avalonia.Thickness(0, 0, 0, 20) });
-                settingsView.Children.Add(new TextBlock { Text = $"Logged in as: {_currentUser.FullName}", FontSize = 16, Margin = new Avalonia.Thickness(0, 0, 0, 10) });
-                settingsView.Children.Add(new TextBlock { Text = $"Role: {_currentUser.Role}", FontSize = 16, Margin = new Avalonia.Thickness(0, 0, 0, 10) });
-                settingsView.Children.Add(new TextBlock { Text = $"Email: {_currentUser.Email}", FontSize = 16 });
-                contentPanel.Children.Add(settingsView);
+                contentPanel.Children.Add(new Views.SettingsView(this, _currentUser));
             }
         }
 
