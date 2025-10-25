@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Threading.Tasks;
 using VitaClinic.WebAPI.Data;
 using VitaClinic.WebAPI.Models;
 
@@ -23,7 +24,7 @@ namespace VitaClinic.WebAPI.Views
         {
             _mainWindow = mainWindow;
             InitializeDataGrid();
-            LoadAppointments(null, null);
+            _ = LoadAppointmentsAsync();
         }
 
         private void InitializeDataGrid()
@@ -36,6 +37,11 @@ namespace VitaClinic.WebAPI.Views
         }
 
         private async void LoadAppointments(object? sender, RoutedEventArgs? e)
+        {
+            await LoadAppointmentsAsync();
+        }
+
+        private async Task LoadAppointmentsAsync()
         {
             try
             {
@@ -80,7 +86,7 @@ namespace VitaClinic.WebAPI.Views
                     Console.WriteLine($"Appointment saved with ID: {result.Id}");
                     
                     // Reload all data from database
-                    LoadAppointments(null, null);
+                    await LoadAppointmentsAsync();
                 }
             }
             catch (Exception ex)

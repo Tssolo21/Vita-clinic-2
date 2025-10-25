@@ -26,7 +26,7 @@ namespace VitaClinic.WebAPI.Views
         {
             _mainWindow = mainWindow;
             InitializeDataGrid();
-            LoadClients(null, null);
+            _ = LoadClientsAsync();
         }
 
         private void InitializeDataGrid()
@@ -39,6 +39,11 @@ namespace VitaClinic.WebAPI.Views
         }
 
         private async void LoadClients(object? sender, RoutedEventArgs? e)
+        {
+            await LoadClientsAsync();
+        }
+
+        private async Task LoadClientsAsync()
         {
             try
             {
@@ -84,7 +89,7 @@ namespace VitaClinic.WebAPI.Views
                     Console.WriteLine($"Client saved with ID: {result.Id}");
                     
                     // Reload all data from database
-                    LoadClients(null, null);
+                    await LoadClientsAsync();
                 }
             }
             catch (Exception ex)

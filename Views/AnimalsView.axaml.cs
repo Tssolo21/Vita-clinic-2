@@ -24,7 +24,7 @@ namespace VitaClinic.WebAPI.Views
         {
             _mainWindow = mainWindow;
             InitializeDataGrid();
-            LoadAnimals(null, null);
+            _ = LoadAnimalsAsync();
         }
 
         private void InitializeDataGrid()
@@ -37,6 +37,11 @@ namespace VitaClinic.WebAPI.Views
         }
 
         private async void LoadAnimals(object? sender, RoutedEventArgs? e)
+        {
+            await LoadAnimalsAsync();
+        }
+
+        private async Task LoadAnimalsAsync()
         {
             try
             {
@@ -81,7 +86,7 @@ namespace VitaClinic.WebAPI.Views
                     Console.WriteLine($"Animal saved with ID: {result.Id}");
                     
                     // Reload all data from database
-                    LoadAnimals(null, null);
+                    await LoadAnimalsAsync();
                 }
             }
             catch (Exception ex)
