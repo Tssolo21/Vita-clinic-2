@@ -23,7 +23,9 @@ namespace VitaClinic.WebAPI.Views
 
         private async void LoadClients(object? sender, RoutedEventArgs? e)
         {
-            var dbPath = Path.Combine(Environment.CurrentDirectory, "vitaclinic_desktop.db");
+            var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "VitaClinic", "vitaclinic_desktop.db");
+            var dirPath = Path.GetDirectoryName(dbPath);
+            if (dirPath != null) Directory.CreateDirectory(dirPath);
             var optionsBuilder = new DbContextOptionsBuilder<VitaClinicDbContext>();
             optionsBuilder.UseSqlite($"Data Source={dbPath}");
             
@@ -40,25 +42,35 @@ namespace VitaClinic.WebAPI.Views
 
         private async void AddClient(object sender, RoutedEventArgs e)
         {
-            var dialog = new AddClientDialog();
-            var owner = Window.GetTopLevel(this) as Window;
-            var result = owner != null ? await dialog.ShowDialog<Client?>(owner) : null;
-            
-            if (result != null)
+            try
             {
-                var dbPath = Path.Combine(Environment.CurrentDirectory, "vitaclinic_desktop.db");
-                var optionsBuilder = new DbContextOptionsBuilder<VitaClinicDbContext>();
-                optionsBuilder.UseSqlite($"Data Source={dbPath}");
+                var dialog = new AddClientDialog();
+                var owner = Window.GetTopLevel(this) as Window;
+                var result = owner != null ? await dialog.ShowDialog<Client?>(owner) : null;
                 
-                using var context = new VitaClinicDbContext(optionsBuilder.Options);
-                context.Database.EnsureCreated();
-                result.CreatedAt = DateTime.UtcNow;
-                result.UpdatedAt = DateTime.UtcNow;
-                result.JoinDate = DateTime.UtcNow;
-                context.Clients.Add(result);
-                await context.SaveChangesAsync();
-                
-                LoadClients(null, null);
+                if (result != null)
+                {
+                    var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "VitaClinic", "vitaclinic_desktop.db");
+                    var dirPath = Path.GetDirectoryName(dbPath);
+                    if (dirPath != null) Directory.CreateDirectory(dirPath);
+                    var optionsBuilder = new DbContextOptionsBuilder<VitaClinicDbContext>();
+                    optionsBuilder.UseSqlite($"Data Source={dbPath}");
+                    
+                    using var context = new VitaClinicDbContext(optionsBuilder.Options);
+                    context.Database.EnsureCreated();
+                    result.CreatedAt = DateTime.UtcNow;
+                    result.UpdatedAt = DateTime.UtcNow;
+                    result.JoinDate = DateTime.UtcNow;
+                    context.Clients.Add(result);
+                    await context.SaveChangesAsync();
+                    
+                    LoadClients(null, null);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log the error or show a message
+                Console.WriteLine($"Error adding client: {ex.Message}");
             }
         }
 

@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
 using VitaClinic.WebAPI.Data;
 using VitaClinic.WebAPI.Services;
 
@@ -16,8 +17,11 @@ namespace VitaClinic.WebAPI
 
         private async void InitializeDatabase()
         {
+            var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "VitaClinic", "vitaclinic_desktop.db");
+            var dirPath = Path.GetDirectoryName(dbPath);
+            if (dirPath != null) Directory.CreateDirectory(dirPath);
             var optionsBuilder = new DbContextOptionsBuilder<VitaClinicDbContext>();
-            optionsBuilder.UseSqlite("Data Source=vitaclinic_desktop.db");
+            optionsBuilder.UseSqlite($"Data Source={dbPath}");
             
             using var context = new VitaClinicDbContext(optionsBuilder.Options);
             context.Database.EnsureCreated();
@@ -42,8 +46,11 @@ namespace VitaClinic.WebAPI
                 return;
             }
 
+            var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "VitaClinic", "vitaclinic_desktop.db");
+            var dirPath = Path.GetDirectoryName(dbPath);
+            if (dirPath != null) Directory.CreateDirectory(dirPath);
             var optionsBuilder = new DbContextOptionsBuilder<VitaClinicDbContext>();
-            optionsBuilder.UseSqlite("Data Source=vitaclinic_desktop.db");
+            optionsBuilder.UseSqlite($"Data Source={dbPath}");
             
             using var context = new VitaClinicDbContext(optionsBuilder.Options);
             var authService = new AuthService(context);

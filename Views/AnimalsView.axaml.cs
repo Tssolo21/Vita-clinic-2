@@ -21,7 +21,9 @@ namespace VitaClinic.WebAPI.Views
 
         private async void LoadAnimals(object? sender, RoutedEventArgs? e)
         {
-            var dbPath = Path.Combine(Environment.CurrentDirectory, "vitaclinic_desktop.db");
+            var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "VitaClinic", "vitaclinic_desktop.db");
+            var dirPath = Path.GetDirectoryName(dbPath);
+            if (dirPath != null) Directory.CreateDirectory(dirPath);
             var optionsBuilder = new DbContextOptionsBuilder<VitaClinicDbContext>();
             optionsBuilder.UseSqlite($"Data Source={dbPath}");
             
@@ -38,24 +40,33 @@ namespace VitaClinic.WebAPI.Views
 
         private async void AddAnimal(object sender, RoutedEventArgs e)
         {
-            var dialog = new AddAnimalDialog();
-            var owner = Window.GetTopLevel(this) as Window;
-            var result = owner != null ? await dialog.ShowDialog<Animal?>(owner) : null;
-            
-            if (result != null)
+            try
             {
-                var dbPath = Path.Combine(Environment.CurrentDirectory, "vitaclinic_desktop.db");
-                var optionsBuilder = new DbContextOptionsBuilder<VitaClinicDbContext>();
-                optionsBuilder.UseSqlite($"Data Source={dbPath}");
+                var dialog = new AddAnimalDialog();
+                var owner = Window.GetTopLevel(this) as Window;
+                var result = owner != null ? await dialog.ShowDialog<Animal?>(owner) : null;
                 
-                using var context = new VitaClinicDbContext(optionsBuilder.Options);
-                context.Database.EnsureCreated();
-                result.CreatedAt = DateTime.UtcNow;
-                result.UpdatedAt = DateTime.UtcNow;
-                context.Animals.Add(result);
-                await context.SaveChangesAsync();
-                
-                LoadAnimals(null, null);
+                if (result != null)
+                {
+                    var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "VitaClinic", "vitaclinic_desktop.db");
+                    var dirPath = Path.GetDirectoryName(dbPath);
+                    if (dirPath != null) Directory.CreateDirectory(dirPath);
+                    var optionsBuilder = new DbContextOptionsBuilder<VitaClinicDbContext>();
+                    optionsBuilder.UseSqlite($"Data Source={dbPath}");
+                    
+                    using var context = new VitaClinicDbContext(optionsBuilder.Options);
+                    context.Database.EnsureCreated();
+                    result.CreatedAt = DateTime.UtcNow;
+                    result.UpdatedAt = DateTime.UtcNow;
+                    context.Animals.Add(result);
+                    await context.SaveChangesAsync();
+                    
+                    LoadAnimals(null, null);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error adding animal: {ex.Message}");
             }
         }
 
