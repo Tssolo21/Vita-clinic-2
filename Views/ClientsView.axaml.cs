@@ -1,7 +1,9 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,6 +15,7 @@ namespace VitaClinic.WebAPI.Views
     public partial class ClientsView : UserControl
     {
         private MainWindow? _mainWindow;
+        private ObservableCollection<Client> _clients = new ObservableCollection<Client>();
 
         public ClientsView()
         {
@@ -22,25 +25,40 @@ namespace VitaClinic.WebAPI.Views
         public ClientsView(MainWindow mainWindow) : this()
         {
             _mainWindow = mainWindow;
+            InitializeDataGrid();
             LoadClients(null, null);
+        }
+
+        private void InitializeDataGrid()
+        {
+            var grid = this.FindControl<DataGrid>("ClientsGrid");
+            if (grid != null)
+            {
+                grid.ItemsSource = _clients;
+            }
         }
 
         private async void LoadClients(object? sender, RoutedEventArgs? e)
         {
-            var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "VitaClinic", "vitaclinic_desktop.db");
-            var dirPath = Path.GetDirectoryName(dbPath);
-            if (dirPath != null) Directory.CreateDirectory(dirPath);
-            var optionsBuilder = new DbContextOptionsBuilder<VitaClinicDbContext>();
-            optionsBuilder.UseSqlite($"Data Source={dbPath}");
-            
-            using var context = new VitaClinicDbContext(optionsBuilder.Options);
-            context.Database.EnsureCreated();
-            var clients = await context.Clients.ToListAsync();
-            
-            var grid = this.FindControl<DataGrid>("ClientsGrid");
-            if (grid != null)
+            try
             {
-                grid.ItemsSource = clients;
+                Console.WriteLine("Loading clients...");
+                using var context = DatabaseHelper.CreateContext();
+                var clients = await context.Clients.ToListAsync();
+                
+                Console.WriteLine($"Found {clients.Count} clients in database");
+                
+                _clients.Clear();
+                foreach (var client in clients)
+                {
+                    _clients.Add(client);
+                }
+                
+                Console.WriteLine($"Loaded {_clients.Count} clients to UI");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error loading clients: {ex.Message}");
             }
         }
 
@@ -54,27 +72,25 @@ namespace VitaClinic.WebAPI.Views
                 
                 if (result != null)
                 {
-                    var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "VitaClinic", "vitaclinic_desktop.db");
-                    var dirPath = Path.GetDirectoryName(dbPath);
-                    if (dirPath != null) Directory.CreateDirectory(dirPath);
-                    var optionsBuilder = new DbContextOptionsBuilder<VitaClinicDbContext>();
-                    optionsBuilder.UseSqlite($"Data Source={dbPath}");
+                    Console.WriteLine($"Adding new client: {result.FirstName} {result.LastName}");
                     
-                    using var context = new VitaClinicDbContext(optionsBuilder.Options);
-                    context.Database.EnsureCreated();
+                    using var context = DatabaseHelper.CreateContext();
                     result.CreatedAt = DateTime.UtcNow;
                     result.UpdatedAt = DateTime.UtcNow;
                     result.JoinDate = DateTime.UtcNow;
                     context.Clients.Add(result);
                     await context.SaveChangesAsync();
                     
+                    Console.WriteLine($"Client saved with ID: {result.Id}");
+                    
+                    // Reload all data from database
                     LoadClients(null, null);
                 }
             }
             catch (Exception ex)
             {
-                // Log the error or show a message
                 Console.WriteLine($"Error adding client: {ex.Message}");
+                Console.WriteLine($"Stack trace: {ex.StackTrace}");
             }
         }
 

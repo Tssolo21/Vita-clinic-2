@@ -17,17 +17,10 @@ namespace VitaClinic.WebAPI
 
         private async void InitializeDatabase()
         {
-            var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "VitaClinic", "vitaclinic_desktop.db");
-            var dirPath = Path.GetDirectoryName(dbPath);
-            if (dirPath != null) Directory.CreateDirectory(dirPath);
-            var optionsBuilder = new DbContextOptionsBuilder<VitaClinicDbContext>();
-            optionsBuilder.UseSqlite($"Data Source={dbPath}");
-            
-            using var context = new VitaClinicDbContext(optionsBuilder.Options);
-            context.Database.EnsureCreated();
-            
+            using var context = DatabaseHelper.CreateContext();
             var authService = new AuthService(context);
             await authService.CreateDefaultAdminIfNotExists();
+            Console.WriteLine("Database initialized and default admin created if needed");
         }
 
         private async void LoginButton_Click(object sender, RoutedEventArgs e)
@@ -46,24 +39,22 @@ namespace VitaClinic.WebAPI
                 return;
             }
 
-            var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "VitaClinic", "vitaclinic_desktop.db");
-            var dirPath = Path.GetDirectoryName(dbPath);
-            if (dirPath != null) Directory.CreateDirectory(dirPath);
-            var optionsBuilder = new DbContextOptionsBuilder<VitaClinicDbContext>();
-            optionsBuilder.UseSqlite($"Data Source={dbPath}");
+            Console.WriteLine($"Attempting login for user: {username}");
             
-            using var context = new VitaClinicDbContext(optionsBuilder.Options);
+            using var context = DatabaseHelper.CreateContext();
             var authService = new AuthService(context);
             var user = await authService.AuthenticateAsync(username, password);
 
             if (user != null)
             {
+                Console.WriteLine($"Login successful for: {user.FullName}");
                 var mainWindow = new MainWindow(user);
                 mainWindow.Show();
                 this.Close();
             }
             else
             {
+                Console.WriteLine("Login failed: Invalid credentials");
                 if (errorMessage != null)
                 {
                     errorMessage.Text = "Invalid username or password";

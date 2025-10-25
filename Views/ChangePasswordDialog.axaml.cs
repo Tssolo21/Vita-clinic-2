@@ -84,13 +84,7 @@ namespace VitaClinic.WebAPI.Views
                     return;
                 }
 
-                var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "VitaClinic", "vitaclinic_desktop.db");
-                var dirPath = Path.GetDirectoryName(dbPath);
-                if (dirPath != null) Directory.CreateDirectory(dirPath);
-                var optionsBuilder = new DbContextOptionsBuilder<VitaClinicDbContext>();
-                optionsBuilder.UseSqlite($"Data Source={dbPath}");
-
-                using var context = new VitaClinicDbContext(optionsBuilder.Options);
+                using var context = DatabaseHelper.CreateContext();
                 var user = await context.Users.FirstOrDefaultAsync(u => u.Id == _currentUser.Id);
                 
                 if (user != null)

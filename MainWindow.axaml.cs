@@ -29,13 +29,8 @@ namespace VitaClinic.WebAPI
 
         private async void LoadDashboardData()
         {
-            var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "VitaClinic", "vitaclinic_desktop.db");
-            var dirPath = Path.GetDirectoryName(dbPath);
-            if (dirPath != null) Directory.CreateDirectory(dirPath);
-            var optionsBuilder = new DbContextOptionsBuilder<VitaClinicDbContext>();
-            optionsBuilder.UseSqlite($"Data Source={dbPath}");
-            
-            using var context = new VitaClinicDbContext(optionsBuilder.Options);
+            Console.WriteLine("Loading dashboard data...");
+            using var context = DatabaseHelper.CreateContext();
             
             var totalClients = await context.Clients.CountAsync();
             var totalAnimals = await context.Animals.CountAsync();

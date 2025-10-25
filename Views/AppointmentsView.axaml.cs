@@ -1,6 +1,8 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.ObjectModel;
 using System.IO;
 using VitaClinic.WebAPI.Data;
 using VitaClinic.WebAPI.Models;
@@ -10,6 +12,7 @@ namespace VitaClinic.WebAPI.Views
     public partial class AppointmentsView : UserControl
     {
         private MainWindow? _mainWindow;
+        private ObservableCollection<Appointment> _appointments = new ObservableCollection<Appointment>();
 
         public AppointmentsView()
         {
@@ -19,25 +22,40 @@ namespace VitaClinic.WebAPI.Views
         public AppointmentsView(MainWindow mainWindow) : this()
         {
             _mainWindow = mainWindow;
+            InitializeDataGrid();
             LoadAppointments(null, null);
+        }
+
+        private void InitializeDataGrid()
+        {
+            var grid = this.FindControl<DataGrid>("AppointmentsGrid");
+            if (grid != null)
+            {
+                grid.ItemsSource = _appointments;
+            }
         }
 
         private async void LoadAppointments(object? sender, RoutedEventArgs? e)
         {
-            var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "VitaClinic", "vitaclinic_desktop.db");
-            var dirPath = Path.GetDirectoryName(dbPath);
-            if (dirPath != null) Directory.CreateDirectory(dirPath);
-            var optionsBuilder = new DbContextOptionsBuilder<VitaClinicDbContext>();
-            optionsBuilder.UseSqlite($"Data Source={dbPath}");
-            
-            using var context = new VitaClinicDbContext(optionsBuilder.Options);
-            context.Database.EnsureCreated();
-            var appointments = await context.Appointments.Include(a => a.Animal).ToListAsync();
-            
-            var grid = this.FindControl<DataGrid>("AppointmentsGrid");
-            if (grid != null)
+            try
             {
-                grid.ItemsSource = appointments;
+                Console.WriteLine("Loading appointments...");
+                using var context = DatabaseHelper.CreateContext();
+                var appointments = await context.Appointments.Include(a => a.Animal).ToListAsync();
+                
+                Console.WriteLine($"Found {appointments.Count} appointments in database");
+                
+                _appointments.Clear();
+                foreach (var appointment in appointments)
+                {
+                    _appointments.Add(appointment);
+                }
+                
+                Console.WriteLine($"Loaded {_appointments.Count} appointments to UI");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error loading appointments: {ex.Message}");
             }
         }
 
@@ -51,25 +69,24 @@ namespace VitaClinic.WebAPI.Views
                 
                 if (result != null)
                 {
-                    var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "VitaClinic", "vitaclinic_desktop.db");
-                    var dirPath = Path.GetDirectoryName(dbPath);
-                    if (dirPath != null) Directory.CreateDirectory(dirPath);
-                    var optionsBuilder = new DbContextOptionsBuilder<VitaClinicDbContext>();
-                    optionsBuilder.UseSqlite($"Data Source={dbPath}");
+                    Console.WriteLine($"Adding new appointment for: {result.PetName}");
                     
-                    using var context = new VitaClinicDbContext(optionsBuilder.Options);
-                    context.Database.EnsureCreated();
+                    using var context = DatabaseHelper.CreateContext();
                     result.CreatedAt = DateTime.UtcNow;
                     result.UpdatedAt = DateTime.UtcNow;
                     context.Appointments.Add(result);
                     await context.SaveChangesAsync();
                     
+                    Console.WriteLine($"Appointment saved with ID: {result.Id}");
+                    
+                    // Reload all data from database
                     LoadAppointments(null, null);
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error adding appointment: {ex.Message}");
+                Console.WriteLine($"Stack trace: {ex.StackTrace}");
             }
         }
 
