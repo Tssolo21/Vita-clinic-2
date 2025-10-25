@@ -21,12 +21,12 @@ args = "VitaClinic Desktop App"
 name = "VitaClinic Desktop App"
 author = "agent"
 
+[workflows.workflow.metadata]
+outputType = "vnc"
+
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "dotnet run --project VitaClinic.WebAPI.csproj"
-
-[workflows.workflow.metadata]
-outputType = "vnc"
 
 [[ports]]
 localPort = 5000

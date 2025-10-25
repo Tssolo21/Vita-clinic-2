@@ -15,33 +15,33 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = VitaClinic.WebAPI
-build_property.ProjectDir = C:\Users\lenovo\Desktop\Desktop\VitaClinic 2\
+build_property.ProjectDir = /home/runner/workspace/
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 
-[C:/Users/lenovo/Desktop/Desktop/VitaClinic 2/App.axaml]
+[/home/runner/workspace/App.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/lenovo/Desktop/Desktop/VitaClinic 2/LoginWindow.axaml]
+[/home/runner/workspace/LoginWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/lenovo/Desktop/Desktop/VitaClinic 2/MainWindow.axaml]
+[/home/runner/workspace/MainWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/lenovo/Desktop/Desktop/VitaClinic 2/Views/AddAnimalDialog.axaml]
+[/home/runner/workspace/Views/AddAnimalDialog.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/lenovo/Desktop/Desktop/VitaClinic 2/Views/AddAppointmentDialog.axaml]
+[/home/runner/workspace/Views/AddAppointmentDialog.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/lenovo/Desktop/Desktop/VitaClinic 2/Views/AddClientDialog.axaml]
+[/home/runner/workspace/Views/AddClientDialog.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/lenovo/Desktop/Desktop/VitaClinic 2/Views/AnimalsView.axaml]
+[/home/runner/workspace/Views/AnimalsView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/lenovo/Desktop/Desktop/VitaClinic 2/Views/AppointmentsView.axaml]
+[/home/runner/workspace/Views/AppointmentsView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/lenovo/Desktop/Desktop/VitaClinic 2/Views/ClientsView.axaml]
+[/home/runner/workspace/Views/ClientsView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
