@@ -445,3 +445,4 @@ C:\Users\lenovo\Desktop\Desktop\VitaClinic 2\bin\Debug\net8.0\runtimes\win-x86\n
 C:\Users\lenovo\Desktop\Desktop\VitaClinic 2\obj\Debug\net8.0\VitaClinic.WebAPI.csproj.CopyComplete
 C:\Users\lenovo\Desktop\Desktop\VitaClinic 2\obj\Debug\net8.0\VitaClinic.WebAPI.genruntimeconfig.cache
 C:\Users\lenovo\Desktop\Desktop\VitaClinic 2\obj\Debug\net8.0\ref\VitaClinic.WebAPI.dll
+C:\Users\lenovo\Desktop\Desktop\VitaClinic 2\bin\Debug\net8.0\Avalonia.Controls.DataGrid.dll

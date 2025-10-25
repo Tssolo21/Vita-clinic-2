@@ -1,9 +1,10 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         x:Class="VitaClinic.WebAPI.Views.AddClientDialog"
-        Title="Add New Client" Height="450" Width="500"
+        Title="Add New Client"
+        SizeToContent="WidthAndHeight"
         WindowStartupLocation="CenterOwner"
-        CanResize="False">
+        CanResize="True">
     <StackPanel Margin="30">
         <TextBlock Text="Add New Client" FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
         

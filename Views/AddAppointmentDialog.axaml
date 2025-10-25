@@ -1,9 +1,10 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         x:Class="VitaClinic.WebAPI.Views.AddAppointmentDialog"
-        Title="Add Appointment" Height="550" Width="500"
+        Title="Add Appointment"
+        SizeToContent="WidthAndHeight"
         WindowStartupLocation="CenterOwner"
-        CanResize="False">
+        CanResize="True">
     <StackPanel Margin="30">
         <TextBlock Text="Schedule Appointment" FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
         

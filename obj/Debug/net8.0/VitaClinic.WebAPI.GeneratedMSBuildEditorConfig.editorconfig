@@ -27,3 +27,21 @@ build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
 [C:/Users/lenovo/Desktop/Desktop/VitaClinic 2/MainWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/lenovo/Desktop/Desktop/VitaClinic 2/Views/AddAnimalDialog.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/lenovo/Desktop/Desktop/VitaClinic 2/Views/AddAppointmentDialog.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/lenovo/Desktop/Desktop/VitaClinic 2/Views/AddClientDialog.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/lenovo/Desktop/Desktop/VitaClinic 2/Views/AnimalsView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/lenovo/Desktop/Desktop/VitaClinic 2/Views/AppointmentsView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/lenovo/Desktop/Desktop/VitaClinic 2/Views/ClientsView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml

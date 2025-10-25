@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "bWypX6xCKJcPHdSd6CEe9TzvV2yDxVasN0vhXrSPkZfqHsq+oUlogBN1/XqH2TzYVyXJmp9p3sm+o5i20Zl6jA==",
+  "dgSpecHash": "L3c60cmAu3pTJA0/nyuZqYZvcdbAcosvT2cd3Wym0tCuZSpKgthBum7pEgpTEAKUl9MsTwphX8WZKDZUvynS7Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\lenovo\\Desktop\\Desktop\\VitaClinic 2\\VitaClinic.WebAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\lenovo\\.nuget\\packages\\avalonia\\11.3.8\\avalonia.11.3.8.nupkg.sha512",
     "C:\\Users\\lenovo\\.nuget\\packages\\avalonia.angle.windows.natives\\2.1.25547.20250602\\avalonia.angle.windows.natives.2.1.25547.20250602.nupkg.sha512",
     "C:\\Users\\lenovo\\.nuget\\packages\\avalonia.buildservices\\11.3.1\\avalonia.buildservices.11.3.1.nupkg.sha512",
+    "C:\\Users\\lenovo\\.nuget\\packages\\avalonia.controls.datagrid\\11.3.8\\avalonia.controls.datagrid.11.3.8.nupkg.sha512",
     "C:\\Users\\lenovo\\.nuget\\packages\\avalonia.desktop\\11.3.8\\avalonia.desktop.11.3.8.nupkg.sha512",
     "C:\\Users\\lenovo\\.nuget\\packages\\avalonia.fonts.inter\\11.3.8\\avalonia.fonts.inter.11.3.8.nupkg.sha512",
     "C:\\Users\\lenovo\\.nuget\\packages\\avalonia.freedesktop\\11.3.8\\avalonia.freedesktop.11.3.8.nupkg.sha512",
