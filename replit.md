@@ -11,6 +11,22 @@ VitaClinic is a cross-platform desktop veterinary clinic management system built
 - **UI Framework**: Avalonia 11.3.8 with Fluent theme
 
 ## Recent Changes
+- **2025-10-25**: Enhanced Settings Section and Fixed Data Display Issues
+  - Created comprehensive SettingsView with rich features:
+    - View user profile information (full name, username, email, role, last login)
+    - Update full name with real-time database sync
+    - Change username with uniqueness validation
+    - Update email address with format validation
+    - Secure password change dialog with validation
+  - Added ChangePasswordDialog with comprehensive validation:
+    - Current password verification
+    - Minimum length requirement (6 characters)
+    - Password confirmation matching
+    - Prevention of reusing current password
+  - Fixed public constructor warnings in all View classes (ClientsView, AnimalsView, AppointmentsView)
+  - All data operations now properly save to and load from SQLite database
+  - Status messages provide user feedback for all update operations
+
 - **2025-10-24**: Converted to Desktop Application with Login System
   - Migrated from ASP.NET Core Web API to Avalonia desktop app
   - Added User model with authentication system (Admin, Veterinarian, Receptionist roles)
@@ -32,6 +48,23 @@ VitaClinic is a cross-platform desktop veterinary clinic management system built
 ├── LoginWindow.axaml.cs           # Login logic
 ├── MainWindow.axaml               # Main application UI
 ├── MainWindow.axaml.cs            # Main window logic
+├── Views/
+│   ├── ClientsView.axaml          # Clients management view
+│   ├── ClientsView.axaml.cs       # Clients view code-behind
+│   ├── AnimalsView.axaml          # Animals management view
+│   ├── AnimalsView.axaml.cs       # Animals view code-behind
+│   ├── AppointmentsView.axaml     # Appointments view
+│   ├── AppointmentsView.axaml.cs  # Appointments view code-behind
+│   ├── SettingsView.axaml         # Settings management view
+│   ├── SettingsView.axaml.cs      # Settings view code-behind
+│   ├── AddClientDialog.axaml      # Add client dialog
+│   ├── AddClientDialog.axaml.cs   # Add client dialog code-behind
+│   ├── AddAnimalDialog.axaml      # Add animal dialog
+│   ├── AddAnimalDialog.axaml.cs   # Add animal dialog code-behind
+│   ├── AddAppointmentDialog.axaml # Add appointment dialog
+│   ├── AddAppointmentDialog.axaml.cs # Add appointment code-behind
+│   ├── ChangePasswordDialog.axaml # Change password dialog
+│   └── ChangePasswordDialog.axaml.cs # Change password code-behind
 ├── Services/
 │   └── AuthService.cs             # Authentication service
 ├── Data/
@@ -159,7 +192,13 @@ The main window includes navigation to:
 - ✅ **Animals Management**: View all animals with owner info, add new animals
 - ✅ **Appointments**: View all appointments, schedule new appointments
 - ✅ **Medical Records**: Information view (link to animals for records)
-- ✅ **Settings**: User profile information display
+- ✅ **Settings**: Comprehensive user account management
+  - View and update full name
+  - Change username (with uniqueness validation)
+  - Update email address (with format validation)
+  - Secure password change with validation
+  - Visual feedback with status messages
+  - All changes persist to database immediately
 
 ## Future Enhancements
 - Implement full CRUD operations for all management sections
