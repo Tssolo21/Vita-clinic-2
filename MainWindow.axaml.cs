@@ -65,7 +65,7 @@ namespace VitaClinic.WebAPI
             if (contentPanel != null)
             {
                 contentPanel.Children.Clear();
-                contentPanel.Children.Add(new Views.ClientsView());
+                contentPanel.Children.Add(new Views.ClientsView(this));
             }
         }
 
@@ -75,7 +75,7 @@ namespace VitaClinic.WebAPI
             if (contentPanel != null)
             {
                 contentPanel.Children.Clear();
-                contentPanel.Children.Add(new Views.AnimalsView());
+                contentPanel.Children.Add(new Views.AnimalsView(this));
             }
         }
 
@@ -85,7 +85,7 @@ namespace VitaClinic.WebAPI
             if (contentPanel != null)
             {
                 contentPanel.Children.Clear();
-                contentPanel.Children.Add(new Views.AppointmentsView());
+                contentPanel.Children.Add(new Views.AppointmentsView(this));
             }
         }
 

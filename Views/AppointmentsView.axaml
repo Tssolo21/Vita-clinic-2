@@ -5,9 +5,11 @@
         <TextBlock Text="Appointments Management" FontSize="28" FontWeight="Bold" Margin="0,0,0,20"/>
         
         <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
-            <Button Name="AddAppointmentButton" Content="➕ Add Appointment" Click="AddAppointment" 
+            <Button Name="BackButton" Content="⬅️ Back to Dashboard" Click="GoBack"
+                    Background="#6B7280" Foreground="White" Padding="12,8" Margin="0,0,10,0"/>
+            <Button Name="AddAppointmentButton" Content="➕ Add Appointment" Click="AddAppointment"
                     Background="#6366F1" Foreground="White" Padding="12,8" Margin="0,0,10,0"/>
-            <Button Name="RefreshButton" Content="🔄 Refresh" Click="LoadAppointments" 
+            <Button Name="RefreshButton" Content="🔄 Refresh" Click="LoadAppointments"
                     Background="#10B981" Foreground="White" Padding="12,8"/>
         </StackPanel>
         

@@ -5,9 +5,11 @@
         <TextBlock Text="Clients Management" FontSize="28" FontWeight="Bold" Margin="0,0,0,20"/>
         
         <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
-            <Button Name="AddClientButton" Content="➕ Add New Client" Click="AddClient" 
+            <Button Name="BackButton" Content="⬅️ Back to Dashboard" Click="GoBack"
+                    Background="#6B7280" Foreground="White" Padding="12,8" Margin="0,0,10,0"/>
+            <Button Name="AddClientButton" Content="➕ Add New Client" Click="AddClient"
                     Background="#6366F1" Foreground="White" Padding="12,8" Margin="0,0,10,0"/>
-            <Button Name="RefreshButton" Content="🔄 Refresh" Click="LoadClients" 
+            <Button Name="RefreshButton" Content="🔄 Refresh" Click="LoadClients"
                     Background="#10B981" Foreground="White" Padding="12,8"/>
         </StackPanel>
         
