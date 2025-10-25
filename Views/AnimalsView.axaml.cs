@@ -36,7 +36,8 @@ namespace VitaClinic.WebAPI.Views
         private async void AddAnimal(object sender, RoutedEventArgs e)
         {
             var dialog = new AddAnimalDialog();
-            var result = await dialog.ShowDialog<Animal?>(Window.GetTopLevel(this) as Window);
+            var owner = Window.GetTopLevel(this) as Window;
+            var result = owner != null ? await dialog.ShowDialog<Animal?>(owner) : null;
             
             if (result != null)
             {

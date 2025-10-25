@@ -35,7 +35,8 @@ namespace VitaClinic.WebAPI.Views
         private async void AddAppointment(object sender, RoutedEventArgs e)
         {
             var dialog = new AddAppointmentDialog();
-            var result = await dialog.ShowDialog<Appointment?>(Window.GetTopLevel(this) as Window);
+            var owner = Window.GetTopLevel(this) as Window;
+            var result = owner != null ? await dialog.ShowDialog<Appointment?>(owner) : null;
             
             if (result != null)
             {

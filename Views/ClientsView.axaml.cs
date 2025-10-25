@@ -38,7 +38,8 @@ namespace VitaClinic.WebAPI.Views
         private async void AddClient(object sender, RoutedEventArgs e)
         {
             var dialog = new AddClientDialog();
-            var result = await dialog.ShowDialog<Client?>(Window.GetTopLevel(this) as Window);
+            var owner = Window.GetTopLevel(this) as Window;
+            var result = owner != null ? await dialog.ShowDialog<Client?>(owner) : null;
             
             if (result != null)
             {
