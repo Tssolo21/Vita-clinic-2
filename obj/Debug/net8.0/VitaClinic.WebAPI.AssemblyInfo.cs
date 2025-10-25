@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("VitaClinic.WebAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0519b89a7c5ffec7d2b5e627a30700c8364db81b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2721857f9e3cb21dae7dd5adf763582e25ea03c5")]
 [assembly: System.Reflection.AssemblyProductAttribute("VitaClinic.WebAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("VitaClinic.WebAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

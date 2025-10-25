@@ -2,6 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using VitaClinic.WebAPI.Data;
@@ -22,13 +23,14 @@ namespace VitaClinic.WebAPI.Views
 
         private async void LoadClients(object? sender, RoutedEventArgs? e)
         {
+            var dbPath = Path.Combine(Environment.CurrentDirectory, "vitaclinic_desktop.db");
             var optionsBuilder = new DbContextOptionsBuilder<VitaClinicDbContext>();
-            optionsBuilder.UseSqlite("Data Source=vitaclinic_desktop.db");
-
+            optionsBuilder.UseSqlite($"Data Source={dbPath}");
+            
             using var context = new VitaClinicDbContext(optionsBuilder.Options);
             context.Database.EnsureCreated();
             var clients = await context.Clients.ToListAsync();
-
+            
             var grid = this.FindControl<DataGrid>("ClientsGrid");
             if (grid != null)
             {
@@ -44,9 +46,10 @@ namespace VitaClinic.WebAPI.Views
             
             if (result != null)
             {
+                var dbPath = Path.Combine(Environment.CurrentDirectory, "vitaclinic_desktop.db");
                 var optionsBuilder = new DbContextOptionsBuilder<VitaClinicDbContext>();
-                optionsBuilder.UseSqlite("Data Source=vitaclinic_desktop.db");
-
+                optionsBuilder.UseSqlite($"Data Source={dbPath}");
+                
                 using var context = new VitaClinicDbContext(optionsBuilder.Options);
                 context.Database.EnsureCreated();
                 result.CreatedAt = DateTime.UtcNow;
@@ -54,7 +57,7 @@ namespace VitaClinic.WebAPI.Views
                 result.JoinDate = DateTime.UtcNow;
                 context.Clients.Add(result);
                 await context.SaveChangesAsync();
-
+                
                 LoadClients(null, null);
             }
         }

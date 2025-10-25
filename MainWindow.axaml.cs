@@ -2,6 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
 using System.Linq;
 using VitaClinic.WebAPI.Data;
 using VitaClinic.WebAPI.Models;
@@ -28,8 +29,9 @@ namespace VitaClinic.WebAPI
 
         private async void LoadDashboardData()
         {
+            var dbPath = Path.Combine(Environment.CurrentDirectory, "vitaclinic_desktop.db");
             var optionsBuilder = new DbContextOptionsBuilder<VitaClinicDbContext>();
-            optionsBuilder.UseSqlite("Data Source=vitaclinic_desktop.db");
+            optionsBuilder.UseSqlite($"Data Source={dbPath}");
             
             using var context = new VitaClinicDbContext(optionsBuilder.Options);
             

@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
 using VitaClinic.WebAPI.Data;
 using VitaClinic.WebAPI.Models;
 
@@ -19,13 +20,14 @@ namespace VitaClinic.WebAPI.Views
 
         private async void LoadAppointments(object? sender, RoutedEventArgs? e)
         {
+            var dbPath = Path.Combine(Environment.CurrentDirectory, "vitaclinic_desktop.db");
             var optionsBuilder = new DbContextOptionsBuilder<VitaClinicDbContext>();
-            optionsBuilder.UseSqlite("Data Source=vitaclinic_desktop.db");
-
+            optionsBuilder.UseSqlite($"Data Source={dbPath}");
+            
             using var context = new VitaClinicDbContext(optionsBuilder.Options);
             context.Database.EnsureCreated();
             var appointments = await context.Appointments.Include(a => a.Animal).ToListAsync();
-
+            
             var grid = this.FindControl<DataGrid>("AppointmentsGrid");
             if (grid != null)
             {
@@ -41,16 +43,17 @@ namespace VitaClinic.WebAPI.Views
             
             if (result != null)
             {
+                var dbPath = Path.Combine(Environment.CurrentDirectory, "vitaclinic_desktop.db");
                 var optionsBuilder = new DbContextOptionsBuilder<VitaClinicDbContext>();
-                optionsBuilder.UseSqlite("Data Source=vitaclinic_desktop.db");
-
+                optionsBuilder.UseSqlite($"Data Source={dbPath}");
+                
                 using var context = new VitaClinicDbContext(optionsBuilder.Options);
                 context.Database.EnsureCreated();
                 result.CreatedAt = DateTime.UtcNow;
                 result.UpdatedAt = DateTime.UtcNow;
                 context.Appointments.Add(result);
                 await context.SaveChangesAsync();
-
+                
                 LoadAppointments(null, null);
             }
         }
