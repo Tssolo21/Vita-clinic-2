@@ -23,8 +23,13 @@ namespace VitaClinic.WebAPI.Views
         public AppointmentsView(MainWindow mainWindow) : this()
         {
             _mainWindow = mainWindow;
+            this.AttachedToVisualTree += OnAttachedToVisualTree;
+        }
+
+        private async void OnAttachedToVisualTree(object? sender, Avalonia.VisualTreeAttachmentEventArgs e)
+        {
             InitializeDataGrid();
-            _ = LoadAppointmentsAsync();
+            await LoadAppointmentsAsync();
         }
 
         private void InitializeDataGrid()
@@ -33,6 +38,11 @@ namespace VitaClinic.WebAPI.Views
             if (grid != null)
             {
                 grid.ItemsSource = _appointments;
+                Console.WriteLine("✓ AppointmentsGrid ItemsSource set successfully");
+            }
+            else
+            {
+                Console.WriteLine("✗ ERROR: AppointmentsGrid not found!");
             }
         }
 
@@ -51,13 +61,26 @@ namespace VitaClinic.WebAPI.Views
                 
                 Console.WriteLine($"Found {appointments.Count} appointments in database");
                 
-                _appointments.Clear();
-                foreach (var appointment in appointments)
+                // Use Dispatcher to update collection on UI thread
+                await Avalonia.Threading.Dispatcher.UIThread.InvokeAsync(() =>
                 {
-                    _appointments.Add(appointment);
-                }
-                
-                Console.WriteLine($"Loaded {_appointments.Count} appointments to UI");
+                    _appointments.Clear();
+                    foreach (var appointment in appointments)
+                    {
+                        _appointments.Add(appointment);
+                    }
+                    Console.WriteLine($"Loaded {_appointments.Count} appointments to UI ObservableCollection");
+                    
+                    // Force grid to refresh
+                    var grid = this.FindControl<DataGrid>("AppointmentsGrid");
+                    if (grid != null)
+                    {
+                        var temp = grid.ItemsSource;
+                        grid.ItemsSource = null;
+                        grid.ItemsSource = temp;
+                        Console.WriteLine("DataGrid ItemsSource refreshed");
+                    }
+                });
             }
             catch (Exception ex)
             {
