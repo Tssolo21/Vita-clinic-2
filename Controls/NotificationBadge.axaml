@@ -1,0 +1,243 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="VitaClinic.WebAPI.Controls.NotificationBadge">
+
+    <UserControl.Styles>
+        <!-- Entrance Animations -->
+        <Style Selector="Border.bounce-in">
+            <Style.Animations>
+                <Animation Duration="0:0:0.6" FillBehavior="Stop" Easing="ElasticEaseOut">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="ScaleTransform.ScaleX" Value="0.3"/>
+                        <Setter Property="ScaleTransform.ScaleY" Value="0.3"/>
+                        <Setter Property="Opacity" Value="0"/>
+                    </KeyFrame>
+                    <KeyFrame Cue="50%">
+                        <Setter Property="ScaleTransform.ScaleX" Value="1.05"/>
+                        <Setter Property="ScaleTransform.ScaleY" Value="1.05"/>
+                        <Setter Property="Opacity" Value="0.8"/>
+                    </KeyFrame>
+                    <KeyFrame Cue="70%">
+                        <Setter Property="ScaleTransform.ScaleX" Value="0.9"/>
+                        <Setter Property="ScaleTransform.ScaleY" Value="0.9"/>
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="ScaleTransform.ScaleX" Value="1"/>
+                        <Setter Property="ScaleTransform.ScaleY" Value="1"/>
+                        <Setter Property="Opacity" Value="1"/>
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+
+        <Style Selector="Border.slide-in-right">
+            <Style.Animations>
+                <Animation Duration="0:0:0.4" FillBehavior="Stop" Easing="CubicEaseOut">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="TranslateTransform.X" Value="100"/>
+                        <Setter Property="Opacity" Value="0"/>
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="TranslateTransform.X" Value="0"/>
+                        <Setter Property="Opacity" Value="1"/>
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+
+        <Style Selector="Border.slide-in-left">
+            <Style.Animations>
+                <Animation Duration="0:0:0.4" FillBehavior="Stop" Easing="CubicEaseOut">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="TranslateTransform.X" Value="-100"/>
+                        <Setter Property="Opacity" Value="0"/>
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="TranslateTransform.X" Value="0"/>
+                        <Setter Property="Opacity" Value="1"/>
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+
+        <!-- Ongoing Animations -->
+        <Style Selector="Border.pulse">
+            <Style.Animations>
+                <Animation Duration="0:0:2" FillBehavior="Stop" Easing="CubicEaseInOut" IterationCount="3">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="Opacity" Value="1"/>
+                        <Setter Property="ScaleTransform.ScaleX" Value="1"/>
+                        <Setter Property="ScaleTransform.ScaleY" Value="1"/>
+                    </KeyFrame>
+                    <KeyFrame Cue="25%">
+                        <Setter Property="Opacity" Value="0.7"/>
+                        <Setter Property="ScaleTransform.ScaleX" Value="1.1"/>
+                        <Setter Property="ScaleTransform.ScaleY" Value="1.1"/>
+                    </KeyFrame>
+                    <KeyFrame Cue="50%">
+                        <Setter Property="Opacity" Value="1"/>
+                        <Setter Property="ScaleTransform.ScaleX" Value="1"/>
+                        <Setter Property="ScaleTransform.ScaleY" Value="1"/>
+                    </KeyFrame>
+                    <KeyFrame Cue="75%">
+                        <Setter Property="Opacity" Value="0.7"/>
+                        <Setter Property="ScaleTransform.ScaleX" Value="1.1"/>
+                        <Setter Property="ScaleTransform.ScaleY" Value="1.1"/>
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="Opacity" Value="1"/>
+                        <Setter Property="ScaleTransform.ScaleX" Value="1"/>
+                        <Setter Property="ScaleTransform.ScaleY" Value="1"/>
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+
+        <!-- Dismiss Animations -->
+        <Style Selector="Border.fade-out">
+            <Style.Animations>
+                <Animation Duration="0:0:0.3" FillBehavior="Stop" Easing="CubicEaseInOut">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="Opacity" Value="1"/>
+                        <Setter Property="ScaleTransform.ScaleX" Value="1"/>
+                        <Setter Property="ScaleTransform.ScaleY" Value="1"/>
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="Opacity" Value="0"/>
+                        <Setter Property="ScaleTransform.ScaleX" Value="0.8"/>
+                        <Setter Property="ScaleTransform.ScaleY" Value="0.8"/>
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+
+        <Style Selector="Border.slide-out-right">
+            <Style.Animations>
+                <Animation Duration="0:0:0.3" FillBehavior="Stop" Easing="CubicEaseIn">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="TranslateTransform.X" Value="0"/>
+                        <Setter Property="Opacity" Value="1"/>
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="TranslateTransform.X" Value="100"/>
+                        <Setter Property="Opacity" Value="0"/>
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+
+        <!-- Warning Shake Animation -->
+        <Style Selector="Border.warning-shake">
+            <Style.Animations>
+                <Animation Duration="0:0:0.5" FillBehavior="Stop">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="TranslateTransform.X" Value="0"/>
+                    </KeyFrame>
+                    <KeyFrame Cue="10%">
+                        <Setter Property="TranslateTransform.X" Value="-3"/>
+                    </KeyFrame>
+                    <KeyFrame Cue="20%">
+                        <Setter Property="TranslateTransform.X" Value="3"/>
+                    </KeyFrame>
+                    <KeyFrame Cue="30%">
+                        <Setter Property="TranslateTransform.X" Value="-2"/>
+                    </KeyFrame>
+                    <KeyFrame Cue="40%">
+                        <Setter Property="TranslateTransform.X" Value="2"/>
+                    </KeyFrame>
+                    <KeyFrame Cue="50%">
+                        <Setter Property="TranslateTransform.X" Value="-1"/>
+                    </KeyFrame>
+                    <KeyFrame Cue="60%">
+                        <Setter Property="TranslateTransform.X" Value="1"/>
+                    </KeyFrame>
+                    <KeyFrame Cue="70%">
+                        <Setter Property="TranslateTransform.X" Value="0"/>
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="TranslateTransform.X" Value="0"/>
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+    </UserControl.Styles>
+
+    <!-- Notification Badge Container -->
+    <Border Name="NotificationContainer"
+            Background="{Binding BackgroundColor, FallbackValue=#FFFFFF}"
+            BorderBrush="{Binding BorderColor, FallbackValue=#E5E7EB}"
+            BorderThickness="1"
+            CornerRadius="8"
+            Padding="12,8"
+            Margin="4"
+            BoxShadow="0 4 6 rgba(0,0,0,0.1)"
+            Classes="{Binding AnimationClass, FallbackValue=bounce-in}"
+            MinWidth="200">
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Icon -->
+            <Border Grid.Column="0"
+                    Width="24" Height="24"
+                    CornerRadius="12"
+                    Background="{Binding IconBackgroundColor, FallbackValue=#F3F4F6}"
+                    Margin="0,0,8,0"
+                    VerticalAlignment="Center">
+                <TextBlock Text="{Binding Icon, FallbackValue=🔔}"
+                           FontSize="14"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
+            </Border>
+
+            <!-- Content -->
+            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                <TextBlock Name="TitleText"
+                           Text="{Binding Title, FallbackValue=Notification}"
+                           FontWeight="Bold"
+                           FontSize="14"
+                           Foreground="{Binding TitleColor, FallbackValue=#111827}"
+                           Margin="0,0,0,2"/>
+                <TextBlock Name="MessageText"
+                           Text="{Binding Message, FallbackValue=This is a notification message}"
+                           FontSize="12"
+                           Foreground="{Binding MessageColor, FallbackValue=#6B7280}"
+                           TextWrapping="Wrap"
+                           MaxWidth="300"/>
+            </StackPanel>
+
+            <!-- Dismiss Button -->
+            <Button Grid.Column="2"
+                    Name="DismissButton"
+                    Content="✕"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Foreground="{Binding DismissColor, FallbackValue=#9CA3AF}"
+                    Width="20" Height="20"
+                    Padding="0"
+                    FontSize="12"
+                    Click="DismissNotification"
+                    ToolTip.Tip="Dismiss notification"
+                    Margin="8,0,0,0"/>
+
+            <!-- Progress Indicator (for timed notifications) -->
+            <Border Grid.Column="0"
+                    Grid.ColumnSpan="3"
+                    Height="2"
+                    Background="{Binding ProgressColor, FallbackValue=#E5E7EB}"
+                    CornerRadius="1"
+                    VerticalAlignment="Bottom"
+                    Margin="-12,-8,-12,0"
+                    IsVisible="{Binding ShowProgress, FallbackValue=False}">
+                <Border Name="ProgressBar"
+                        Background="{Binding ProgressActiveColor, FallbackValue=#6366F1}"
+                        CornerRadius="1"
+                        Width="{Binding ProgressWidth, FallbackValue=0}"/>
+            </Border>
+        </Grid>
+    </Border>
+</UserControl>
