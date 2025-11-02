@@ -69,7 +69,7 @@ namespace VitaClinic.WebAPI.Views
 
             // Verify animal exists in database
             using var validationContext = DatabaseHelper.CreateContext();
-            var animalExists = await validationContext.Animals.AnyAsync(a => a.Id == animalId);
+            var animalExists = await validationContext.Animals.AnyAsync(a => a.Id == animalId.ToString());
             if (!animalExists)
             {
                 var errorDialog = new Window
@@ -98,7 +98,7 @@ namespace VitaClinic.WebAPI.Views
             }
 
             // Update the appointment with new values
-            _appointmentToEdit.AnimalId = animalId;
+            _appointmentToEdit.AnimalId = animalId.ToString();
             _appointmentToEdit.PetName = petNameText;
             _appointmentToEdit.OwnerName = this.FindControl<TextBox>("OwnerNameBox")?.Text;
             _appointmentToEdit.AppointmentType = appointmentTypeText;

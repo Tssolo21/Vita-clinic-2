@@ -184,7 +184,7 @@ namespace VitaClinic.WebAPI.Views
 
         private async void EditAppointment(object sender, RoutedEventArgs e)
         {
-            if (sender is Button button && button.Tag is int appointmentId)
+            if (sender is Button button && button.Tag is string appointmentId)
             {
                 try
                 {
@@ -246,7 +246,7 @@ namespace VitaClinic.WebAPI.Views
 
         private async void DeleteAppointment(object sender, RoutedEventArgs e)
         {
-            if (sender is Button button && button.Tag is int appointmentId)
+            if (sender is Button button && button.Tag is string appointmentId)
             {
                 try
                 {
@@ -308,7 +308,7 @@ namespace VitaClinic.WebAPI.Views
                     {
                         // Delete the appointment
                         using var context = DatabaseHelper.CreateContext();
-                        var appointmentToRemove = await context.Appointments.FindAsync(appointmentId);
+                        var appointmentToRemove = await context.Appointments.FindAsync(appointmentId.ToString());
                         if (appointmentToRemove != null)
                         {
                             context.Appointments.Remove(appointmentToRemove);

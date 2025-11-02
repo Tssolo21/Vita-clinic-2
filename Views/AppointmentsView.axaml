@@ -1,247 +1,25 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:animation="clr-namespace:Avalonia.Animation;assembly=Avalonia.Animation"
              x:Class="VitaClinic.WebAPI.Views.AppointmentsView">
 
     <UserControl.Styles>
-        <!-- Enhanced fade-in animation -->
-        <Style Selector="UserControl">
-            <Setter Property="Opacity" Value="0"/>
-            <Style.Animations>
-                <Animation Duration="0:0:0.5" Easing="CubicEaseOut">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="Opacity" Value="0"/>
-                        <Setter Property="TranslateTransform.Y" Value="20"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="Opacity" Value="1"/>
-                        <Setter Property="TranslateTransform.Y" Value="0"/>
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
-        </Style>
-
         <!-- Calendar Date Hover Effect -->
         <Style Selector="Border.calendar-date">
             <Setter Property="Background" Value="#F9FAFB"/>
             <Setter Property="BorderBrush" Value="#E5E7EB"/>
-            <Setter Property="Transitions">
-                <Transitions>
-                    <BrushTransition Property="Background" Duration="0:0:0.2" Easing="CubicEaseOut"/>
-                    <BrushTransition Property="BorderBrush" Duration="0:0:0.2" Easing="CubicEaseOut"/>
-                    <TransformTransition Property="RenderTransform" Duration="0:0:0.2" Easing="CubicEaseOut"/>
-                </Transitions>
-            </Setter>
-        </Style>
-
-        <Style Selector="Border.calendar-date:pointerover">
-            <Style.Animations>
-                <Animation Duration="0:0:0.2" Easing="CubicEaseOut">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="Background" Value="#F9FAFB"/>
-                        <Setter Property="BorderBrush" Value="#E5E7EB"/>
-                        <Setter Property="ScaleTransform.ScaleX" Value="1"/>
-                        <Setter Property="ScaleTransform.ScaleY" Value="1"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="Background" Value="#EBF8FF"/>
-                        <Setter Property="BorderBrush" Value="#3B82F6"/>
-                        <Setter Property="ScaleTransform.ScaleX" Value="1.05"/>
-                        <Setter Property="ScaleTransform.ScaleY" Value="1.05"/>
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
-        </Style>
-
-        <!-- Selected Date Animation -->
-        <Style Selector="Border.calendar-date.selected">
-            <Style.Animations>
-                <Animation Duration="0:0:0.3" Easing="CubicEaseOut">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="Background" Value="#EBF8FF"/>
-                        <Setter Property="BorderBrush" Value="#3B82F6"/>
-                        <Setter Property="ScaleTransform.ScaleX" Value="1"/>
-                        <Setter Property="ScaleTransform.ScaleY" Value="1"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="Background" Value="#3B82F6"/>
-                        <Setter Property="BorderBrush" Value="#1D4ED8"/>
-                        <Setter Property="ScaleTransform.ScaleX" Value="1.1"/>
-                        <Setter Property="ScaleTransform.ScaleY" Value="1.1"/>
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
         </Style>
 
         <!-- Time Slot Hover Effect -->
         <Style Selector="Border.time-slot">
             <Setter Property="Background" Value="#F9FAFB"/>
             <Setter Property="BorderBrush" Value="#E5E7EB"/>
-            <Setter Property="Transitions">
-                <Transitions>
-                    <BrushTransition Property="Background" Duration="0:0:0.15" Easing="CubicEaseOut"/>
-                    <TransformTransition Property="RenderTransform" Duration="0:0:0.15" Easing="CubicEaseOut"/>
-                </Transitions>
-            </Setter>
-        </Style>
-
-        <Style Selector="Border.time-slot:pointerover">
-            <Style.Animations>
-                <Animation Duration="0:0:0.15" Easing="CubicEaseOut">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="Background" Value="#F9FAFB"/>
-                        <Setter Property="TranslateTransform.X" Value="0"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="Background" Value="#F0FDF4"/>
-                        <Setter Property="TranslateTransform.X" Value="4"/>
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
-        </Style>
-
-        <!-- Appointment Card Slide Down Animation -->
-        <Style Selector="Border.appointment-card">
-            <Style.Animations>
-                <Animation Duration="0:0:0.4" Easing="CubicEaseOut">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="Opacity" Value="0"/>
-                        <Setter Property="TranslateTransform.Y" Value="-20"/>
-                        <Setter Property="ScaleTransform.ScaleX" Value="0.95"/>
-                        <Setter Property="ScaleTransform.ScaleY" Value="0.95"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="Opacity" Value="1"/>
-                        <Setter Property="TranslateTransform.Y" Value="0"/>
-                        <Setter Property="ScaleTransform.ScaleX" Value="1"/>
-                        <Setter Property="ScaleTransform.ScaleY" Value="1"/>
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
-        </Style>
-
-        <!-- Status Color Transition -->
-        <Style Selector="Border.status-scheduled">
-            <Style.Animations>
-                <Animation Duration="0:0:0.3" Easing="CubicEaseOut">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="Background" Value="#DBEAFE"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="Background" Value="#3B82F6"/>
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
-        </Style>
-
-        <Style Selector="Border.status-completed">
-            <Style.Animations>
-                <Animation Duration="0:0:0.3" Easing="CubicEaseOut">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="Background" Value="#D1FAE5"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="Background" Value="#10B981"/>
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
-        </Style>
-
-        <Style Selector="Border.status-cancelled">
-            <Style.Animations>
-                <Animation Duration="0:0:0.3" Easing="CubicEaseOut">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="Background" Value="#FEE2E2"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="Background" Value="#EF4444"/>
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
-        </Style>
-
-        <!-- Calendar Loading Animation -->
-        <Style Selector="Border.calendar-loading">
-            <Style.Animations>
-                <Animation Duration="0:0:1" FillBehavior="Stop" Easing="Linear" IterationCount="Infinite">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="Opacity" Value="0.3"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="50%">
-                        <Setter Property="Opacity" Value="0.8"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="Opacity" Value="0.3"/>
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
-        </Style>
-
-        <!-- Staggered Appointment Animations -->
-        <Style Selector="ItemsControl > ContentPresenter:nth-child(1) > Border">
-            <Style.Animations>
-                <Animation Duration="0:0:0.4" BeginTime="0:0:0.0" Easing="CubicEaseOut">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="Opacity" Value="0"/>
-                        <Setter Property="TranslateTransform.Y" Value="30"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="Opacity" Value="1"/>
-                        <Setter Property="TranslateTransform.Y" Value="0"/>
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
-        </Style>
-
-        <Style Selector="ItemsControl > ContentPresenter:nth-child(2) > Border">
-            <Style.Animations>
-                <Animation Duration="0:0:0.4" BeginTime="0:0:0.1" Easing="CubicEaseOut">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="Opacity" Value="0"/>
-                        <Setter Property="TranslateTransform.Y" Value="30"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="Opacity" Value="1"/>
-                        <Setter Property="TranslateTransform.Y" Value="0"/>
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
-        </Style>
-
-        <Style Selector="ItemsControl > ContentPresenter:nth-child(3) > Border">
-            <Style.Animations>
-                <Animation Duration="0:0:0.4" BeginTime="0:0:0.2" Easing="CubicEaseOut">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="Opacity" Value="0"/>
-                        <Setter Property="TranslateTransform.Y" Value="30"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="Opacity" Value="1"/>
-                        <Setter Property="TranslateTransform.Y" Value="0"/>
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
         </Style>
     </UserControl.Styles>
 
     <StackPanel Margin="20">
         <!-- Header with animation -->
         <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-            <StackPanel.Styles>
-                <Style Selector="StackPanel">
-                    <Style.Animations>
-                        <Animation Duration="0:0:0.6" BeginTime="0:0:0.2" Easing="CubicEaseOut">
-                            <KeyFrame Cue="0%">
-                                <Setter Property="Opacity" Value="0"/>
-                                <Setter Property="TranslateTransform.X" Value="-20"/>
-                            </KeyFrame>
-                            <KeyFrame Cue="100%">
-                                <Setter Property="Opacity" Value="1"/>
-                                <Setter Property="TranslateTransform.X" Value="0"/>
-                            </KeyFrame>
-                        </Animation>
-                    </Style.Animations>
-                </Style>
-            </StackPanel.Styles>
             <TextBlock Text="📅" FontSize="32" Margin="0,0,12,0" VerticalAlignment="Center"/>
             <StackPanel VerticalAlignment="Center">
                 <TextBlock Text="Appointments Management" FontSize="28" FontWeight="Bold" Foreground="#1F2937"/>
@@ -251,22 +29,6 @@
 
         <!-- Action Buttons -->
         <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
-            <StackPanel.Styles>
-                <Style Selector="StackPanel">
-                    <Style.Animations>
-                        <Animation Duration="0:0:0.6" BeginTime="0:0:0.3" Easing="CubicEaseOut">
-                            <KeyFrame Cue="0%">
-                                <Setter Property="Opacity" Value="0"/>
-                                <Setter Property="TranslateTransform.Y" Value="20"/>
-                            </KeyFrame>
-                            <KeyFrame Cue="100%">
-                                <Setter Property="Opacity" Value="1"/>
-                                <Setter Property="TranslateTransform.Y" Value="0"/>
-                            </KeyFrame>
-                        </Animation>
-                    </Style.Animations>
-                </Style>
-            </StackPanel.Styles>
             <Button Name="BackButton" Content="⬅️ Back to Dashboard" Click="GoBack"
                     Background="#6B7280" Foreground="White" Padding="12,8" Margin="0,0,10,0"
                     Classes="card"/>

@@ -203,7 +203,7 @@ namespace VitaClinic.WebAPI.Views
 
         private async void EditAnimal(object sender, RoutedEventArgs e)
         {
-            if (sender is Button button && button.Tag is int animalId)
+            if (sender is Button button && button.Tag is string animalId)
             {
                 try
                 {
@@ -263,7 +263,7 @@ namespace VitaClinic.WebAPI.Views
 
         private async void DeleteAnimal(object sender, RoutedEventArgs e)
         {
-            if (sender is Button button && button.Tag is int animalId)
+            if (sender is Button button && button.Tag is string animalId)
             {
                 try
                 {
@@ -328,7 +328,7 @@ namespace VitaClinic.WebAPI.Views
                         var animalToRemove = await context.Animals
                             .Include(a => a.MedicalRecords)
                             .Include(a => a.Appointments)
-                            .FirstOrDefaultAsync(a => a.Id == animalId);
+                            .FirstOrDefaultAsync(a => a.Id == animalId.ToString());
 
                         if (animalToRemove != null)
                         {

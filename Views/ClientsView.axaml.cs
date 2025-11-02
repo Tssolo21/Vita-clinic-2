@@ -163,7 +163,7 @@ namespace VitaClinic.WebAPI.Views
 
         private async void EditClient(object sender, RoutedEventArgs e)
         {
-            if (sender is Button button && button.Tag is int clientId)
+            if (sender is Button button && button.Tag is string clientId)
             {
                 try
                 {
@@ -229,13 +229,13 @@ namespace VitaClinic.WebAPI.Views
             if (sender is Button btn)
             {
                 Console.WriteLine($"Button Tag: {btn.Tag} (Type: {btn.Tag?.GetType().Name})");
-                if (btn.Tag is int clientIdValue)
+                if (btn.Tag is string clientIdValue)
                 {
                     Console.WriteLine($"Extracted clientId: {clientIdValue}");
                 }
                 else
                 {
-                    Console.WriteLine("ERROR: Button Tag is not an int!");
+                    Console.WriteLine("ERROR: Button Tag is not a string!");
                     return;
                 }
             }
@@ -245,7 +245,7 @@ namespace VitaClinic.WebAPI.Views
                 return;
             }
 
-            if (sender is Button button && button.Tag is int clientId)
+            if (sender is Button button && button.Tag is string clientId)
             {
                 try
                 {
@@ -314,7 +314,14 @@ namespace VitaClinic.WebAPI.Views
                         confirmDialog.Close();
                     };
 
-                    await confirmDialog.ShowDialog(owner);
+                    if (owner != null)
+                    {
+                        await confirmDialog.ShowDialog(owner);
+                    }
+                    else
+                    {
+                        confirmDialog.Show();
+                    }
 
                     Console.WriteLine($"Confirm result: {confirmResult}");
                     if (confirmResult == true)
@@ -327,7 +334,7 @@ namespace VitaClinic.WebAPI.Views
                             .ThenInclude(a => a.MedicalRecords)
                             .Include(c => c.Animals)
                             .ThenInclude(a => a.Appointments)
-                            .FirstOrDefaultAsync(c => c.Id == clientId);
+                            .FirstOrDefaultAsync(c => c.Id == clientId.ToString());
 
                         Console.WriteLine($"Client to remove: {(clientToRemove != null ? $"{clientToRemove.FirstName} {clientToRemove.LastName}" : "null")}");
 

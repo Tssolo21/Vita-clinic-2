@@ -1,236 +1,27 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:controls="using:Avalonia.Controls"
+             xmlns:animation="clr-namespace:Avalonia.Animation;assembly=Avalonia.Animation"
              x:Class="VitaClinic.WebAPI.Views.ClientsView">
 
     <UserControl.Styles>
-        <!-- Enhanced fade-in animation -->
-        <Style Selector="UserControl">
-            <Setter Property="Opacity" Value="0"/>
-            <Style.Animations>
-                <Animation Duration="0:0:0.5" Easing="CubicEaseOut">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="Opacity" Value="0"/>
-                        <Setter Property="TranslateTransform.Y" Value="20"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="Opacity" Value="1"/>
-                        <Setter Property="TranslateTransform.Y" Value="0"/>
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
-        </Style>
-
         <!-- Search Field Focus Animation -->
         <Style Selector="TextBox.search-field">
             <Setter Property="Background" Value="#F9FAFB"/>
             <Setter Property="BorderBrush" Value="#E5E7EB"/>
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Transitions">
-                <Transitions>
-                    <BrushTransition Property="Background" Duration="0:0:0.2" Easing="CubicEaseOut"/>
-                    <BrushTransition Property="BorderBrush" Duration="0:0:0.2" Easing="CubicEaseOut"/>
-                    <TransformTransition Property="RenderTransform" Duration="0:0:0.2" Easing="CubicEaseOut"/>
-                </Transitions>
-            </Setter>
-        </Style>
-
-        <Style Selector="TextBox.search-field:focus">
-            <Style.Animations>
-                <Animation Duration="0:0:0.2" Easing="CubicEaseOut">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="Background" Value="#F9FAFB"/>
-                        <Setter Property="BorderBrush" Value="#E5E7EB"/>
-                        <Setter Property="BoxShadow" Value="none"/>
-                        <Setter Property="ScaleTransform.ScaleX" Value="1"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="Background" Value="White"/>
-                        <Setter Property="BorderBrush" Value="#3B82F6"/>
-                        <Setter Property="BoxShadow" Value="0 0 0 3 rgba(59, 130, 246, 0.1)"/>
-                        <Setter Property="ScaleTransform.ScaleX" Value="1.02"/>
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
         </Style>
 
         <!-- Client Card Hover Effect -->
         <Style Selector="Border.client-card">
             <Setter Property="Background" Value="White"/>
-            <Setter Property="BoxShadow" Value="0 2 8 rgba(0,0,0,0.1)"/>
-            <Setter Property="Transitions">
-                <Transitions>
-                    <TransformTransition Property="RenderTransform" Duration="0:0:0.15" Easing="CubicEaseOut"/>
-                    <BoxShadowTransition Property="BoxShadow" Duration="0:0:0.15" Easing="CubicEaseOut"/>
-                </Transitions>
-            </Setter>
-        </Style>
-
-        <Style Selector="Border.client-card:pointerover">
-            <Style.Animations>
-                <Animation Duration="0:0:0.15" Easing="CubicEaseOut">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="TranslateTransform.Y" Value="0"/>
-                        <Setter Property="BoxShadow" Value="0 2 8 rgba(0,0,0,0.1)"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="TranslateTransform.Y" Value="-2"/>
-                        <Setter Property="BoxShadow" Value="0 8 16 rgba(0,0,0,0.15)"/>
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
-        </Style>
-
-        <!-- Filter Button Animation -->
-        <Style Selector="Button.filter-button">
-            <Setter Property="Background" Value="#F3F4F6"/>
-            <Setter Property="BorderBrush" Value="#E5E7EB"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Transitions">
-                <Transitions>
-                    <BrushTransition Property="Background" Duration="0:0:0.2" Easing="CubicEaseOut"/>
-                    <BrushTransition Property="BorderBrush" Duration="0:0:0.2" Easing="CubicEaseOut"/>
-                </Transitions>
-            </Setter>
-        </Style>
-
-        <Style Selector="Button.filter-button:pointerover">
-            <Style.Animations>
-                <Animation Duration="0:0:0.2" Easing="CubicEaseOut">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="Background" Value="#F3F4F6"/>
-                        <Setter Property="BorderBrush" Value="#E5E7EB"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="Background" Value="#EBF8FF"/>
-                        <Setter Property="BorderBrush" Value="#3B82F6"/>
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
-        </Style>
-
-        <Style Selector="Button.filter-button.active">
-            <Setter Property="Background" Value="#3B82F6"/>
-            <Setter Property="BorderBrush" Value="#1D4ED8"/>
-            <Setter Property="Foreground" Value="White"/>
-        </Style>
-
-        <!-- Alert Badge Pulse Animation -->
-        <Style Selector="Border.alert-badge">
-            <Style.Animations>
-                <Animation Duration="0:0:2" FillBehavior="Stop" Easing="CubicEaseInOut" IterationCount="3">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="Opacity" Value="1"/>
-                        <Setter Property="ScaleTransform.ScaleX" Value="1"/>
-                        <Setter Property="ScaleTransform.ScaleY" Value="1"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="25%">
-                        <Setter Property="Opacity" Value="0.7"/>
-                        <Setter Property="ScaleTransform.ScaleX" Value="1.1"/>
-                        <Setter Property="ScaleTransform.ScaleY" Value="1.1"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="50%">
-                        <Setter Property="Opacity" Value="1"/>
-                        <Setter Property="ScaleTransform.ScaleX" Value="1"/>
-                        <Setter Property="ScaleTransform.ScaleY" Value="1"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="75%">
-                        <Setter Property="Opacity" Value="0.7"/>
-                        <Setter Property="ScaleTransform.ScaleX" Value="1.1"/>
-                        <Setter Property="ScaleTransform.ScaleY" Value="1.1"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="Opacity" Value="1"/>
-                        <Setter Property="ScaleTransform.ScaleX" Value="1"/>
-                        <Setter Property="ScaleTransform.ScaleY" Value="1"/>
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
-        </Style>
-
-        <!-- Filter Application Animation -->
-        <Style Selector="Border.filtering">
-            <Style.Animations>
-                <Animation Duration="0:0:0.3" Easing="CubicEaseOut">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="Opacity" Value="1"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="50%">
-                        <Setter Property="Opacity" Value="0.5"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="Opacity" Value="1"/>
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
-        </Style>
-
-        <!-- Staggered Client Animations -->
-        <Style Selector="ItemsControl > ContentPresenter:nth-child(1) > Border">
-            <Style.Animations>
-                <Animation Duration="0:0:0.4" BeginTime="0:0:0.0" Easing="CubicEaseOut">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="Opacity" Value="0"/>
-                        <Setter Property="TranslateTransform.Y" Value="30"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="Opacity" Value="1"/>
-                        <Setter Property="TranslateTransform.Y" Value="0"/>
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
-        </Style>
-
-        <Style Selector="ItemsControl > ContentPresenter:nth-child(2) > Border">
-            <Style.Animations>
-                <Animation Duration="0:0:0.4" BeginTime="0:0:0.1" Easing="CubicEaseOut">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="Opacity" Value="0"/>
-                        <Setter Property="TranslateTransform.Y" Value="30"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="Opacity" Value="1"/>
-                        <Setter Property="TranslateTransform.Y" Value="0"/>
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
-        </Style>
-
-        <Style Selector="ItemsControl > ContentPresenter:nth-child(3) > Border">
-            <Style.Animations>
-                <Animation Duration="0:0:0.4" BeginTime="0:0:0.2" Easing="CubicEaseOut">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="Opacity" Value="0"/>
-                        <Setter Property="TranslateTransform.Y" Value="30"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="Opacity" Value="1"/>
-                        <Setter Property="TranslateTransform.Y" Value="0"/>
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
+            <Setter Property="BoxShadow" Value="0 2 8 #0000001A"/>
         </Style>
     </UserControl.Styles>
 
     <StackPanel Margin="20">
         <!-- Header with animation -->
         <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-            <StackPanel.Styles>
-                <Style Selector="StackPanel">
-                    <Style.Animations>
-                        <Animation Duration="0:0:0.6" BeginTime="0:0:0.2" Easing="CubicEaseOut">
-                            <KeyFrame Cue="0%">
-                                <Setter Property="Opacity" Value="0"/>
-                                <Setter Property="TranslateTransform.X" Value="-20"/>
-                            </KeyFrame>
-                            <KeyFrame Cue="100%">
-                                <Setter Property="Opacity" Value="1"/>
-                                <Setter Property="TranslateTransform.X" Value="0"/>
-                            </KeyFrame>
-                        </Animation>
-                    </Style.Animations>
-                </Style>
-            </StackPanel.Styles>
             <TextBlock Text="👥" FontSize="32" Margin="0,0,12,0" VerticalAlignment="Center"/>
             <StackPanel VerticalAlignment="Center">
                 <TextBlock Text="Clients Management" FontSize="28" FontWeight="Bold" Foreground="#1F2937"/>
@@ -285,22 +76,6 @@
 
         <!-- Action Buttons -->
         <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
-            <StackPanel.Styles>
-                <Style Selector="StackPanel">
-                    <Style.Animations>
-                        <Animation Duration="0:0:0.6" BeginTime="0:0:0.3" Easing="CubicEaseOut">
-                            <KeyFrame Cue="0%">
-                                <Setter Property="Opacity" Value="0"/>
-                                <Setter Property="TranslateTransform.Y" Value="20"/>
-                            </KeyFrame>
-                            <KeyFrame Cue="100%">
-                                <Setter Property="Opacity" Value="1"/>
-                                <Setter Property="TranslateTransform.Y" Value="0"/>
-                            </KeyFrame>
-                        </Animation>
-                    </Style.Animations>
-                </Style>
-            </StackPanel.Styles>
             <Button Name="BackButton" Content="⬅️ Back to Dashboard" Click="GoBack"
                     Background="#6B7280" Foreground="White" Padding="12,8" Margin="0,0,10,0"
                     Classes="card"/>

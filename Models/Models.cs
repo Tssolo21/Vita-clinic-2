@@ -4,13 +4,14 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using VitaClinic.WebAPI.Services;
 
 namespace VitaClinic.WebAPI.Models
 {
     // ===== CLIENT =====
     public class Client : INotifyPropertyChanged
     {
-        private int _id;
+        private string _id = IdGenerator.GenerateClientId();
         private string? _firstName;
         private string? _lastName;
         private string? _email;
@@ -22,8 +23,7 @@ namespace VitaClinic.WebAPI.Models
         private DateTime _updatedAt;
 
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id
+        public string Id
         {
             get => _id;
             set
@@ -210,8 +210,8 @@ namespace VitaClinic.WebAPI.Models
     // ===== ANIMAL =====
     public class Animal : INotifyPropertyChanged
     {
-        private int _id;
-        private int _clientId;
+        private string _id = IdGenerator.GenerateAnimalId();
+        private string _clientId = string.Empty;
         private string? _name;
         private string? _species;
         private string? _breed;
@@ -227,8 +227,7 @@ namespace VitaClinic.WebAPI.Models
         private Client? _client;
 
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id
+        public string Id
         {
             get => _id;
             set
@@ -241,7 +240,7 @@ namespace VitaClinic.WebAPI.Models
             }
         }
 
-        public int ClientId
+        public string ClientId
         {
             get => _clientId;
             set
@@ -440,9 +439,9 @@ namespace VitaClinic.WebAPI.Models
     // ===== APPOINTMENT =====
     public class Appointment : INotifyPropertyChanged
     {
-        private int _id;
-        private int _animalId;
-        private int _veterinarianId;
+        private string _id = IdGenerator.GenerateAppointmentId();
+        private string _animalId = string.Empty;
+        private string _veterinarianId = string.Empty;
         private string? _petName;
         private string? _ownerName;
         private string? _appointmentType;
@@ -456,8 +455,7 @@ namespace VitaClinic.WebAPI.Models
         private Animal? _animal;
 
         [Key]
-        [System.ComponentModel.DataAnnotations.Schema.DatabaseGenerated(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity)]
-        public int Id
+        public string Id
         {
             get => _id;
             set
@@ -470,7 +468,7 @@ namespace VitaClinic.WebAPI.Models
             }
         }
 
-        public int AnimalId
+        public string AnimalId
         {
             get => _animalId;
             set
@@ -483,7 +481,7 @@ namespace VitaClinic.WebAPI.Models
             }
         }
 
-        public int VeterinarianId
+        public string VeterinarianId
         {
             get => _veterinarianId;
             set
@@ -652,10 +650,10 @@ namespace VitaClinic.WebAPI.Models
     // ===== MEDICAL RECORD =====
     public class MedicalRecord : INotifyPropertyChanged
     {
-        private int _id;
-        private int _animalId;
-        private int? _appointmentId;
-        private int? _veterinarianId;
+        private string _id = IdGenerator.GenerateMedicalRecordId();
+        private string _animalId = string.Empty;
+        private string? _appointmentId;
+        private string? _veterinarianId;
         private string? _diagnosis;
         private string? _treatment;
         private string? _medication;
@@ -667,8 +665,7 @@ namespace VitaClinic.WebAPI.Models
         private Animal? _animal;
 
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id
+        public string Id
         {
             get => _id;
             set
@@ -681,7 +678,7 @@ namespace VitaClinic.WebAPI.Models
             }
         }
 
-        public int AnimalId
+        public string AnimalId
         {
             get => _animalId;
             set
@@ -694,7 +691,7 @@ namespace VitaClinic.WebAPI.Models
             }
         }
 
-        public int? AppointmentId
+        public string? AppointmentId
         {
             get => _appointmentId;
             set
@@ -707,7 +704,7 @@ namespace VitaClinic.WebAPI.Models
             }
         }
 
-        public int? VeterinarianId
+        public string? VeterinarianId
         {
             get => _veterinarianId;
             set
@@ -850,13 +847,33 @@ namespace VitaClinic.WebAPI.Models
     // ===== INVOICE =====
     public class Invoice
     {
+        private string _id = IdGenerator.GenerateInvoiceId();
+        private string _clientId = string.Empty;
+        private string _animalId = string.Empty;
+        private string? _appointmentId;
+
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-        public int ClientId { get; set; }
-        public int AnimalId { get; set; }
+        public string Id
+        {
+            get => _id;
+            set => _id = value;
+        }
+        public string ClientId
+        {
+            get => _clientId;
+            set => _clientId = value;
+        }
+        public string AnimalId
+        {
+            get => _animalId;
+            set => _animalId = value;
+        }
         public string? InvoiceNumber { get; set; }
-        public int? AppointmentId { get; set; }
+        public string? AppointmentId
+        {
+            get => _appointmentId;
+            set => _appointmentId = value;
+        }
         public DateTime InvoiceDate { get; set; }
         public DateTime? DueDate { get; set; }
         public decimal TotalAmount { get; set; }
@@ -876,10 +893,20 @@ namespace VitaClinic.WebAPI.Models
     // ===== INVOICE ITEM =====
     public class InvoiceItem
     {
+        private string _id = IdGenerator.GenerateId("INV-ITM-");
+        private string _invoiceId = string.Empty;
+
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-        public int InvoiceId { get; set; }
+        public string Id
+        {
+            get => _id;
+            set => _id = value;
+        }
+        public string InvoiceId
+        {
+            get => _invoiceId;
+            set => _invoiceId = value;
+        }
         public string? ServiceName { get; set; }
         public string? Description { get; set; }
         public int Quantity { get; set; }
@@ -894,9 +921,14 @@ namespace VitaClinic.WebAPI.Models
     // ===== VETERINARIAN =====
     public class Veterinarian
     {
+        private string _id = IdGenerator.GenerateVeterinarianId();
+
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public string Id
+        {
+            get => _id;
+            set => _id = value;
+        }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string? Email { get; set; }
@@ -929,8 +961,14 @@ namespace VitaClinic.WebAPI.Models
     // ===== USER =====
     public class User
     {
+        private string _id = IdGenerator.GenerateUserId();
+
         [Key]
-        public int Id { get; set; }
+        public string Id
+        {
+            get => _id;
+            set => _id = value;
+        }
         public string? Username { get; set; }
         public string? PasswordHash { get; set; }
         public string? FullName { get; set; }

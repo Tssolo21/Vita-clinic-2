@@ -6,6 +6,32 @@ using VitaClinic.WebAPI.Models;
 
 namespace VitaClinic.WebAPI.Services
 {
+    public static class IdGenerator
+    {
+        private static readonly Random _random = new Random();
+
+        public static string GenerateId(string prefix = "")
+        {
+            // Generate a UUID and take first 8 characters + timestamp for uniqueness
+            var uuid = Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper();
+            var timestamp = DateTime.UtcNow.ToString("yyMMddHHmmss");
+            var randomDigits = _random.Next(100, 999);
+
+            return $"{prefix}{uuid}{timestamp}{randomDigits}";
+        }
+
+        public static string GenerateClientId() => GenerateId("CLI-");
+        public static string GenerateAnimalId() => GenerateId("ANI-");
+        public static string GenerateAppointmentId() => GenerateId("APT-");
+        public static string GenerateMedicalRecordId() => GenerateId("MED-");
+        public static string GenerateInvoiceId() => GenerateId("INV-");
+        public static string GenerateUserId() => GenerateId("USR-");
+        public static string GenerateVeterinarianId() => GenerateId("VET-");
+    }
+}
+
+namespace VitaClinic.WebAPI.Services
+{
     public class AuthService
     {
         private readonly VitaClinicDbContext _context;

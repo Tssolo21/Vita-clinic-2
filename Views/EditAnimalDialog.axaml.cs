@@ -66,7 +66,7 @@ namespace VitaClinic.WebAPI.Views
 
             // Verify client exists in database
             using var validationContext = DatabaseHelper.CreateContext();
-            var clientExists = await validationContext.Clients.AnyAsync(c => c.Id == clientId);
+            var clientExists = await validationContext.Clients.AnyAsync(c => c.Id == clientId.ToString());
             if (!clientExists)
             {
                 var errorDialog = new Window
@@ -81,7 +81,7 @@ namespace VitaClinic.WebAPI.Views
             }
 
             // Update the animal with new values
-            _animalToEdit.ClientId = clientId;
+            _animalToEdit.ClientId = clientId.ToString();
             _animalToEdit.Name = nameText;
             _animalToEdit.Species = speciesText;
             _animalToEdit.Breed = this.FindControl<TextBox>("BreedBox")?.Text;

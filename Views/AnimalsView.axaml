@@ -1,192 +1,26 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:animation="clr-namespace:Avalonia.Animation;assembly=Avalonia.Animation"
              x:Class="VitaClinic.WebAPI.Views.AnimalsView">
 
     <UserControl.Styles>
-        <!-- Enhanced fade-in animation -->
-        <Style Selector="UserControl">
-            <Setter Property="Opacity" Value="0"/>
-            <Style.Animations>
-                <Animation Duration="0:0:0.5" Easing="CubicEaseOut">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="Opacity" Value="0"/>
-                        <Setter Property="TranslateTransform.Y" Value="20"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="Opacity" Value="1"/>
-                        <Setter Property="TranslateTransform.Y" Value="0"/>
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
-        </Style>
 
         <!-- Animal Card Hover Effect -->
         <Style Selector="Border.animal-card">
             <Setter Property="Background" Value="White"/>
-            <Setter Property="BoxShadow" Value="0 2 8 rgba(0,0,0,0.1)"/>
-            <Setter Property="Transitions">
-                <Transitions>
-                    <TransformTransition Property="RenderTransform" Duration="0:0:0.15" Easing="CubicEaseOut"/>
-                    <BoxShadowTransition Property="BoxShadow" Duration="0:0:0.15" Easing="CubicEaseOut"/>
-                </Transitions>
-            </Setter>
+            <Setter Property="BoxShadow" Value="0 2 8 #0000001A"/>
         </Style>
 
-        <Style Selector="Border.animal-card:pointerover">
-            <Style.Animations>
-                <Animation Duration="0:0:0.15" Easing="CubicEaseOut">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="TranslateTransform.Y" Value="0"/>
-                        <Setter Property="BoxShadow" Value="0 2 8 rgba(0,0,0,0.1)"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="TranslateTransform.Y" Value="-4"/>
-                        <Setter Property="BoxShadow" Value="0 12 24 rgba(0,0,0,0.15)"/>
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
-        </Style>
 
-        <!-- Delete Button Shake Animation -->
-        <Style Selector="Button.delete-button:pointerover">
-            <Style.Animations>
-                <Animation Duration="0:0:0.5" Easing="Linear" FillBehavior="Stop">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="TranslateTransform.X" Value="0"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="10%">
-                        <Setter Property="TranslateTransform.X" Value="-2"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="20%">
-                        <Setter Property="TranslateTransform.X" Value="2"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="30%">
-                        <Setter Property="TranslateTransform.X" Value="-1"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="40%">
-                        <Setter Property="TranslateTransform.X" Value="1"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="50%">
-                        <Setter Property="TranslateTransform.X" Value="0"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="TranslateTransform.X" Value="0"/>
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
-        </Style>
 
-        <!-- New Animal Highlight Animation -->
-        <Style Selector="Border.new-animal">
-            <Style.Animations>
-                <Animation Duration="0:0:1" FillBehavior="Stop" Easing="CubicEaseOut">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="BoxShadow" Value="0 0 0 4 rgba(34, 197, 94, 0.3)"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="50%">
-                        <Setter Property="BoxShadow" Value="0 0 0 8 rgba(34, 197, 94, 0.2)"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="BoxShadow" Value="0 2 8 rgba(0,0,0,0.1)"/>
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
-        </Style>
 
-        <!-- Staggered Card Animations -->
-        <Style Selector="ItemsControl > ContentPresenter:nth-child(1) > Border">
-            <Style.Animations>
-                <Animation Duration="0:0:0.5" BeginTime="0:0:0.0" Easing="CubicEaseOut">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="Opacity" Value="0"/>
-                        <Setter Property="TranslateTransform.Y" Value="30"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="Opacity" Value="1"/>
-                        <Setter Property="TranslateTransform.Y" Value="0"/>
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
-        </Style>
 
-        <Style Selector="ItemsControl > ContentPresenter:nth-child(2) > Border">
-            <Style.Animations>
-                <Animation Duration="0:0:0.5" BeginTime="0:0:0.1" Easing="CubicEaseOut">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="Opacity" Value="0"/>
-                        <Setter Property="TranslateTransform.Y" Value="30"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="Opacity" Value="1"/>
-                        <Setter Property="TranslateTransform.Y" Value="0"/>
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
-        </Style>
 
-        <Style Selector="ItemsControl > ContentPresenter:nth-child(3) > Border">
-            <Style.Animations>
-                <Animation Duration="0:0:0.5" BeginTime="0:0:0.2" Easing="CubicEaseOut">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="Opacity" Value="0"/>
-                        <Setter Property="TranslateTransform.Y" Value="30"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="Opacity" Value="1"/>
-                        <Setter Property="TranslateTransform.Y" Value="0"/>
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
-        </Style>
-
-        <!-- Loading Animation for Refresh Button -->
-        <Style Selector="Button.loading">
-            <Style.Animations>
-                <Animation Duration="0:0:1" FillBehavior="Stop" Easing="Linear" IterationCount="Infinite">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="RotateTransform.Angle" Value="0"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="RotateTransform.Angle" Value="360"/>
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
-        </Style>
-
-        <!-- Edit Mode Transition -->
-        <Style Selector="Border.edit-mode">
-            <Style.Animations>
-                <Animation Duration="0:0:0.3" Easing="CubicEaseOut">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="Background" Value="White"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="Background" Value="#FEF3C7"/>
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
-        </Style>
     </UserControl.Styles>
 
     <StackPanel Margin="20">
         <!-- Header with animation -->
         <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-            <StackPanel.Styles>
-                <Style Selector="StackPanel">
-                    <Style.Animations>
-                        <Animation Duration="0:0:0.6" BeginTime="0:0:0.2" Easing="CubicEaseOut">
-                            <KeyFrame Cue="0%">
-                                <Setter Property="Opacity" Value="0"/>
-                                <Setter Property="TranslateTransform.X" Value="-20"/>
-                            </KeyFrame>
-                            <KeyFrame Cue="100%">
-                                <Setter Property="Opacity" Value="1"/>
-                                <Setter Property="TranslateTransform.X" Value="0"/>
-                            </KeyFrame>
-                        </Animation>
-                    </Style.Animations>
-                </Style>
-            </StackPanel.Styles>
             <TextBlock Text="🐾" FontSize="32" Margin="0,0,12,0" VerticalAlignment="Center"/>
             <StackPanel VerticalAlignment="Center">
                 <TextBlock Text="Animals Management" FontSize="28" FontWeight="Bold" Foreground="#1F2937"/>
@@ -196,22 +30,6 @@
 
         <!-- Action Buttons -->
         <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
-            <StackPanel.Styles>
-                <Style Selector="StackPanel">
-                    <Style.Animations>
-                        <Animation Duration="0:0:0.6" BeginTime="0:0:0.3" Easing="CubicEaseOut">
-                            <KeyFrame Cue="0%">
-                                <Setter Property="Opacity" Value="0"/>
-                                <Setter Property="TranslateTransform.Y" Value="20"/>
-                            </KeyFrame>
-                            <KeyFrame Cue="100%">
-                                <Setter Property="Opacity" Value="1"/>
-                                <Setter Property="TranslateTransform.Y" Value="0"/>
-                            </KeyFrame>
-                        </Animation>
-                    </Style.Animations>
-                </Style>
-            </StackPanel.Styles>
             <Button Name="BackButton" Content="⬅️ Back to Dashboard" Click="GoBack"
                     Background="#6B7280" Foreground="White" Padding="12,8" Margin="0,0,10,0"
                     Classes="card"/>

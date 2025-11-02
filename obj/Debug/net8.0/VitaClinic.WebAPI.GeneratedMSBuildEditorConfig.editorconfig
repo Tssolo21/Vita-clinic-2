@@ -22,6 +22,15 @@ build_property.EnableGeneratedComInterfaceComImportInterop =
 [C:/Users/lenovo/Desktop/Desktop/VitaClinic/App.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
+[C:/Users/lenovo/Desktop/Desktop/VitaClinic/Controls/LoadingSpinner.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/lenovo/Desktop/Desktop/VitaClinic/Controls/NotificationBadge.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/lenovo/Desktop/Desktop/VitaClinic/Controls/SkeletonLoader.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
 [C:/Users/lenovo/Desktop/Desktop/VitaClinic/LoginWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 

@@ -3,95 +3,6 @@
              x:Class="VitaClinic.WebAPI.Controls.SkeletonLoader">
 
     <UserControl.Styles>
-        <Style Selector="Border.skeleton">
-            <Style.Animations>
-                <Animation Duration="0:0:1.5" FillBehavior="Stop" Easing="Linear" IterationCount="Infinite">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="Background" Value="#F3F4F6"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="50%">
-                        <Setter Property="Background" Value="#E5E7EB"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="Background" Value="#F3F4F6"/>
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
-        </Style>
-
-        <Style Selector="Border.skeleton-shimmer">
-            <Style.Animations>
-                <Animation Duration="0:0:1.8" FillBehavior="Stop" Easing="Linear" IterationCount="Infinite">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="Background" Value="#F9FAFB"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="25%">
-                        <Setter Property="Background" Value="#F3F4F6"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="50%">
-                        <Setter Property="Background" Value="#E5E7EB"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="75%">
-                        <Setter Property="Background" Value="#F3F4F6"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="Background" Value="#F9FAFB"/>
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
-        </Style>
-
-        <!-- Staggered animation delays -->
-        <Style Selector="Border.skeleton-delay-1">
-            <Style.Animations>
-                <Animation Duration="0:0:1.5" FillBehavior="Stop" Easing="Linear" IterationCount="Infinite"
-                          BeginTime="0:0:0.1">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="Background" Value="#F3F4F6"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="50%">
-                        <Setter Property="Background" Value="#E5E7EB"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="Background" Value="#F3F4F6"/>
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
-        </Style>
-
-        <Style Selector="Border.skeleton-delay-2">
-            <Style.Animations>
-                <Animation Duration="0:0:1.5" FillBehavior="Stop" Easing="Linear" IterationCount="Infinite"
-                          BeginTime="0:0:0.2">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="Background" Value="#F3F4F6"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="50%">
-                        <Setter Property="Background" Value="#E5E7EB"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="Background" Value="#F3F4F6"/>
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
-        </Style>
-
-        <Style Selector="Border.skeleton-delay-3">
-            <Style.Animations>
-                <Animation Duration="0:0:1.5" FillBehavior="Stop" Easing="Linear" IterationCount="Infinite"
-                          BeginTime="0:0:0.3">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="Background" Value="#F3F4F6"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="50%">
-                        <Setter Property="Background" Value="#E5E7EB"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="Background" Value="#F3F4F6"/>
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
-        </Style>
     </UserControl.Styles>
 
     <!-- Card Skeleton Layout -->
@@ -108,7 +19,7 @@
                 CornerRadius="8"
                 Margin="8"
                 Padding="16"
-                BoxShadow="0 2 4 rgba(0,0,0,0.1)">
+                BoxShadow="0 2 4 #0000001A">
             <StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
                     <!-- Avatar Skeleton -->
@@ -135,7 +46,7 @@
                 CornerRadius="8"
                 Margin="8"
                 Padding="16"
-                BoxShadow="0 2 4 rgba(0,0,0,0.1)">
+                BoxShadow="0 2 4 #0000001A">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -173,13 +84,13 @@
                 CornerRadius="8"
                 Margin="8"
                 Padding="16"
-                BoxShadow="0 2 4 rgba(0,0,0,0.1)"
+                BoxShadow="0 2 4 #0000001A"
                 IsVisible="{Binding ShowFooter, FallbackValue=True}">
             <StackPanel>
                 <!-- Text lines skeleton -->
-                <Border Width="100%" Height="12" CornerRadius="6" Classes="skeleton" Margin="0,0,0,8"/>
-                <Border Width="85%" Height="12" CornerRadius="6" Classes="skeleton-delay-1" Margin="0,0,0,8"/>
-                <Border Width="90%" Height="12" CornerRadius="6" Classes="skeleton-delay-2"/>
+                 <Border Width="200" Height="12" CornerRadius="6" Classes="skeleton" Margin="0,0,0,8"/>
+                 <Border Width="170" Height="12" CornerRadius="6" Classes="skeleton-delay-1" Margin="0,0,0,8"/>
+                 <Border Width="180" Height="12" CornerRadius="6" Classes="skeleton-delay-2"/>
             </StackPanel>
         </Border>
     </Grid>

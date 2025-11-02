@@ -165,7 +165,7 @@ namespace VitaClinic.WebAPI.Views
 
         private async void EditMedicalRecord(object sender, RoutedEventArgs e)
         {
-            if (sender is Button button && button.Tag is int recordId)
+            if (sender is Button button && button.Tag is string recordId)
             {
                 try
                 {
@@ -221,7 +221,7 @@ namespace VitaClinic.WebAPI.Views
 
         private async void DeleteMedicalRecord(object sender, RoutedEventArgs e)
         {
-            if (sender is Button button && button.Tag is int recordId)
+            if (sender is Button button && button.Tag is string recordId)
             {
                 try
                 {

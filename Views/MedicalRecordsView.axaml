@@ -1,5 +1,6 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:animation="clr-namespace:Avalonia.Animation;assembly=Avalonia.Animation"
              x:Class="VitaClinic.WebAPI.Views.MedicalRecordsView">
     <UserControl.Styles>
         <Style Selector="UserControl">
@@ -38,7 +39,7 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Border BorderBrush="#E5E7EB" BorderThickness="2" CornerRadius="8" Margin="8" Padding="16" Background="White"
-                                BoxShadow="0 2 4 0 rgba(0,0,0,0.1)">
+                                BoxShadow="0 2 4 0 #0000001A">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
