@@ -1,4 +1,5 @@
 using System;
+using Avalonia;
 using Avalonia.Controls;
 
 namespace VitaClinic.WebAPI.Controls
@@ -14,11 +15,11 @@ namespace VitaClinic.WebAPI.Controls
         public static readonly StyledProperty<string> SpinnerColorLightProperty =
             AvaloniaProperty.Register<LoadingSpinner, string>(nameof(SpinnerColorLight), defaultValue: "#818CF8");
 
-        public static readonly StyledProperty<int> BorderThicknessProperty =
-            AvaloniaProperty.Register<LoadingSpinner, int>(nameof(BorderThickness), defaultValue: 4);
+        public static readonly StyledProperty<int> SpinnerBorderThicknessProperty =
+            AvaloniaProperty.Register<LoadingSpinner, int>(nameof(SpinnerBorderThickness), defaultValue: 4);
 
         public static readonly StyledProperty<string> LoadingTextProperty =
-            AvaloniaProperty.Register<LoadingSpinner, string>(nameof(LoadingText), defaultValue: "Loading...");
+            AvaloniaProperty.Register<LoadingSpinner, string>(nameof(SpinnerLoadingText), defaultValue: "Loading...");
 
         public static readonly StyledProperty<double> TextSizeProperty =
             AvaloniaProperty.Register<LoadingSpinner, double>(nameof(TextSize), defaultValue: 14.0);
@@ -47,13 +48,13 @@ namespace VitaClinic.WebAPI.Controls
             set => SetValue(SpinnerColorLightProperty, value);
         }
 
-        public int BorderThickness
+        public int SpinnerBorderThickness
         {
-            get => GetValue(BorderThicknessProperty);
-            set => SetValue(BorderThicknessProperty, value);
+            get => GetValue(SpinnerBorderThicknessProperty);
+            set => SetValue(SpinnerBorderThicknessProperty, value);
         }
 
-        public string LoadingText
+        public string SpinnerLoadingText
         {
             get => GetValue(LoadingTextProperty);
             set => SetValue(LoadingTextProperty, value);
