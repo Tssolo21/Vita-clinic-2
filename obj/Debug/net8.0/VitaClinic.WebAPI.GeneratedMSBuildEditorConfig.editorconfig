@@ -15,39 +15,51 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = VitaClinic.WebAPI
-build_property.ProjectDir = /home/runner/workspace/
+build_property.ProjectDir = C:\Users\lenovo\Desktop\Desktop\VitaClinic\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 
-[/home/runner/workspace/App.axaml]
+[C:/Users/lenovo/Desktop/Desktop/VitaClinic/App.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[/home/runner/workspace/LoginWindow.axaml]
+[C:/Users/lenovo/Desktop/Desktop/VitaClinic/LoginWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[/home/runner/workspace/MainWindow.axaml]
+[C:/Users/lenovo/Desktop/Desktop/VitaClinic/MainWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[/home/runner/workspace/Views/AddAnimalDialog.axaml]
+[C:/Users/lenovo/Desktop/Desktop/VitaClinic/Views/AddAnimalDialog.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[/home/runner/workspace/Views/AddAppointmentDialog.axaml]
+[C:/Users/lenovo/Desktop/Desktop/VitaClinic/Views/AddAppointmentDialog.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[/home/runner/workspace/Views/AddClientDialog.axaml]
+[C:/Users/lenovo/Desktop/Desktop/VitaClinic/Views/AddClientDialog.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[/home/runner/workspace/Views/AnimalsView.axaml]
+[C:/Users/lenovo/Desktop/Desktop/VitaClinic/Views/AddMedicalRecordDialog.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[/home/runner/workspace/Views/AppointmentsView.axaml]
+[C:/Users/lenovo/Desktop/Desktop/VitaClinic/Views/AnimalsView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[/home/runner/workspace/Views/ChangePasswordDialog.axaml]
+[C:/Users/lenovo/Desktop/Desktop/VitaClinic/Views/AppointmentsView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[/home/runner/workspace/Views/ClientsView.axaml]
+[C:/Users/lenovo/Desktop/Desktop/VitaClinic/Views/ChangePasswordDialog.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[/home/runner/workspace/Views/SettingsView.axaml]
+[C:/Users/lenovo/Desktop/Desktop/VitaClinic/Views/ClientsView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/lenovo/Desktop/Desktop/VitaClinic/Views/EditAnimalDialog.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/lenovo/Desktop/Desktop/VitaClinic/Views/EditAppointmentDialog.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/lenovo/Desktop/Desktop/VitaClinic/Views/MedicalRecordsView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/lenovo/Desktop/Desktop/VitaClinic/Views/SettingsView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml

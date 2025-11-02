@@ -157,10 +157,7 @@ namespace VitaClinic.WebAPI
             if (contentPanel != null)
             {
                 contentPanel.Children.Clear();
-                var recordsView = new StackPanel { Margin = new Avalonia.Thickness(20) };
-                recordsView.Children.Add(new TextBlock { Text = "Medical Records", FontSize = 28, FontWeight = Avalonia.Media.FontWeight.Bold, Margin = new Avalonia.Thickness(0, 0, 0, 20) });
-                recordsView.Children.Add(new TextBlock { Text = "View medical records for each animal from the Animals section.", FontSize = 16, Foreground = Avalonia.Media.Brushes.Gray });
-                contentPanel.Children.Add(recordsView);
+                contentPanel.Children.Add(new Views.MedicalRecordsView(this));
             }
         }
 

@@ -32,10 +32,10 @@ namespace VitaClinic.WebAPI.Data
         {
             var optionsBuilder = new DbContextOptionsBuilder<VitaClinicDbContext>();
             optionsBuilder.UseSqlite($"Data Source={GetDatabasePath()}");
-            
+
             var context = new VitaClinicDbContext(optionsBuilder.Options);
             context.Database.EnsureCreated();
-            
+
             return context;
         }
     }

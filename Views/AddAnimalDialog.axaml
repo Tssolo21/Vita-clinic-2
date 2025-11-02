@@ -2,14 +2,22 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         x:Class="VitaClinic.WebAPI.Views.AddAnimalDialog"
         Title="Add New Animal"
-        SizeToContent="WidthAndHeight"
+        Width="600"
+        Height="700"
         WindowStartupLocation="CenterOwner"
         CanResize="True">
-    <StackPanel Margin="30">
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="30">
         <TextBlock Text="Add New Animal" FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
         
-        <TextBlock Text="Client ID (Owner)" Margin="0,0,0,5"/>
-        <TextBox Name="ClientIdBox" Watermark="Enter client ID" Padding="10" Margin="0,0,0,15"/>
+        <TextBlock Text="Select Client (Owner)" Margin="0,0,0,5"/>
+        <ComboBox Name="ClientSelector" Margin="0,0,0,15" Padding="10">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding FirstName, StringFormat='{}{0} {1} (ID: {2})'}" />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
         
         <TextBlock Text="Pet Name" Margin="0,0,0,5"/>
         <TextBox Name="NameBox" Watermark="Enter pet name" Padding="10" Margin="0,0,0,15"/>
@@ -24,11 +32,31 @@
         <TextBox Name="GenderBox" Watermark="Male/Female" Padding="10" Margin="0,0,0,15"/>
         
         <TextBlock Text="Weight (kg)" Margin="0,0,0,5"/>
-        <TextBox Name="WeightBox" Watermark="Enter weight" Padding="10" Margin="0,0,0,20"/>
-        
+        <TextBox Name="WeightBox" Watermark="Enter weight" Padding="10" Margin="0,0,0,15"/>
+
+        <!-- Initial Medical Records Section -->
+        <Border BorderBrush="#E5E7EB" BorderThickness="1" CornerRadius="5" Margin="0,0,0,20" Padding="15" Background="#F9FAFB">
+            <StackPanel>
+                <TextBlock Text="Initial Medical Information" FontSize="18" FontWeight="Bold" Margin="0,0,0,15" Foreground="#374151"/>
+
+                <TextBlock Text="Vaccination Records" Margin="0,0,0,5"/>
+                <TextBox Name="VaccinationBox" Watermark="Enter vaccination history" Padding="10" Margin="0,0,0,15" AcceptsReturn="True" Height="60"/>
+
+                <TextBlock Text="Allergies" Margin="0,0,0,5"/>
+                <TextBox Name="AllergiesBox" Watermark="Enter known allergies" Padding="10" Margin="0,0,0,15" AcceptsReturn="True" Height="60"/>
+
+                <TextBlock Text="Initial Diagnosis (optional)" Margin="0,0,0,5"/>
+                <TextBox Name="InitialDiagnosisBox" Watermark="Enter initial diagnosis if any" Padding="10" Margin="0,0,0,15" AcceptsReturn="True" Height="60"/>
+
+                <TextBlock Text="Initial Treatment Notes (optional)" Margin="0,0,0,5"/>
+                <TextBox Name="InitialTreatmentBox" Watermark="Enter initial treatment notes" Padding="10" Margin="0,0,0,15" AcceptsReturn="True" Height="60"/>
+            </StackPanel>
+        </Border>
+
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Content="Cancel" Click="Cancel" Padding="20,10" Margin="0,0,10,0" Background="#94A3B8" Foreground="White"/>
             <Button Content="Save" Click="Save" Padding="20,10" Background="#6366F1" Foreground="White"/>
         </StackPanel>
-    </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
 </Window>

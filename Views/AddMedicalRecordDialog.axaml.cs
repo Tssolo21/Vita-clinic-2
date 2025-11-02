@@ -6,9 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace VitaClinic.WebAPI.Views
 {
-    public partial class AddAppointmentDialog : Window
+    public partial class AddMedicalRecordDialog : Window
     {
-        public AddAppointmentDialog()
+        public AddMedicalRecordDialog()
         {
             InitializeComponent();
         }
@@ -17,26 +17,21 @@ namespace VitaClinic.WebAPI.Views
         {
             // Validate required fields
             var animalIdText = this.FindControl<TextBox>("AnimalIdBox")?.Text;
-            var petNameText = this.FindControl<TextBox>("PetNameBox")?.Text;
-            var appointmentTypeSelector = this.FindControl<ComboBox>("AppointmentTypeSelector");
-            var dateTimeText = this.FindControl<TextBox>("AppointmentDateTimeBox")?.Text;
+            var diagnosisText = this.FindControl<TextBox>("DiagnosisBox")?.Text;
 
-            if (string.IsNullOrWhiteSpace(animalIdText) || string.IsNullOrWhiteSpace(petNameText) ||
-                appointmentTypeSelector?.SelectedItem == null || string.IsNullOrWhiteSpace(dateTimeText))
+            if (string.IsNullOrWhiteSpace(animalIdText) || string.IsNullOrWhiteSpace(diagnosisText))
             {
                 // Show error message
                 var errorDialog = new Window
                 {
                     Title = "Validation Error",
-                    Content = new TextBlock { Text = "Animal ID, Pet Name, Appointment Type, and Date/Time are required fields", Margin = new Avalonia.Thickness(20) },
+                    Content = new TextBlock { Text = "Animal ID and Diagnosis are required fields", Margin = new Avalonia.Thickness(20) },
                     SizeToContent = SizeToContent.WidthAndHeight,
                     WindowStartupLocation = WindowStartupLocation.CenterOwner
                 };
                 await errorDialog.ShowDialog(this);
                 return;
             }
-
-            var appointmentTypeText = (appointmentTypeSelector.SelectedItem as ComboBoxItem)?.Content?.ToString();
 
             // Validate AnimalId exists
             if (!int.TryParse(animalIdText, out var animalId) || animalId <= 0)
@@ -68,37 +63,44 @@ namespace VitaClinic.WebAPI.Views
                 return;
             }
 
-            // Parse appointment date time
-            if (!DateTime.TryParse(dateTimeText, out var appointmentDateTime))
+            // Parse next checkup date if provided
+            DateTime? nextCheckupDate = null;
+            var nextCheckupText = this.FindControl<TextBox>("NextCheckupBox")?.Text;
+            if (!string.IsNullOrWhiteSpace(nextCheckupText))
             {
-                var errorDialog = new Window
+                if (DateTime.TryParse(nextCheckupText, out var parsedDate))
                 {
-                    Title = "Validation Error",
-                    Content = new TextBlock { Text = "Invalid date/time format. Please use YYYY-MM-DD HH:MM format.", Margin = new Avalonia.Thickness(20) },
-                    SizeToContent = SizeToContent.WidthAndHeight,
-                    WindowStartupLocation = WindowStartupLocation.CenterOwner
-                };
-                await errorDialog.ShowDialog(this);
-                return;
+                    nextCheckupDate = parsedDate;
+                }
+                else
+                {
+                    var errorDialog = new Window
+                    {
+                        Title = "Validation Error",
+                        Content = new TextBlock { Text = "Invalid date format for Next Checkup Date. Use YYYY-MM-DD format.", Margin = new Avalonia.Thickness(20) },
+                        SizeToContent = SizeToContent.WidthAndHeight,
+                        WindowStartupLocation = WindowStartupLocation.CenterOwner
+                    };
+                    await errorDialog.ShowDialog(this);
+                    return;
+                }
             }
 
-            var appointment = new Appointment
+            var medicalRecord = new MedicalRecord
             {
                 AnimalId = animalId,
-                PetName = petNameText,
-                OwnerName = this.FindControl<TextBox>("OwnerNameBox")?.Text,
-                AppointmentType = appointmentTypeText,
-                AppointmentDateTime = appointmentDateTime,
-                VeterinarianName = this.FindControl<TextBox>("VeterinarianNameBox")?.Text,
-                Status = Enum.TryParse((this.FindControl<ComboBox>("StatusSelector")?.SelectedItem as ComboBoxItem)?.Content?.ToString(), out AppointmentStatus status) ? status : AppointmentStatus.Waiting,
-                Description = this.FindControl<TextBox>("DescriptionBox")?.Text,
+                Diagnosis = diagnosisText,
+                Treatment = this.FindControl<TextBox>("TreatmentBox")?.Text,
+                Medication = this.FindControl<TextBox>("MedicationBox")?.Text,
                 Notes = this.FindControl<TextBox>("NotesBox")?.Text,
+                NextCheckupDate = nextCheckupDate,
+                RecordDate = DateTime.UtcNow,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow
             };
 
-            Console.WriteLine($"Created appointment: {appointment.PetName} - {appointment.AppointmentType} at {appointment.AppointmentDateTime:g}");
-            Close(appointment);
+            Console.WriteLine($"Created medical record: Diagnosis '{medicalRecord.Diagnosis}' for animal {medicalRecord.AnimalId}");
+            Close(medicalRecord);
         }
 
         private void Cancel(object sender, RoutedEventArgs e)

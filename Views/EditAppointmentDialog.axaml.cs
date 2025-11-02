@@ -6,11 +6,28 @@ using Microsoft.EntityFrameworkCore;
 
 namespace VitaClinic.WebAPI.Views
 {
-    public partial class AddAppointmentDialog : Window
+    public partial class EditAppointmentDialog : Window
     {
-        public AddAppointmentDialog()
+        private Appointment _appointmentToEdit;
+
+        public EditAppointmentDialog(Appointment appointment)
         {
             InitializeComponent();
+            _appointmentToEdit = appointment;
+            LoadAppointmentData();
+        }
+
+        private void LoadAppointmentData()
+        {
+            this.FindControl<TextBox>("AnimalIdBox")!.Text = _appointmentToEdit.AnimalId.ToString();
+            this.FindControl<TextBox>("PetNameBox")!.Text = _appointmentToEdit.PetName;
+            this.FindControl<TextBox>("OwnerNameBox")!.Text = _appointmentToEdit.OwnerName;
+            this.FindControl<TextBox>("AppointmentTypeBox")!.Text = _appointmentToEdit.AppointmentType;
+            this.FindControl<TextBox>("AppointmentDateTimeBox")!.Text = _appointmentToEdit.AppointmentDateTime.ToString("yyyy-MM-dd HH:mm");
+            this.FindControl<TextBox>("VeterinarianNameBox")!.Text = _appointmentToEdit.VeterinarianName;
+            this.FindControl<TextBox>("StatusBox")!.Text = _appointmentToEdit.Status.ToString();
+            this.FindControl<TextBox>("DescriptionBox")!.Text = _appointmentToEdit.Description;
+            this.FindControl<TextBox>("NotesBox")!.Text = _appointmentToEdit.Notes;
         }
 
         private async void Save(object sender, RoutedEventArgs e)
@@ -18,11 +35,11 @@ namespace VitaClinic.WebAPI.Views
             // Validate required fields
             var animalIdText = this.FindControl<TextBox>("AnimalIdBox")?.Text;
             var petNameText = this.FindControl<TextBox>("PetNameBox")?.Text;
-            var appointmentTypeSelector = this.FindControl<ComboBox>("AppointmentTypeSelector");
+            var appointmentTypeText = this.FindControl<TextBox>("AppointmentTypeBox")?.Text;
             var dateTimeText = this.FindControl<TextBox>("AppointmentDateTimeBox")?.Text;
 
             if (string.IsNullOrWhiteSpace(animalIdText) || string.IsNullOrWhiteSpace(petNameText) ||
-                appointmentTypeSelector?.SelectedItem == null || string.IsNullOrWhiteSpace(dateTimeText))
+                string.IsNullOrWhiteSpace(appointmentTypeText) || string.IsNullOrWhiteSpace(dateTimeText))
             {
                 // Show error message
                 var errorDialog = new Window
@@ -35,8 +52,6 @@ namespace VitaClinic.WebAPI.Views
                 await errorDialog.ShowDialog(this);
                 return;
             }
-
-            var appointmentTypeText = (appointmentTypeSelector.SelectedItem as ComboBoxItem)?.Content?.ToString();
 
             // Validate AnimalId exists
             if (!int.TryParse(animalIdText, out var animalId) || animalId <= 0)
@@ -82,23 +97,20 @@ namespace VitaClinic.WebAPI.Views
                 return;
             }
 
-            var appointment = new Appointment
-            {
-                AnimalId = animalId,
-                PetName = petNameText,
-                OwnerName = this.FindControl<TextBox>("OwnerNameBox")?.Text,
-                AppointmentType = appointmentTypeText,
-                AppointmentDateTime = appointmentDateTime,
-                VeterinarianName = this.FindControl<TextBox>("VeterinarianNameBox")?.Text,
-                Status = Enum.TryParse((this.FindControl<ComboBox>("StatusSelector")?.SelectedItem as ComboBoxItem)?.Content?.ToString(), out AppointmentStatus status) ? status : AppointmentStatus.Waiting,
-                Description = this.FindControl<TextBox>("DescriptionBox")?.Text,
-                Notes = this.FindControl<TextBox>("NotesBox")?.Text,
-                CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow
-            };
+            // Update the appointment with new values
+            _appointmentToEdit.AnimalId = animalId;
+            _appointmentToEdit.PetName = petNameText;
+            _appointmentToEdit.OwnerName = this.FindControl<TextBox>("OwnerNameBox")?.Text;
+            _appointmentToEdit.AppointmentType = appointmentTypeText;
+            _appointmentToEdit.AppointmentDateTime = appointmentDateTime;
+            _appointmentToEdit.VeterinarianName = this.FindControl<TextBox>("VeterinarianNameBox")?.Text;
+            _appointmentToEdit.Status = Enum.TryParse(this.FindControl<TextBox>("StatusBox")?.Text, out AppointmentStatus status) ? status : AppointmentStatus.Waiting;
+            _appointmentToEdit.Description = this.FindControl<TextBox>("DescriptionBox")?.Text;
+            _appointmentToEdit.Notes = this.FindControl<TextBox>("NotesBox")?.Text;
+            _appointmentToEdit.UpdatedAt = DateTime.UtcNow;
 
-            Console.WriteLine($"Created appointment: {appointment.PetName} - {appointment.AppointmentType} at {appointment.AppointmentDateTime:g}");
-            Close(appointment);
+            Console.WriteLine($"Updated appointment: {_appointmentToEdit.PetName} - {_appointmentToEdit.AppointmentType} at {_appointmentToEdit.AppointmentDateTime:g}");
+            Close(_appointmentToEdit);
         }
 
         private void Cancel(object sender, RoutedEventArgs e)

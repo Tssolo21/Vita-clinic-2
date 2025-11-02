@@ -34,6 +34,22 @@
         
         <ScrollViewer Grid.Column="1">
             <StackPanel Name="ContentPanel" Margin="30">
+                <StackPanel.Styles>
+                    <!-- Content transition animation -->
+                    <Style Selector="UserControl">
+                        <Setter Property="Opacity" Value="0"/>
+                        <Style.Animations>
+                            <Animation Duration="0:0:0.4" Easing="CubicEaseOut">
+                                <KeyFrame Cue="0%">
+                                    <Setter Property="Opacity" Value="0"/>
+                                </KeyFrame>
+                                <KeyFrame Cue="100%">
+                                    <Setter Property="Opacity" Value="1"/>
+                                </KeyFrame>
+                            </Animation>
+                        </Style.Animations>
+                    </Style>
+                </StackPanel.Styles>
             </StackPanel>
         </ScrollViewer>
     </Grid>

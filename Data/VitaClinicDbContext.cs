@@ -72,6 +72,54 @@ namespace VitaClinic.WebAPI.Data
                 .WithOne(ii => ii.Invoice)
                 .HasForeignKey(ii => ii.InvoiceId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            // Configure autoincrement for all Id properties
+            modelBuilder.Entity<Client>()
+                .Property(c => c.Id)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Animal>()
+                .Property(a => a.Id)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Appointment>()
+                .Property(ap => ap.Id)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<MedicalRecord>()
+                .Property(m => m.Id)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Invoice>()
+                .Property(i => i.Id)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<InvoiceItem>()
+                .Property(ii => ii.Id)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Veterinarian>()
+                .Property(v => v.Id)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<User>()
+                .Property(u => u.Id)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<ClinicSettings>()
+                .Property(cs => cs.Id)
+                .ValueGeneratedOnAdd();
+        }
+    }
+
+    // Design-time DbContext factory for EF tools
+    public class VitaClinicDbContextFactory : Microsoft.EntityFrameworkCore.Design.IDesignTimeDbContextFactory<VitaClinicDbContext>
+    {
+        public VitaClinicDbContext CreateDbContext(string[] args)
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<VitaClinicDbContext>();
+            optionsBuilder.UseSqlite("Data Source=vitaclinic_desktop.db");
+            return new VitaClinicDbContext(optionsBuilder.Options);
         }
     }
 }

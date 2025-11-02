@@ -1,6 +1,26 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="VitaClinic.WebAPI.Views.AppointmentsView">
+    <UserControl.Styles>
+        <Style Selector="UserControl">
+            <Setter Property="Opacity" Value="0"/>
+            <Style.Animations>
+                <Animation Duration="0:0:0.5" Easing="CubicEaseOut">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="Opacity" Value="0"/>
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="Opacity" Value="1"/>
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+
+        <!-- Border fade-in animation - disabled for now -->
+        <Style Selector="Border">
+            <Setter Property="Opacity" Value="1"/>
+        </Style>
+    </UserControl.Styles>
     <StackPanel Margin="20">
         <TextBlock Text="Appointments Management" FontSize="28" FontWeight="Bold" Margin="0,0,0,20"/>
         
@@ -13,17 +33,71 @@
                     Background="#10B981" Foreground="White" Padding="12,8"/>
         </StackPanel>
         
-        <DataGrid Name="AppointmentsGrid" AutoGenerateColumns="False" IsReadOnly="True" 
-                  GridLinesVisibility="All" BorderThickness="1" BorderBrush="#E2E8F0" Height="500">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
-                <DataGridTextColumn Header="Pet" Binding="{Binding PetName}" Width="120"/>
-                <DataGridTextColumn Header="Owner" Binding="{Binding OwnerName}" Width="150"/>
-                <DataGridTextColumn Header="Type" Binding="{Binding AppointmentType}" Width="120"/>
-                <DataGridTextColumn Header="Date/Time" Binding="{Binding AppointmentDateTime}" Width="150"/>
-                <DataGridTextColumn Header="Vet" Binding="{Binding VeterinarianName}" Width="150"/>
-                <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="100"/>
-            </DataGrid.Columns>
-        </DataGrid>
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <ItemsControl Name="AppointmentsList" ItemsSource="{Binding Appointments}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="#E5E7EB" BorderThickness="2" CornerRadius="8" Margin="8" Padding="16" Background="White">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Appointment Content -->
+                                <StackPanel Grid.Column="0">
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                        <TextBlock Text="Appointment #" FontSize="14" FontWeight="Bold" Foreground="#6B7280"/>
+                                        <TextBlock Text="{Binding Id}" FontSize="14" FontWeight="Bold" Foreground="#374151" Margin="4,0,0,0"/>
+                                    </StackPanel>
+
+                                    <TextBlock Text="{Binding PetName}" FontSize="18" FontWeight="Bold"
+                                               Foreground="#1F2937" Margin="0,0,0,8"/>
+
+                                    <Grid Margin="0,0,0,8">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <StackPanel Grid.Column="0">
+                                            <TextBlock Text="Owner:" FontSize="12" FontWeight="Bold" Foreground="#6B7280"/>
+                                            <TextBlock Text="{Binding OwnerName}" FontSize="14" Margin="0,2,0,0"/>
+                                            <TextBlock Text="Type:" FontSize="12" FontWeight="Bold" Foreground="#6B7280" Margin="0,8,0,0"/>
+                                            <TextBlock Text="{Binding AppointmentType}" FontSize="14" Margin="0,2,0,0"/>
+                                        </StackPanel>
+
+                                        <StackPanel Grid.Column="1" Margin="16,0,0,0">
+                                            <TextBlock Text="Veterinarian:" FontSize="12" FontWeight="Bold" Foreground="#6B7280"/>
+                                            <TextBlock Text="{Binding VeterinarianName}" FontSize="14" Margin="0,2,0,0"/>
+                                            <TextBlock Text="Status:" FontSize="12" FontWeight="Bold" Foreground="#6B7280" Margin="0,8,0,0"/>
+                                            <TextBlock Text="{Binding Status}" FontSize="14" Margin="0,2,0,0"/>
+                                        </StackPanel>
+                                    </Grid>
+
+                                    <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                                        <TextBlock Text="Date/Time:" FontSize="12" FontWeight="Bold" Foreground="#6B7280"/>
+                                        <TextBlock Text="{Binding AppointmentDateTime, StringFormat=' {0:g}'}" FontSize="12" Foreground="#374151"/>
+                                    </StackPanel>
+
+                                    <StackPanel Margin="0,8,0,0">
+                                        <TextBlock Text="Description:" FontSize="12" FontWeight="Bold" Foreground="#6B7280"/>
+                                        <TextBlock Text="{Binding Description}" FontSize="12" TextWrapping="Wrap" Foreground="#374151" Margin="0,2,0,0"/>
+                                    </StackPanel>
+                                </StackPanel>
+
+                                <!-- Action Buttons -->
+                                <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Top" Margin="16,0,0,0">
+                                    <Button Content="✏️ Edit" Padding="12,6" Margin="0,0,0,8" Background="#6366F1" Foreground="White"
+                                            Click="EditAppointment" Tag="{Binding Id}"/>
+                                    <Button Content="🗑️ Delete" Padding="12,6" Background="#EF4444" Foreground="White"
+                                            Click="DeleteAppointment" Tag="{Binding Id}"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
     </StackPanel>
 </UserControl>

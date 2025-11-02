@@ -1,14 +1,14 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        x:Class="VitaClinic.WebAPI.Views.AddAppointmentDialog"
-        Title="Add Appointment"
+        x:Class="VitaClinic.WebAPI.Views.EditAppointmentDialog"
+        Title="Edit Appointment"
         Width="600"
         Height="600"
         WindowStartupLocation="CenterOwner"
         CanResize="True">
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="30">
-            <TextBlock Text="Add New Appointment" FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
+            <TextBlock Text="Edit Appointment" FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
 
             <TextBlock Text="Animal ID" Margin="0,0,0,5"/>
             <TextBox Name="AnimalIdBox" Watermark="Enter animal ID" Padding="10" Margin="0,0,0,15"/>
@@ -20,15 +20,7 @@
             <TextBox Name="OwnerNameBox" Watermark="Enter owner name" Padding="10" Margin="0,0,0,15"/>
 
             <TextBlock Text="Appointment Type" Margin="0,0,0,5"/>
-            <ComboBox Name="AppointmentTypeSelector" Margin="0,0,0,15" Padding="10">
-                <ComboBoxItem Content="Checkup"/>
-                <ComboBoxItem Content="Vaccination"/>
-                <ComboBoxItem Content="Surgery"/>
-                <ComboBoxItem Content="Dental Care"/>
-                <ComboBoxItem Content="Emergency"/>
-                <ComboBoxItem Content="Wellness Exam"/>
-                <ComboBoxItem Content="Grooming"/>
-            </ComboBox>
+            <TextBox Name="AppointmentTypeBox" Watermark="e.g., Checkup, Vaccination, Surgery" Padding="10" Margin="0,0,0,15"/>
 
             <TextBlock Text="Appointment Date and Time" Margin="0,0,0,5"/>
             <TextBox Name="AppointmentDateTimeBox" Watermark="YYYY-MM-DD HH:MM" Padding="10" Margin="0,0,0,15"/>
@@ -37,13 +29,7 @@
             <TextBox Name="VeterinarianNameBox" Watermark="Enter veterinarian name" Padding="10" Margin="0,0,0,15"/>
 
             <TextBlock Text="Status" Margin="0,0,0,5"/>
-            <ComboBox Name="StatusSelector" Margin="0,0,0,15" Padding="10">
-                <ComboBoxItem Content="Confirmed"/>
-                <ComboBoxItem Content="Waiting"/>
-                <ComboBoxItem Content="Completed"/>
-                <ComboBoxItem Content="Cancelled"/>
-                <ComboBoxItem Content="NoShow"/>
-            </ComboBox>
+            <TextBox Name="StatusBox" Watermark="Confirmed, Waiting, Completed, etc." Padding="10" Margin="0,0,0,15"/>
 
             <TextBlock Text="Description" Margin="0,0,0,5"/>
             <TextBox Name="DescriptionBox" Watermark="Appointment description" Padding="10" Margin="0,0,0,15" AcceptsReturn="True" Height="60"/>
@@ -53,7 +39,7 @@
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Content="Cancel" Click="Cancel" Padding="20,10" Margin="0,0,10,0" Background="#94A3B8" Foreground="White"/>
-                <Button Content="Save" Click="Save" Padding="20,10" Background="#6366F1" Foreground="White"/>
+                <Button Content="Update" Click="Save" Padding="20,10" Background="#6366F1" Foreground="White"/>
             </StackPanel>
         </StackPanel>
     </ScrollViewer>

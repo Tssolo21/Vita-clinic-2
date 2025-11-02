@@ -2,11 +2,21 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         x:Class="VitaClinic.WebAPI.Views.AddClientDialog"
         Title="Add New Client"
-        SizeToContent="WidthAndHeight"
+        Width="450" Height="600"
         WindowStartupLocation="CenterOwner"
         CanResize="True">
-    <StackPanel Margin="30">
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="30">
         <TextBlock Text="Add New Client" FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
+
+        <TextBlock Text="Existing Clients Selector" FontSize="16" FontWeight="Bold" Margin="0,0,0,10" Foreground="#6366F1"/>
+        <ComboBox Name="ClientSelector" Margin="0,0,0,20" Padding="10">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding FirstName, StringFormat='{}{0} {1} (ID: {2})'}" />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
         
         <TextBlock Text="First Name" Margin="0,0,0,5"/>
         <TextBox Name="FirstNameBox" Watermark="Enter first name" Padding="10" Margin="0,0,0,15"/>
@@ -21,11 +31,21 @@
         <TextBox Name="PhoneBox" Watermark="Enter phone number" Padding="10" Margin="0,0,0,15"/>
         
         <TextBlock Text="Address" Margin="0,0,0,5"/>
-        <TextBox Name="AddressBox" Watermark="Enter address" Padding="10" Margin="0,0,0,20"/>
+        <TextBox Name="AddressBox" Watermark="Enter address" Padding="10" Margin="0,0,0,15"/>
+
+        <TextBlock Text="City" Margin="0,0,0,5"/>
+        <TextBox Name="CityBox" Watermark="Enter city" Padding="10" Margin="0,0,0,15"/>
+
+        <TextBlock Text="State" Margin="0,0,0,5"/>
+        <TextBox Name="StateBox" Watermark="Enter state" Padding="10" Margin="0,0,0,15"/>
+
+        <TextBlock Text="Zip Code" Margin="0,0,0,5"/>
+        <TextBox Name="ZipCodeBox" Watermark="Enter zip code" Padding="10" Margin="0,0,0,20"/>
         
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Content="Cancel" Click="Cancel" Padding="20,10" Margin="0,0,10,0" Background="#94A3B8" Foreground="White"/>
             <Button Content="Save" Click="Save" Padding="20,10" Background="#6366F1" Foreground="White"/>
         </StackPanel>
-    </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
 </Window>
