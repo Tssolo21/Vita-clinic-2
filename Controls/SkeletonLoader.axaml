@@ -1,0 +1,186 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="VitaClinic.WebAPI.Controls.SkeletonLoader">
+
+    <UserControl.Styles>
+        <Style Selector="Border.skeleton">
+            <Style.Animations>
+                <Animation Duration="0:0:1.5" FillBehavior="Stop" Easing="Linear" IterationCount="Infinite">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="Background" Value="#F3F4F6"/>
+                    </KeyFrame>
+                    <KeyFrame Cue="50%">
+                        <Setter Property="Background" Value="#E5E7EB"/>
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="Background" Value="#F3F4F6"/>
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+
+        <Style Selector="Border.skeleton-shimmer">
+            <Style.Animations>
+                <Animation Duration="0:0:1.8" FillBehavior="Stop" Easing="Linear" IterationCount="Infinite">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="Background" Value="#F9FAFB"/>
+                    </KeyFrame>
+                    <KeyFrame Cue="25%">
+                        <Setter Property="Background" Value="#F3F4F6"/>
+                    </KeyFrame>
+                    <KeyFrame Cue="50%">
+                        <Setter Property="Background" Value="#E5E7EB"/>
+                    </KeyFrame>
+                    <KeyFrame Cue="75%">
+                        <Setter Property="Background" Value="#F3F4F6"/>
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="Background" Value="#F9FAFB"/>
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+
+        <!-- Staggered animation delays -->
+        <Style Selector="Border.skeleton-delay-1">
+            <Style.Animations>
+                <Animation Duration="0:0:1.5" FillBehavior="Stop" Easing="Linear" IterationCount="Infinite"
+                          BeginTime="0:0:0.1">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="Background" Value="#F3F4F6"/>
+                    </KeyFrame>
+                    <KeyFrame Cue="50%">
+                        <Setter Property="Background" Value="#E5E7EB"/>
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="Background" Value="#F3F4F6"/>
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+
+        <Style Selector="Border.skeleton-delay-2">
+            <Style.Animations>
+                <Animation Duration="0:0:1.5" FillBehavior="Stop" Easing="Linear" IterationCount="Infinite"
+                          BeginTime="0:0:0.2">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="Background" Value="#F3F4F6"/>
+                    </KeyFrame>
+                    <KeyFrame Cue="50%">
+                        <Setter Property="Background" Value="#E5E7EB"/>
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="Background" Value="#F3F4F6"/>
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+
+        <Style Selector="Border.skeleton-delay-3">
+            <Style.Animations>
+                <Animation Duration="0:0:1.5" FillBehavior="Stop" Easing="Linear" IterationCount="Infinite"
+                          BeginTime="0:0:0.3">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="Background" Value="#F3F4F6"/>
+                    </KeyFrame>
+                    <KeyFrame Cue="50%">
+                        <Setter Property="Background" Value="#E5E7EB"/>
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="Background" Value="#F3F4F6"/>
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+    </UserControl.Styles>
+
+    <!-- Card Skeleton Layout -->
+    <Grid Name="SkeletonContent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header Skeleton -->
+        <Border Grid.Row="0"
+                Background="#FFFFFF"
+                CornerRadius="8"
+                Margin="8"
+                Padding="16"
+                BoxShadow="0 2 4 rgba(0,0,0,0.1)">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
+                    <!-- Avatar Skeleton -->
+                    <Border Width="48" Height="48" CornerRadius="24" Classes="skeleton" Margin="0,0,12,0"/>
+                    <StackPanel VerticalAlignment="Center">
+                        <!-- Title Skeleton -->
+                        <Border Width="120" Height="16" CornerRadius="8" Classes="skeleton" Margin="0,0,0,8"/>
+                        <!-- Subtitle Skeleton -->
+                        <Border Width="80" Height="12" CornerRadius="6" Classes="skeleton-delay-1"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Action Buttons Skeleton -->
+                <StackPanel Orientation="Horizontal">
+                    <Border Width="60" Height="32" CornerRadius="6" Classes="skeleton-delay-2" Margin="0,0,8,0"/>
+                    <Border Width="60" Height="32" CornerRadius="6" Classes="skeleton-delay-3"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- Content Skeleton -->
+        <Border Grid.Row="1"
+                Background="#FFFFFF"
+                CornerRadius="8"
+                Margin="8"
+                Padding="16"
+                BoxShadow="0 2 4 rgba(0,0,0,0.1)">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Left Column Skeleton -->
+                <StackPanel Grid.Column="0" Margin="0,0,16,0">
+                    <!-- Field Labels -->
+                    <Border Width="60" Height="12" CornerRadius="6" Classes="skeleton" Margin="0,0,0,4"/>
+                    <Border Width="100" Height="14" CornerRadius="6" Classes="skeleton-delay-1" Margin="0,0,0,12"/>
+
+                    <Border Width="50" Height="12" CornerRadius="6" Classes="skeleton" Margin="0,0,0,4"/>
+                    <Border Width="90" Height="14" CornerRadius="6" Classes="skeleton-delay-2" Margin="0,0,0,12"/>
+
+                    <Border Width="55" Height="12" CornerRadius="6" Classes="skeleton" Margin="0,0,0,4"/>
+                    <Border Width="85" Height="14" CornerRadius="6" Classes="skeleton-delay-3"/>
+                </StackPanel>
+
+                <!-- Right Column Skeleton -->
+                <StackPanel Grid.Column="1">
+                    <!-- Field Labels -->
+                    <Border Width="65" Height="12" CornerRadius="6" Classes="skeleton" Margin="0,0,0,4"/>
+                    <Border Width="95" Height="14" CornerRadius="6" Classes="skeleton-delay-1" Margin="0,0,0,12"/>
+
+                    <Border Width="70" Height="12" CornerRadius="6" Classes="skeleton" Margin="0,0,0,4"/>
+                    <Border Width="105" Height="14" CornerRadius="6" Classes="skeleton-delay-2"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Footer Skeleton (Optional) -->
+        <Border Grid.Row="2"
+                Background="#FFFFFF"
+                CornerRadius="8"
+                Margin="8"
+                Padding="16"
+                BoxShadow="0 2 4 rgba(0,0,0,0.1)"
+                IsVisible="{Binding ShowFooter, FallbackValue=True}">
+            <StackPanel>
+                <!-- Text lines skeleton -->
+                <Border Width="100%" Height="12" CornerRadius="6" Classes="skeleton" Margin="0,0,0,8"/>
+                <Border Width="85%" Height="12" CornerRadius="6" Classes="skeleton-delay-1" Margin="0,0,0,8"/>
+                <Border Width="90%" Height="12" CornerRadius="6" Classes="skeleton-delay-2"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>
