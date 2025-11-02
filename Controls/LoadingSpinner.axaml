@@ -74,9 +74,9 @@
                     ClipToBounds="False">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
-                        <GradientStop Color="{Binding SpinnerColor, FallbackValue=#6366F1}" Offset="0"/>
-                        <GradientStop Color="{Binding SpinnerColorLight, FallbackValue=#818CF8}" Offset="0.5"/>
-                        <GradientStop Color="{Binding SpinnerColor, FallbackValue=#6366F1}" Offset="1"/>
+                        <GradientStop Color="#6366F1" Offset="0"/>
+                        <GradientStop Color="#818CF8" Offset="0.5"/>
+                        <GradientStop Color="#6366F1" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
                 <!-- Create a partial circle effect -->
