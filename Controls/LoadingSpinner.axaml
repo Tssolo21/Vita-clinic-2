@@ -67,7 +67,7 @@
                 Background="Transparent"
                 Classes="spinner">
             <Border.CornerRadius>
-                <CornerRadius Radius="{Binding SpinnerSize, FallbackValue=20, Converter={x:Static MathConverter.DivideBy2}}"/>
+                <CornerRadius Radius="20"/>
             </Border.CornerRadius>
             <Border BorderBrush="{Binding SpinnerColor, FallbackValue=#6366F1}"
                     BorderThickness="{Binding BorderThickness, FallbackValue=4}"
