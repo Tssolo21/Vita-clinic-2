@@ -92,7 +92,7 @@
 
         <!-- Optional Loading Text -->
         <TextBlock Name="LoadingText"
-                   Text="{Binding LoadingText, FallbackValue=Loading...}"
+                   Text="{Binding SpinnerLoadingText, FallbackValue=Loading...}"
                    HorizontalAlignment="Center"
                    Margin="0,10,0,0"
                    FontSize="{Binding TextSize, FallbackValue=14}"
