@@ -46,7 +46,7 @@ build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 [C:/Users/lenovo/Desktop/Desktop/VitaClinic/Views/AddClientDialog.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/lenovo/Desktop/Desktop/VitaClinic/Views/AddMedicalRecordDialog.axaml]
+[C:/Users/lenovo/Desktop/Desktop/VitaClinic/Views/AddInventoryDialog.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
 [C:/Users/lenovo/Desktop/Desktop/VitaClinic/Views/AnimalsView.axaml]
@@ -58,6 +58,9 @@ build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 [C:/Users/lenovo/Desktop/Desktop/VitaClinic/Views/ChangePasswordDialog.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
+[C:/Users/lenovo/Desktop/Desktop/VitaClinic/Views/ClientsAndAnimalsView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
 [C:/Users/lenovo/Desktop/Desktop/VitaClinic/Views/ClientsView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
@@ -67,7 +70,13 @@ build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 [C:/Users/lenovo/Desktop/Desktop/VitaClinic/Views/EditAppointmentDialog.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/lenovo/Desktop/Desktop/VitaClinic/Views/MedicalRecordsView.axaml]
+[C:/Users/lenovo/Desktop/Desktop/VitaClinic/Views/EditClientDialog.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/lenovo/Desktop/Desktop/VitaClinic/Views/EditInventoryDialog.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/lenovo/Desktop/Desktop/VitaClinic/Views/InventoryView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
 [C:/Users/lenovo/Desktop/Desktop/VitaClinic/Views/SettingsView.axaml]

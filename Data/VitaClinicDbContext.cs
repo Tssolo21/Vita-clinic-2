@@ -14,11 +14,12 @@ namespace VitaClinic.WebAPI.Data
         public DbSet<Client> Clients { get; set; } = null!;
         public DbSet<Animal> Animals { get; set; } = null!;
         public DbSet<Appointment> Appointments { get; set; } = null!;
-        public DbSet<MedicalRecord> MedicalRecords { get; set; } = null!;
+        public DbSet<Inventory> Inventory { get; set; } = null!;
         public DbSet<Invoice> Invoices { get; set; } = null!;
         public DbSet<InvoiceItem> InvoiceItems { get; set; } = null!;
         public DbSet<Veterinarian> Veterinarians { get; set; } = null!;
         public DbSet<ClinicSettings> ClinicSettings { get; set; } = null!;
+        public DbSet<MedicalRecord> MedicalRecords { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -29,12 +30,6 @@ namespace VitaClinic.WebAPI.Data
                 .HasMany(c => c.Animals)
                 .WithOne(a => a.Client)
                 .HasForeignKey(a => a.ClientId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            modelBuilder.Entity<Animal>()
-                .HasMany(a => a.MedicalRecords)
-                .WithOne(m => m.Animal)
-                .HasForeignKey(m => m.AnimalId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Animal>()
@@ -55,12 +50,6 @@ namespace VitaClinic.WebAPI.Data
                 .HasForeignKey(ap => ap.AnimalId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<MedicalRecord>()
-                .HasOne(m => m.Animal)
-                .WithMany(a => a.MedicalRecords)
-                .HasForeignKey(m => m.AnimalId)
-                .OnDelete(DeleteBehavior.Restrict);
-
             modelBuilder.Entity<Invoice>()
                 .HasOne(i => i.Animal)
                 .WithMany(a => a.Invoices)
@@ -71,6 +60,12 @@ namespace VitaClinic.WebAPI.Data
                 .HasMany(i => i.Items)
                 .WithOne(ii => ii.Invoice)
                 .HasForeignKey(ii => ii.InvoiceId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Animal>()
+                .HasMany(a => a.MedicalRecords)
+                .WithOne(mr => mr.Animal)
+                .HasForeignKey(mr => mr.AnimalId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             // Configure IDs - no auto-increment needed for string IDs as they are generated manually

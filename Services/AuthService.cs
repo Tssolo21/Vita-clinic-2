@@ -23,10 +23,11 @@ namespace VitaClinic.WebAPI.Services
         public static string GenerateClientId() => GenerateId("CLI-");
         public static string GenerateAnimalId() => GenerateId("ANI-");
         public static string GenerateAppointmentId() => GenerateId("APT-");
-        public static string GenerateMedicalRecordId() => GenerateId("MED-");
-        public static string GenerateInvoiceId() => GenerateId("INV-");
+        public static string GenerateInventoryId() => GenerateId("INV-");
+        public static string GenerateInvoiceId() => GenerateId("INC-");
         public static string GenerateUserId() => GenerateId("USR-");
         public static string GenerateVeterinarianId() => GenerateId("VET-");
+        public static string GenerateMedicalRecordId() => GenerateId("MED-");
     }
 }
 

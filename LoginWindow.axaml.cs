@@ -1,9 +1,10 @@
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using Microsoft.EntityFrameworkCore;
-using System.IO;
+using Avalonia.Controls.ApplicationLifetimes;
 using VitaClinic.WebAPI.Data;
 using VitaClinic.WebAPI.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace VitaClinic.WebAPI
 {
@@ -12,54 +13,69 @@ namespace VitaClinic.WebAPI
         public LoginWindow()
         {
             InitializeComponent();
-            InitializeDatabase();
         }
 
-        private async void InitializeDatabase()
+        private async void Login(object sender, RoutedEventArgs e)
         {
-            using var context = DatabaseHelper.CreateContext();
-            var authService = new AuthService(context);
-            await authService.CreateDefaultAdminIfNotExists();
-            Console.WriteLine("Database initialized and default admin created if needed");
-        }
-
-        private async void LoginButton_Click(object sender, RoutedEventArgs e)
-        {
-            var username = this.FindControl<TextBox>("UsernameTextBox")?.Text;
-            var password = this.FindControl<TextBox>("PasswordTextBox")?.Text;
-            var errorMessage = this.FindControl<TextBlock>("ErrorMessage");
+            var username = this.FindControl<TextBox>("UsernameBox")?.Text;
+            var password = this.FindControl<TextBox>("PasswordBox")?.Text;
 
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
-                if (errorMessage != null)
+                // Show error message
+                var errorDialog = new Window
                 {
-                    errorMessage.Text = "Please enter username and password";
-                    errorMessage.IsVisible = true;
-                }
+                    Title = "Login Error",
+                    Content = new TextBlock { Text = "Username and password are required", Margin = new Avalonia.Thickness(20) },
+                    SizeToContent = SizeToContent.WidthAndHeight,
+                    WindowStartupLocation = WindowStartupLocation.CenterOwner
+                };
+                await errorDialog.ShowDialog(this);
                 return;
             }
 
-            Console.WriteLine($"Attempting login for user: {username}");
-            
-            using var context = DatabaseHelper.CreateContext();
-            var authService = new AuthService(context);
-            var user = await authService.AuthenticateAsync(username, password);
+            try
+            {
+                using var context = DatabaseHelper.CreateContext();
+                var authService = new AuthService(context);
+                await authService.CreateDefaultAdminIfNotExists();
+                var user = await authService.AuthenticateAsync(username, password);
 
-            if (user != null)
-            {
-                Console.WriteLine($"Login successful for: {user.FullName}");
-                var mainWindow = new MainWindow(user);
-                mainWindow.Show();
-                this.Close();
-            }
-            else
-            {
-                Console.WriteLine("Login failed: Invalid credentials");
-                if (errorMessage != null)
+                if (user != null)
                 {
-                    errorMessage.Text = "Invalid username or password";
-                    errorMessage.IsVisible = true;
+                    // Login successful, open main window
+                    var mainWindow = new MainWindow(user);
+                    if (Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+                    {
+                        desktop.MainWindow = mainWindow;
+                    }
+                    mainWindow.Show();
+                    Close();
                 }
+                else
+                {
+                    // Show error message
+                    var errorDialog = new Window
+                    {
+                        Title = "Login Error",
+                        Content = new TextBlock { Text = "Invalid username or password", Margin = new Avalonia.Thickness(20) },
+                        SizeToContent = SizeToContent.WidthAndHeight,
+                        WindowStartupLocation = WindowStartupLocation.CenterOwner
+                    };
+                    await errorDialog.ShowDialog(this);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Show error message
+                var errorDialog = new Window
+                {
+                    Title = "Login Error",
+                    Content = new TextBlock { Text = $"An error occurred: {ex.Message}", Margin = new Avalonia.Thickness(20) },
+                    SizeToContent = SizeToContent.WidthAndHeight,
+                    WindowStartupLocation = WindowStartupLocation.CenterOwner
+                };
+                await errorDialog.ShowDialog(this);
             }
         }
     }

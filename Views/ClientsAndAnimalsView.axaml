@@ -1,0 +1,214 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="using:Avalonia.Controls"
+             xmlns:animation="clr-namespace:Avalonia.Animation;assembly=Avalonia.Animation"
+             x:Class="VitaClinic.WebAPI.Views.ClientsAndAnimalsView">
+
+    <UserControl.Styles>
+        <!-- Search Field Focus Animation -->
+        <Style Selector="TextBox.search-field">
+            <Setter Property="Background" Value="#F9FAFB"/>
+            <Setter Property="BorderBrush" Value="#E5E7EB"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+
+        <!-- Card Hover Effects -->
+        <Style Selector="Border.client-card">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BoxShadow" Value="0 2 8 #0000001A"/>
+        </Style>
+
+        <Style Selector="Border.animal-card">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BoxShadow" Value="0 2 8 #0000001A"/>
+        </Style>
+    </UserControl.Styles>
+
+    <StackPanel Margin="20">
+        <!-- Header -->
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+            <TextBlock Text="🏥" FontSize="32" Margin="0,0,12,0" VerticalAlignment="Center"/>
+            <StackPanel VerticalAlignment="Center">
+                <TextBlock Text="Clinic Management" FontSize="28" FontWeight="Bold" Foreground="#1F2937"/>
+                <TextBlock Text="Manage clients and their beloved pets" FontSize="14" Foreground="#6B7280" Margin="0,4,0,0"/>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- Tab Navigation -->
+        <Border Background="#F9FAFB" CornerRadius="12" Margin="0,0,0,20" Padding="20">
+            <StackPanel>
+                <TextBlock Text="Select View" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+                <StackPanel Orientation="Horizontal">
+                    <Button Name="ShowClientsTab" Content="👥 Clients" Click="ShowClients"
+                            Background="#6366F1" Foreground="White" Padding="20,10" Margin="0,0,10,0"
+                            CornerRadius="8"/>
+                    <Button Name="ShowAnimalsTab" Content="🐾 Animals" Click="ShowAnimals"
+                            Background="#10B981" Foreground="White" Padding="20,10" Margin="0,0,10,0"
+                            CornerRadius="8"/>
+                    <Button Name="ShowCombinedTab" Content="📋 Combined" Click="ShowCombined"
+                            Background="#F59E0B" Foreground="White" Padding="20,10"
+                            CornerRadius="8"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- Search and Filter Section -->
+        <Border Background="#F9FAFB" CornerRadius="12" Margin="0,0,0,20" Padding="20" Classes="card">
+            <StackPanel>
+                <Grid Margin="0,0,0,16">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox Name="SearchBox" Grid.Column="0"
+                             Watermark="Search clients and animals..."
+                             Classes="search-field"
+                             Padding="16,12"
+                             CornerRadius="8"
+                             FontSize="14"
+                             Margin="0,0,12,0"/>
+
+                    <Button Grid.Column="1" Content="🔍 Search" Background="#6366F1" Foreground="White"
+                            Padding="16,12" CornerRadius="8" Classes="card"/>
+                </Grid>
+
+                <TextBlock Name="ResultsCount" Text="Showing all records" FontSize="12" Foreground="#6B7280"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Action Buttons -->
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+            <Button Name="BackButton" Content="⬅️ Back to Dashboard" Click="GoBack"
+                    Background="#6B7280" Foreground="White" Padding="12,8" Margin="0,0,10,0"
+                    Classes="card"/>
+            <Button Name="AddClientButton" Content="➕ Add Client" Click="AddClient"
+                    Background="#6366F1" Foreground="White" Padding="12,8" Margin="0,0,10,0"
+                    Classes="card"/>
+            <Button Name="AddAnimalButton" Content="➕ Add Animal" Click="AddAnimal"
+                    Background="#10B981" Foreground="White" Padding="12,8" Margin="0,0,10,0"
+                    Classes="card"/>
+            <Button Name="RefreshButton" Content="🔄 Refresh" Click="LoadData"
+                    Background="#F59E0B" Foreground="White" Padding="12,8"
+                    Classes="card"/>
+        </StackPanel>
+
+        <!-- Content Area -->
+        <Border Name="ContentBorder" Background="White" CornerRadius="12" Padding="20">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <!-- Clients List -->
+                <StackPanel Name="ClientsPanel" IsVisible="True">
+                    <TextBlock Text="👥 Client Records" FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
+                    <ItemsControl Name="ClientsList" ItemsSource="{Binding Clients}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="#E5E7EB" BorderThickness="2" CornerRadius="12" Margin="8"
+                                        Padding="20" Background="White" Classes="client-card">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Border Grid.Column="0" Width="64" Height="64" CornerRadius="32"
+                                                Background="#F3F4F6" Margin="0,0,16,0">
+                                            <TextBlock Text="👤" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+
+                                        <StackPanel Grid.Column="1">
+                                            <TextBlock Text="{Binding FullName}" FontSize="20" FontWeight="Bold" Foreground="#1F2937"/>
+                                            <TextBlock Text="{Binding Email}" FontSize="14" Foreground="#6B7280" Margin="0,4,0,0"/>
+                                            <TextBlock Text="{Binding Phone}" FontSize="14" Foreground="#6B7280"/>
+                                        </StackPanel>
+
+                                        <StackPanel Grid.Column="2" Orientation="Vertical">
+                                            <Button Content="✏️ Edit" Padding="12,8" Margin="0,0,0,8"
+                                                    Background="#6366F1" Foreground="White" CornerRadius="8"
+                                                    Click="EditClient" Tag="{Binding Id}"/>
+                                            <Button Content="🗑️ Delete" Padding="12,8"
+                                                    Background="#EF4444" Foreground="White" CornerRadius="8"
+                                                    Click="DeleteClient" Tag="{Binding Id}"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+
+                <!-- Animals List -->
+                <StackPanel Name="AnimalsPanel" IsVisible="False">
+                    <TextBlock Text="🐾 Animal Records" FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
+                    <ItemsControl Name="AnimalsList" ItemsSource="{Binding Animals}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="#E5E7EB" BorderThickness="2" CornerRadius="12" Margin="8"
+                                        Padding="20" Background="White" Classes="animal-card">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Border Grid.Column="0" Width="60" Height="60" CornerRadius="30"
+                                                Background="#F3F4F6" Margin="0,0,16,0">
+                                            <TextBlock Text="🐕" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+
+                                        <StackPanel Grid.Column="1">
+                                            <TextBlock Text="{Binding Name}" FontSize="20" FontWeight="Bold" Foreground="#1F2937"/>
+                                            <TextBlock Text="{Binding Species} - {Binding Breed}" FontSize="14" Foreground="#6B7280"/>
+                                            <TextBlock Text="Owner: {Binding Client.FullName}" FontSize="14" Foreground="#6B7280"/>
+                                        </StackPanel>
+
+                                        <StackPanel Grid.Column="2" Orientation="Vertical">
+                                            <Button Content="✏️ Edit" Padding="12,8" Margin="0,0,0,8"
+                                                    Background="#10B981" Foreground="White" CornerRadius="8"
+                                                    Click="EditAnimal" Tag="{Binding Id}"/>
+                                            <Button Content="🗑️ Delete" Padding="12,8"
+                                                    Background="#EF4444" Foreground="White" CornerRadius="8"
+                                                    Click="DeleteAnimal" Tag="{Binding Id}"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+
+                <!-- Combined View -->
+                <StackPanel Name="CombinedPanel" IsVisible="False">
+                    <TextBlock Text="📋 Combined Client &amp; Animal Records" FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
+                    <ItemsControl Name="CombinedList" ItemsSource="{Binding CombinedRecords}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="#E5E7EB" BorderThickness="2" CornerRadius="12" Margin="8"
+                                        Padding="20" Background="White" Classes="client-card">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Border Grid.Column="0" Width="64" Height="64" CornerRadius="32"
+                                                Background="#F3F4F6" Margin="0,0,16,0">
+                                            <TextBlock Text="{Binding Icon}" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+
+                                        <StackPanel Grid.Column="1">
+                                            <TextBlock Text="{Binding Title}" FontSize="18" FontWeight="Bold" Foreground="#1F2937"/>
+                                            <TextBlock Text="{Binding SubTitle}" FontSize="14" Foreground="#6B7280"/>
+                                            <TextBlock Text="{Binding Details}" FontSize="12" Foreground="#9CA3AF" Margin="0,4,0,0"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+    </StackPanel>
+</UserControl>

@@ -26,7 +26,7 @@ namespace VitaClinic.WebAPI.Models
         public string Id
         {
             get => _id;
-            set
+            private set
             {
                 if (_id != value)
                 {
@@ -230,7 +230,7 @@ namespace VitaClinic.WebAPI.Models
         public string Id
         {
             get => _id;
-            set
+            private set
             {
                 if (_id != value)
                 {
@@ -424,9 +424,9 @@ namespace VitaClinic.WebAPI.Models
             }
         }
 
-        public virtual ICollection<MedicalRecord> MedicalRecords { get; set; } = new List<MedicalRecord>();
         public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
         public virtual ICollection<Invoice> Invoices { get; set; } = new List<Invoice>();
+        public virtual ICollection<MedicalRecord> MedicalRecords { get; set; } = new List<MedicalRecord>();
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -647,22 +647,19 @@ namespace VitaClinic.WebAPI.Models
         }
     }
 
-    // ===== MEDICAL RECORD =====
-    public class MedicalRecord : INotifyPropertyChanged
+    // ===== INVENTORY =====
+    public class Inventory : INotifyPropertyChanged
     {
-        private string _id = IdGenerator.GenerateMedicalRecordId();
-        private string _animalId = string.Empty;
-        private string? _appointmentId;
-        private string? _veterinarianId;
-        private string? _diagnosis;
-        private string? _treatment;
-        private string? _medication;
-        private string? _notes;
-        private DateTime? _nextCheckupDate;
-        private DateTime _recordDate;
+        private string _id = IdGenerator.GenerateInventoryId();
+        private string? _itemName;
+        private string? _itemType;
+        private string? _description;
+        private int _quantity;
+        private int _minimumStockLevel;
+        private decimal _unitPrice;
+        private string? _supplier;
         private DateTime _createdAt;
         private DateTime _updatedAt;
-        private Animal? _animal;
 
         [Key]
         public string Id
@@ -678,119 +675,93 @@ namespace VitaClinic.WebAPI.Models
             }
         }
 
-        public string AnimalId
+        public string? ItemName
         {
-            get => _animalId;
+            get => _itemName;
             set
             {
-                if (_animalId != value)
+                if (_itemName != value)
                 {
-                    _animalId = value;
-                    OnPropertyChanged(nameof(AnimalId));
+                    _itemName = value;
+                    OnPropertyChanged(nameof(ItemName));
                 }
             }
         }
 
-        public string? AppointmentId
+        public string? ItemType
         {
-            get => _appointmentId;
+            get => _itemType;
             set
             {
-                if (_appointmentId != value)
+                if (_itemType != value)
                 {
-                    _appointmentId = value;
-                    OnPropertyChanged(nameof(AppointmentId));
+                    _itemType = value;
+                    OnPropertyChanged(nameof(ItemType));
                 }
             }
         }
 
-        public string? VeterinarianId
+        public string? Description
         {
-            get => _veterinarianId;
+            get => _description;
             set
             {
-                if (_veterinarianId != value)
+                if (_description != value)
                 {
-                    _veterinarianId = value;
-                    OnPropertyChanged(nameof(VeterinarianId));
+                    _description = value;
+                    OnPropertyChanged(nameof(Description));
                 }
             }
         }
 
-        public string? Diagnosis
+        public int Quantity
         {
-            get => _diagnosis;
+            get => _quantity;
             set
             {
-                if (_diagnosis != value)
+                if (_quantity != value)
                 {
-                    _diagnosis = value;
-                    OnPropertyChanged(nameof(Diagnosis));
+                    _quantity = value;
+                    OnPropertyChanged(nameof(Quantity));
                 }
             }
         }
 
-        public string? Treatment
+        public int MinimumStockLevel
         {
-            get => _treatment;
+            get => _minimumStockLevel;
             set
             {
-                if (_treatment != value)
+                if (_minimumStockLevel != value)
                 {
-                    _treatment = value;
-                    OnPropertyChanged(nameof(Treatment));
+                    _minimumStockLevel = value;
+                    OnPropertyChanged(nameof(MinimumStockLevel));
                 }
             }
         }
 
-        public string? Medication
+        public decimal UnitPrice
         {
-            get => _medication;
+            get => _unitPrice;
             set
             {
-                if (_medication != value)
+                if (_unitPrice != value)
                 {
-                    _medication = value;
-                    OnPropertyChanged(nameof(Medication));
+                    _unitPrice = value;
+                    OnPropertyChanged(nameof(UnitPrice));
                 }
             }
         }
 
-        public string? Notes
+        public string? Supplier
         {
-            get => _notes;
+            get => _supplier;
             set
             {
-                if (_notes != value)
+                if (_supplier != value)
                 {
-                    _notes = value;
-                    OnPropertyChanged(nameof(Notes));
-                }
-            }
-        }
-
-        public DateTime? NextCheckupDate
-        {
-            get => _nextCheckupDate;
-            set
-            {
-                if (_nextCheckupDate != value)
-                {
-                    _nextCheckupDate = value;
-                    OnPropertyChanged(nameof(NextCheckupDate));
-                }
-            }
-        }
-
-        public DateTime RecordDate
-        {
-            get => _recordDate;
-            set
-            {
-                if (_recordDate != value)
-                {
-                    _recordDate = value;
-                    OnPropertyChanged(nameof(RecordDate));
+                    _supplier = value;
+                    OnPropertyChanged(nameof(Supplier));
                 }
             }
         }
@@ -817,21 +788,6 @@ namespace VitaClinic.WebAPI.Models
                 {
                     _updatedAt = value;
                     OnPropertyChanged(nameof(UpdatedAt));
-                }
-            }
-        }
-
-        // Navigation property
-        [ForeignKey("AnimalId")]
-        public virtual Animal? Animal
-        {
-            get => _animal;
-            set
-            {
-                if (_animal != value)
-                {
-                    _animal = value;
-                    OnPropertyChanged(nameof(Animal));
                 }
             }
         }
@@ -977,6 +933,47 @@ namespace VitaClinic.WebAPI.Models
         public DateTime CreatedAt { get; set; }
         public DateTime? LastLogin { get; set; }
         public bool IsActive { get; set; } = true;
+    }
+
+    // ===== MEDICAL RECORD =====
+    public class MedicalRecord
+    {
+        private string _id = IdGenerator.GenerateMedicalRecordId();
+        private string _animalId = string.Empty;
+        private string? _veterinarianId;
+
+        [Key]
+        public string Id
+        {
+            get => _id;
+            set => _id = value;
+        }
+
+        public string AnimalId
+        {
+            get => _animalId;
+            set => _animalId = value;
+        }
+
+        public string? VeterinarianId
+        {
+            get => _veterinarianId;
+            set => _veterinarianId = value;
+        }
+
+        public string? Diagnosis { get; set; }
+        public string? Treatment { get; set; }
+        public string? Medication { get; set; }
+        public DateTime? NextCheckupDate { get; set; }
+        public DateTime RecordDate { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
+
+        // Navigation properties
+        [ForeignKey("AnimalId")]
+        public virtual Animal? Animal { get; set; }
+        [ForeignKey("VeterinarianId")]
+        public virtual Veterinarian? Veterinarian { get; set; }
     }
 
     // ===== ENUMS =====

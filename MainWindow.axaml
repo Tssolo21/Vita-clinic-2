@@ -45,13 +45,11 @@
                 <!-- Navigation Buttons with enhanced styling -->
                 <Button Name="DashboardButton" Content="📊 Dashboard" Click="ShowDashboard"
                         Background="#5558E3" Foreground="White" Padding="15,10" Margin="0,5" HorizontalAlignment="Stretch"/>
-                <Button Name="ClientsButton" Content="👥 Clients" Click="ShowClients"
-                        Background="#5558E3" Foreground="White" Padding="15,10" Margin="0,5" HorizontalAlignment="Stretch"/>
-                <Button Name="AnimalsButton" Content="🐾 Animals" Click="ShowAnimals"
+                <Button Name="ClinicManagementButton" Content="🏥 Clinic Management" Click="ShowClinicManagement"
                         Background="#5558E3" Foreground="White" Padding="15,10" Margin="0,5" HorizontalAlignment="Stretch"/>
                 <Button Name="AppointmentsButton" Content="📅 Appointments" Click="ShowAppointments"
                         Background="#5558E3" Foreground="White" Padding="15,10" Margin="0,5" HorizontalAlignment="Stretch"/>
-                <Button Name="RecordsButton" Content="📋 Medical Records" Click="ShowRecords"
+                <Button Name="InventoryButton" Content="📦 Inventory" Click="ShowInventory"
                         Background="#5558E3" Foreground="White" Padding="15,10" Margin="0,5" HorizontalAlignment="Stretch"/>
                 <Button Name="SettingsButton" Content="⚙️ Settings" Click="ShowSettings"
                         Background="#5558E3" Foreground="White" Padding="15,10" Margin="0,5" HorizontalAlignment="Stretch"/>
